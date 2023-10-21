@@ -1,0 +1,173 @@
+<div class="wrapper">
+  <div class="page">
+
+      <div class="page-inner">
+          <header class="page-title-bar mb-1">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item active">
+                          <a routerLink="/lead-system-list"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Lead List </a>
+                      </li>
+                  </ol>
+              </nav>
+              <div class="row text-center text-sm-left h-100 mt-3">
+                  <div class="col-sm-auto col-12">
+                      <span class="tile tile-lg bg-info">
+                        <i class="fas fa-address-book"></i>
+                      </span>
+                  </div>
+                  <div class="col pl-1 justify-content-center align-self-center">
+                    <span class="text-muted m-0"> Lead Management </span>
+                    <h4 class="m-0"> Create Lead </h4>
+                  </div>
+              </div>
+          </header>
+          <div class="page-section">
+            <div class="row">
+                <div class="col-md-12" *ngIf="errors">
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="list-unstyled m-0">
+                        <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                      <div class="card card-fluid">
+                        <div class="card-header">
+                          <div class="d-flex align-items-center">
+                            <span class="mr-auto">Client </span>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="id"> Client Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="revNo"> Description <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                              </div>
+                            </div>                        
+                          </div>
+                          <div class="form-row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="id"> Address 1 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                                               
+                          </div>
+                          <div class="form-row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="id"> Address 2 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                                               
+                          </div>
+                        </div>
+                        <div class="card-body border-top card-header">
+                          <div class="d-flex align-items-center">
+                            <span class="mr-auto">Highlight</span>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                                <span class="text-danger small" *ngIf="!modalForm.revNo.valid && modalForm.revNo.touched">
+                                  <span *ngIf="modalForm.revNo.hasError('required')">Revision Number is required.</span>
+                                </span>
+                              </div>
+                            </div>                        
+                          </div>
+                        </div>
+                        <div class="card-body border-top card-header">
+                          <div class="d-flex align-items-center">
+                            <span class="mr-auto">Notes</span>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                              </div>
+                            </div>                        
+                          </div>
+                        </div>
+                        <div class="card-body border-top card-header">
+                          <div class="d-flex align-items-center">
+                            <span class="mr-auto">Attachment</span>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                              </div>
+                            </div>                        
+                          </div>
+                        </div>
+                        <div class="card-body border-top card-header">
+                          <div class="d-flex align-items-center">
+                            <span class="mr-auto">Contact List</span>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                              </div>
+                            </div>                        
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+  </div>
+</div>

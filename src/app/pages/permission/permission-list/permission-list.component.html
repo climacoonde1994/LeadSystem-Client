@@ -1,0 +1,51 @@
+<form>
+  <header class="page-title-bar">
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="input-group has-spinner">
+                  <span class="spinner-border spinner-border-sm text-info show" *ngIf="permissionService.loading | async"></span>
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><span class="fas fa-search"></span></span>
+                  </div>
+                  <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="permissionService.searchTerm">
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="page-section">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="align-middle" style="width: 20%" scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+          <th class="align-middle" style="width: 75%" scope="col" sortable="description" (sort)="onSort($event)">Description</th>
+          <th class="align-middle" style="width: 5%"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of items | async">
+        <td class="align-middle"><ngb-highlight [result]="item.name" [term]="permissionService.searchTerm"></ngb-highlight></td>
+        <td class="align-middle"><ngb-highlight [result]="item.description" [term]="permissionService.searchTerm"></ngb-highlight></td>
+        <td>
+          <label class="switcher-control">
+            <input type="checkbox" class="switcher-input" name="{{ item.id }}" (change)="onChange(id, item)" [(ngModel)]="item.isChecked" />
+            <span class="switcher-indicator"></span>
+        </label>
+        </td>
+      </tr>
+      <tr *ngIf="(total | async) === 0">
+        <td class="text-center" colspan="3"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center p-2" *ngIf="total | async">
+      <ngb-pagination
+        [collectionSize]="(total | async)!" [(page)]="permissionService.page" [pageSize]="permissionService.pageSize">
+      </ngb-pagination>
+    </div>
+  </div>
+</form>

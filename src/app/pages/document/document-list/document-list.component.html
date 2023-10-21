@@ -1,0 +1,96 @@
+<div class="wrapper">
+  <div class="page">
+    <div class="page-inner">
+      <header class="page-title-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                    <a routerLink="/dashboard"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Dashboard </a>
+                </li>
+            </ol>
+        </nav>
+        <div class="row text-center text-sm-left h-100 mt-3">
+            <div class="col-sm-auto col-12">
+                <span class="tile tile-lg bg-info">
+                  <i class="fas fa-flag"></i>
+                </span>
+            </div>
+            <div class="col pl-1 justify-content-center align-self-center">
+                <span class="text-muted m-0"> Document Management </span>
+                <h4 class="m-0"> Document List </h4>
+            </div>
+        </div>
+      </header>
+      <form>
+        <header class="page-title-bar">
+          <div class="row">
+            <div class="col-auto d-none d-sm-flex">
+              <button class="btn btn-info ml-auto" (click)="openModal()">Create New Document</button>
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group has-spinner">
+                        <span class="spinner-border spinner-border-sm text-info show" *ngIf="documentService.loading | async"></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="fas fa-search"></span></span>
+                        </div>
+                        <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="documentService.searchTerm">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="page-section">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="code" (sort)="onSort($event)">Code</th>
+                <th class="align-middle" style="width: 50%" scope="col" sortable="code" (sort)="onSort($event)">Name</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="dateModified" (sort)="onSort($event)">Date Last Modified</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="status" (sort)="onSort($event)">Status</th>
+                <th class="align-middle" style="width: 5%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items | async">
+                <td class="align-middle">
+                  <span><i *ngIf="item.isDefault" class="fas fa-check text-success mr-2"></i></span>
+                <a class="text-success" routerLink="/document-detail/{{ item.id }}"><ngb-highlight [result]="item.code" [term]="documentService.searchTerm"></ngb-highlight></a>
+                </td>
+                <td class="align-middle"><ngb-highlight [result]="item.name" [term]="documentService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle">{{ item?.dateModified | dateAgo }}</td>
+                <td class="align-middle">
+                  <span *ngIf="item.isEnabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
+                  <span *ngIf="!item.isEnabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
+                </td>
+                <td class="align-middle text-right">
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div>
+                      <div class="dropdown-item" (click)="openModal(item)"> Update </div>
+                      <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.isEnabled ? "Disable" : "Enable" }} </div>
+                      <div class="dropdown-divider"></div>
+                      <div class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <tr *ngIf="(total | async) === 0">
+              <td class="text-center" colspan="6"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-center p-2" *ngIf="total | async">
+            <ngb-pagination
+              [collectionSize]="(total | async)!" [(page)]="documentService.page" [pageSize]="documentService.pageSize">
+            </ngb-pagination>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

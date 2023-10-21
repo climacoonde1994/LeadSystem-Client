@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h5 class="modal-title" *ngIf="item != null">Update State</h5>
+  <h5 class="modal-title" *ngIf="item == null"> Create New State </h5>
+</div>
+<form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="col-md-12" *ngIf="errors">
+        <div class="alert alert-danger" role="alert">
+          <ul class="list-unstyled m-0">
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> Code <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="code" placeholder="Code" />
+          <span class="text-danger small" *ngIf="!modalForm.code.valid && modalForm.code.touched">
+            <span *ngIf="modalForm.code.hasError('required')">Code is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="name"> Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="name" placeholder="Name" />
+          <span class="text-danger small" *ngIf="!modalForm.name.valid && modalForm.name.touched">
+            <span *ngIf="modalForm.name.hasError('required')">Name is required.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </div>
+</form>
+

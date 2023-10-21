@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Cambria Technologies</title>
+  <base href="/" />
+
+  <link rel="apple-touch-icon" sizes="144x144"   src="~/assets/images/Lead-system.JPG">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <meta name="theme-color" content="#3063A0">
+
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+  <link href="../assets/lib/fontawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="../assets/css/theme.min.css" rel="stylesheet" data-skin="default" />
+  <link href="../assets/css/theme-dark.min.css" rel="stylesheet" data-skin="dark" />
+  <link href="../assets/css/custom.css" rel="stylesheet" />
+
+  <script>
+        var skin = localStorage.getItem('skin') || 'default';
+        var unusedLink = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+        unusedLink.setAttribute('rel', '');
+        unusedLink.setAttribute('disabled', true);
+  </script>
+
+</head>
+<body>
+  <app-root>
+
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center">
+        <div class="col-sm-12 d-flex align-middle">
+          <div class="fa-3x mx-auto d-block">
+            <i class="fas fa-circle-notch fa-spin"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </app-root>
+
+  <script src="../assets/lib/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/lib/popper.js/umd/popper.min.js"></script>
+  <script src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/lib/stacked-menu/stacked-menu.min.js"></script>
+  <script src="../assets/js/theme.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SortDirective } from 'src/app/directives/sort.directive';
+import { DateAgoPipe } from 'src/app/pipes/date-ago.pipe';
+
+import { DashboardLayoutRoutes } from './dashboard-layout.routing';
+import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
+import { ProfileComponent } from 'src/app/pages/account/profile/profile.component';
+import { UserListComponent } from 'src/app/pages/user/user-list/user-list.component';
+import { UserModalComponent } from 'src/app/pages/user/user-modal/user-modal.component';
+import { UserDetailComponent } from 'src/app/pages/user/user-detail/user-detail.component';
+import { RoleListComponent } from 'src/app/pages/role/role-list/role-list.component';
+import { RoleModalComponent } from 'src/app/pages/role/role-modal/role-modal.component';
+import { RoleDetailComponent } from 'src/app/pages/role/role-detail/role-detail.component';
+import { PermissionListComponent } from 'src/app/pages/permission/permission-list/permission-list.component';
+
+import { CountryListComponent } from 'src/app/pages/country/country-list/country-list.component';
+import { CountryModalComponent } from 'src/app/pages/country/country-modal/country-modal.component';
+import { CountryDetailComponent } from 'src/app/pages/country/country-detail/country-detail.component';
+
+import { DocumentListComponent } from 'src/app/pages/document/document-list/document-list.component';
+import { DocumentModalComponent } from 'src/app/pages/document/document-modal/document-modal.component';
+import { DocumentDetailComponent } from 'src/app/pages/document/document-detail/document-detail.component';
+ 
+
+import { StateListComponent } from 'src/app/pages/state/state-list/state-list.component';
+import { StateModalComponent } from 'src/app/pages/state/state-modal/state-modal.component';
+import { StateDetailComponent } from 'src/app/pages/state/state-detail/state-detail.component';
+
+
+import { LeadListComponent } from 'src/app/pages/lead/lead-list/lead-list.component';
+import { LeadModalComponent } from 'src/app/pages/lead/lead-modal/lead-modal.component';
+import { LeadDetailComponent } from 'src/app/pages/lead/lead-detail/lead-detail.component';
+
+
+import { HttpClientModule } from '@angular/common/http';
+import { LeadCreateComponent } from 'src/app/pages/lead/lead-create/lead-create.component';
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    DashboardLayoutRoutes,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    NgSelectModule
+  ],
+  declarations: [
+    SortDirective,
+    DateAgoPipe,
+    DashboardComponent,
+    ProfileComponent,
+    CountryListComponent, CountryModalComponent, CountryDetailComponent,
+    DocumentListComponent, DocumentModalComponent, DocumentDetailComponent,
+    StateListComponent, StateModalComponent, StateDetailComponent,
+    LeadListComponent, LeadModalComponent, LeadDetailComponent,LeadCreateComponent,
+    UserListComponent, UserModalComponent, UserDetailComponent,
+    RoleListComponent, RoleModalComponent, RoleDetailComponent,
+
+    PermissionListComponent,
+
+    StateListComponent, StateModalComponent, StateDetailComponent,
+
+  ]
+})
+
+export class DashboardLayoutModule { }
