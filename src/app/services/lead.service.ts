@@ -73,20 +73,7 @@ export class LeadService {
   }
 
   public loadList = () => {
-    this.getList().subscribe(response => {
-      this.$search.pipe(
-        tap(() => this.$loading.next(true)),
-        debounceTime(200),
-        switchMap(() => this.search(response.data)),
-        delay(200),
-        tap(() => this.$loading.next(false))
-      ).subscribe(result => {
-        this.$items.next(result.items);
-        this.$total.next(result.total);
-      });
-
-      this.$search.next();
-    });
+   
   }
 
   public getList = () => {

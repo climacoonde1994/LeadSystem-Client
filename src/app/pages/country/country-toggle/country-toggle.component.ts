@@ -27,11 +27,11 @@ export class CountryToggleComponent implements OnInit {
 
   onSubmit() {
 
-    this.countryService.toggle(this.item.id)
+    this.countryService.toggle(this.item._id , !this.item.Enabled)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully " + (response.data.isEnabled ? "enabled" : "disabled") + " " + this.item.name + " country.");
+          this.toastHelper.showSuccess("You have successfully " + (response.Enabled ? "enabled" : "disabled") + " " + this.item.Name + " country.");
           this.activeModal.close();
         },
         error: response => {

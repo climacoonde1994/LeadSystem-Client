@@ -38,6 +38,18 @@ import { LeadDetailComponent } from 'src/app/pages/lead/lead-detail/lead-detail.
 
 import { HttpClientModule } from '@angular/common/http';
 import { LeadCreateComponent } from 'src/app/pages/lead/lead-create/lead-create.component';
+import { SourceListComponent } from 'src/app/pages/source/source-list/source-list.component';
+import { SourceModalComponent } from 'src/app/pages/source/source-modal/source-modal.component';
+import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source-detail.component';
+import { DepartmentListComponent } from 'src/app/pages/department/department-list/department-list.component';
+import { DepartmentModalComponent } from 'src/app/pages/department/department-modal/department-modal.component';
+import { DepartmentDetailComponent } from 'src/app/pages/department/department-detail/department-detail.component';
+import { SpecialtyListComponent } from 'src/app/pages/specialty/specialty-list/specialty-list.component';
+import { SpecialtyModalComponent } from 'src/app/pages/specialty/specialty-modal/specialty-modal.component';
+import { SpecialtyDetailComponent } from 'src/app/pages/specialty/specialty-detail/specialty-detail.component';
+import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-list/systemtype-list.component';
+import { SystemTypeModalComponent } from 'src/app/pages/systemtype/systemtype-modal/systemtype-modal.component';
+import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-detail/systemtype-detail.component';
 
 
 @NgModule({
@@ -61,7 +73,11 @@ import { LeadCreateComponent } from 'src/app/pages/lead/lead-create/lead-create.
     LeadListComponent, LeadModalComponent, LeadDetailComponent,LeadCreateComponent,
     UserListComponent, UserModalComponent, UserDetailComponent,
     RoleListComponent, RoleModalComponent, RoleDetailComponent,
-
+    SourceListComponent, SourceModalComponent, SourceDetailComponent,
+    DepartmentListComponent, DepartmentModalComponent, DepartmentDetailComponent,
+    CountryListComponent, CountryModalComponent, CountryDetailComponent,
+    SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
+    SystemTypeListComponent ,SystemTypeModalComponent, SystemTypeDetailComponent,
     PermissionListComponent,
 
     StateListComponent, StateModalComponent, StateDetailComponent,

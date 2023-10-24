@@ -55,23 +55,12 @@ export class LeadCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
+
     private datepipe: DatePipe,
     public activatedRoute: ActivatedRoute,
-    private modalService: NgbModal,
-    private toastHelper: ToastHelper,
-    private vendorService: VendorService,
     private itemService: ItemService,
-    private customerService: CustomerService,
-    private endUserService: EndUserService,
-    private exportLicenseService: ExportLicenseService,
-    private tradeTermService: TradeTermService,
-    private paymentTermService: PaymentTermService,
-    private purchaseOrderTypeService: PurchaseOrderTypeService,
-    private documentService: DocumentService,
-    private salesDepartmentService: SalesDepartmentService,
     private vendorContactService: VendorContactService,
-    private location: Location) { }
+   ) { }
 
   ngOnInit() { 
    
@@ -103,122 +92,7 @@ export class LeadCreateComponent implements OnInit {
     });
     
   
-    this.vendorService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.vendors = response.data;
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
-
-    this.customerService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.customers = response.data;
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
-
-    this.endUserService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.endUsers = response.data;
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
-
-    this.purchaseOrderTypeService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.purchaseOrderTypes = response.data;
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
-
-
-    this.salesDepartmentService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.salesDepartments = response.data;
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-      );
-
-    this.documentService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.documents = response.data;
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-      );
-
-
-
-    this.exportLicenseService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.exportLicenses = response.data;
-          this.modalForm.exportLicenseId.setValue(this.getDefaultId(this.exportLicenses));
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
-
-   
-
-    this.tradeTermService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.tradeTerms = response.data;
-          this.modalForm.tradeTermId.setValue(this.getDefaultId(this.tradeTerms));
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
-
-    this.paymentTermService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.paymentTerms = response.data;
-          this.modalForm.paymentTermId.setValue(this.getDefaultId(this.paymentTerms));
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      }
-    );
- 
+    
     
  
  
@@ -321,69 +195,14 @@ export class LeadCreateComponent implements OnInit {
   }
 
   
-  onVendorChange($event: any) {
-   
-    if ($event) {
-      this.selectedVendorId = $event;
-      this.itemService.getListByVendorId($event)
-        .pipe(first())
-        .subscribe({
-          next: response => {
-            this.setDefaultItems(response.data);
-          },
-          error: response => {
-            this.errors = response.errors;
-          }
-        }
-      )
-
-      this.vendorContactService.getListByVendorId($event)
-        .pipe(first())
-        .subscribe({
-          next: response => {
-            this.vendorContacts = response.data;
-            console.log(this.vendorContacts);
-          },
-          error: response => {
-            this.errors = response.errors;
-          }
-        }
-       )
-    }
-  }
+  
 
 
-  // Purchase Order Details Logic / Function / Events
-
+  
 
   addDetails() {
     
-    // if (this.modalForm.vendorId.value == '' || this.modalForm.vendorId.value == null ) {
-    //   this.toastHelper.showError("Please Select Vendor");
-    //   window.scrollTo(0, 0);
-    //   return;
-    // }
      
-    // const i = this.purchaseOrderDetails.length;
-
-    // this.PoDetails = {
-    //   purchaseOrderDetailId: this.purchaseOrderDetails.length > 0 ? this.purchaseOrderDetails[i - 1].purchaseOrderDetailId + 1 : 1,
-    //   sLIdescriptionId : '',
-    //   partNumber: '',
-    //   description: '',
-    //   deliveryDate: this.datepipe.transform(new Date(), 'yyyy-MM-dd') ,
-    //   quantity: 0,
-    //   price: 0
-    // }
-
-    // const modalRef = this.modalService.open(PurchaseOrderDetailModalComponent);
-    // modalRef.componentInstance.item = this.PoDetails;
-    // modalRef.componentInstance.vendorId = this.selectedVendorId;  
-    // modalRef.result.then(
-    //   (data: any) => {
-    //     this.purchaseOrderDetails.push(data);
-    //   }, (reason) => { }
-    // );
   }
 
   removeDetails(index: any) {
@@ -395,14 +214,7 @@ export class LeadCreateComponent implements OnInit {
 
   openModal(item?: any, i?: any) {
   
-    // const modalRef = this.modalService.open(PurchaseOrderDetailModalComponent);
-    // modalRef.componentInstance.item = item;
-    // modalRef.componentInstance.vendorId = this.selectedVendorId;
-    // modalRef.result.then(
-    //   (data: any) => {
-    //     this.purchaseOrderDetails[i] = data;
-    //   }, (reason) => {  }
-    // );
+     
   }
 
 

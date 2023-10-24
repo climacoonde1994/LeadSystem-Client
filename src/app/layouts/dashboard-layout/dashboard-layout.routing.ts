@@ -12,6 +12,11 @@ import { DocumentListComponent } from '../../pages/document/document-list/docume
 import { DocumentDetailComponent } from '../../pages/document/document-detail/document-detail.component';
 import { LeadListComponent } from 'src/app/pages/lead/lead-list/lead-list.component';
 import { LeadCreateComponent } from 'src/app/pages/lead/lead-create/lead-create.component';
+import { SourceListComponent } from 'src/app/pages/source/source-list/source-list.component';
+import { DepartmentListComponent } from 'src/app/pages/department/department-list/department-list.component';
+import { SpecialtyListComponent } from 'src/app/pages/specialty/specialty-list/specialty-list.component';
+import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-list/systemtype-list.component';
+ 
 
 
 const routes: Routes = [
@@ -27,7 +32,12 @@ const routes: Routes = [
   { path: 'user-detail/:id', component: UserDetailComponent },
   { path: 'role-list', component: RoleListComponent },
   { path: 'role-detail/:id', component: RoleDetailComponent },
-  { path: 'lead-create', component:LeadCreateComponent },
+  { path: 'lead-create', component: LeadCreateComponent },
+  { path: 'source-list', component: SourceListComponent },
+  { path: 'department-list', component: DepartmentListComponent },
+  { path: 'country-list', component: CountryListComponent },
+  { path: 'specialty-list', component: SpecialtyListComponent },
+  { path: 'systemtype-list', component: SystemTypeListComponent },
 ];
 
 export const DashboardLayoutRoutes = RouterModule.forChild(routes);

@@ -27,11 +27,11 @@ export class CountryDefaultComponent implements OnInit {
 
   onSubmit() {
 
-    this.countryService.default(this.item.id)
+    this.countryService.default(this.item._id, !this.item.Default)
       .pipe(first())
       .subscribe({
         next: response => { 
-          this.toastHelper.showSuccess("You have successfully " + (response.data.isDefault ? "set" : "unset") + " " + response.data.name + "  as default country.");
+          this.toastHelper.showSuccess("You have successfully " + (response.Default ? "set" : "unset") + " " + response.Name + "  as default country.");
           this.activeModal.close();
         },
         error: response => {

@@ -58,13 +58,7 @@ export class AuthenticationService {
     }));
   }
 
-  public getRolePermissionList = (id: string) => {
-    return this.repositoryHelper.get('api/authentication/getRolePermissionList?id=' + id)
-      .pipe(map(response => {
-        return response;
-        console.log(response);
-    }));
-  }
+  
 
   public logout = () => {
     localStorage.removeItem("token");

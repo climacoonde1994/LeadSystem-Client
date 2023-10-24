@@ -59,17 +59,47 @@
                   </li>
                   <li class="menu-item"  routerLinkActive="has-active">
                     <a [routerLink]="['/lead-system-list']" class="menu-link"  href="#">
-                  
                       <span class="menu-icon fas fa-address-book"></span> 
                       <span class="menu-text">Lead System</span>
                     </a>
                   </li>
-                  <li class="menu-item" *ngFor="let rolePermission of rolePermissions;" routerLinkActive="has-active">
-                    <a [routerLink]="[rolePermission.permission.route]" class="menu-link">
-                      <span class="menu-icon {{ rolePermission.permission.icon }}"></span>
-                      <span class="menu-text">{{ rolePermission.permission.name }}</span>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/document-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">document System</span>
                     </a>
                   </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/source-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">Source </span>
+                    </a>
+                  </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/department-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">Department </span>
+                    </a>
+                  </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/country-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">Country </span>
+                    </a>
+                  </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/specialty-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">Specialty </span>
+                    </a>
+                  </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/systemtype-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">System Type </span>
+                    </a>
+                  </li>
+                
               </ul>
           </nav>
 

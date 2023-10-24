@@ -15,28 +15,28 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="code"> Code  <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="code" placeholder="Code" />
-          <span class="text-danger small" *ngIf="!modalForm.code.valid && modalForm.code.touched">
-            <span *ngIf="modalForm.code.hasError('required')  || modalForm.code?.errors ">Code is required.</span>
+          <input type="text" class="form-control" formControlName="Code" placeholder="Code" />
+          <span class="text-danger small" *ngIf="!modalForm.Code.valid && modalForm.Code.touched">
+            <span *ngIf="modalForm.Code.hasError('required')  || modalForm.Code?.errors ">Code is required.</span>
           </span>
         </div>
       </div>
       <div class="col-md-12">
         <div class="form-group">
-          <label for="name"> Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="name" placeholder="Name" />
+          <label for="Name"> Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Name" placeholder="Name" />
          
-          <span class="text-danger small" *ngIf="!modalForm.name.valid && modalForm.name.touched   ">
-            <span *ngIf="modalForm.name.hasError('required') || modalForm.name?.errors">Name is required.</span>
+          <span class="text-danger small" *ngIf="!modalForm.Name.valid && modalForm.Name.touched   ">
+            <span *ngIf="modalForm.Name.hasError('required') || modalForm.Name?.errors">Name is required.</span>
           </span>
         </div>
       </div>
       <div class="col-md-12">
         <div class="form-group">
-          <label for="description"> Description <span class="text-danger">*</span></label>
-          <textarea type="text" class="form-control" formControlName="description" placeholder="Description" rows="5"></textarea>
-          <span class="text-danger small" *ngIf="!modalForm.description.valid && modalForm.description.touched">
-            <span *ngIf="modalForm.description.hasError('required')">Description is required.</span>
+          <label for="Description"> Description <span class="text-danger">*</span></label>
+          <textarea type="text" class="form-control" formControlName="Description" placeholder="Description" rows="5"></textarea>
+          <span class="text-danger small" *ngIf="!modalForm.Description.valid && modalForm.Description.touched">
+            <span *ngIf="modalForm.Description.hasError('required')">Description is required.</span>
           </span>
         </div>
       </div>

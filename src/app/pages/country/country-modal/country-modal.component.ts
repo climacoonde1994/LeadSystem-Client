@@ -28,10 +28,10 @@ export class CountryModalComponent implements OnInit {
   ngOnInit() {
 
     this.modalFormGroup = this.formBuilder.group({
-      code: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
-      description:  new FormControl('', [Validators.required]),
-    }, { validator: WhiteSpace(['code','name']) }
+      Code: new FormControl('', [Validators.required]),
+      Name: new FormControl('', [Validators.required]),
+      Description:  new FormControl('', [Validators.required]),
+    }, { validator: WhiteSpace(['Code','Name']) }
     );
 
     this.modalFormGroup.patchValue(this.item);
@@ -40,9 +40,10 @@ export class CountryModalComponent implements OnInit {
   onSubmit() {
 
     const request: any = {
-      code: this.modalForm.code.value,
-      name: this.modalForm.name.value,
-      description: this.modalForm.description.value
+      CountryId : 0,
+      Code: this.modalForm.Code.value,
+      Name: this.modalForm.Name.value,
+      Description: this.modalForm.Description.value
     };
 
     if (this.item == null){
@@ -51,7 +52,7 @@ export class CountryModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.data.name + " country.");
+          this.toastHelper.showSuccess("You have successfully created " + response.Name + " country.");
           this.activeModal.close();
         },
         error: response => {
@@ -61,13 +62,14 @@ export class CountryModalComponent implements OnInit {
     }
     else {
 
-      request.id = this.item.id;
+      request.Id = this.item._id;
+      request.CountryId = this.item.CountryId;
  
       this.countryService.update(request)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.data.name + " country.");
+          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " country.");
           this.activeModal.close();
         },
         error: response => {

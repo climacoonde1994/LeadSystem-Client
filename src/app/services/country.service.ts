@@ -22,7 +22,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.code.toLowerCase().includes(term.toLowerCase()) || item.name.toLowerCase().includes(term.toLowerCase());
+  return item.Code.toLowerCase().includes(term.toLowerCase()) || item.Name.toLowerCase().includes(term.toLowerCase() ) || item.Description.toLowerCase().includes(term.toLowerCase() );
 }
 
 @Injectable({ providedIn: 'root'})
@@ -77,7 +77,7 @@ export class CountryService {
       this.$search.pipe(
         tap(() => this.$loading.next(true)),
         debounceTime(200),
-        switchMap(() => this.search(response.data)),
+        switchMap(() => this.search(response)),
         delay(200),
         tap(() => this.$loading.next(false))
       ).subscribe(result => {
@@ -90,7 +90,7 @@ export class CountryService {
   }
 
   public getList = () => {
-    return this.repositoryHelper.get('api/country/getList');
+    return this.repositoryHelper.get('api/country/All');
   }
 
   public getById = (id: number) => {
@@ -104,23 +104,23 @@ export class CountryService {
   
 
   public create = (body: any) => {
-    return this.repositoryHelper.post('api/country/create', body);
+    return this.repositoryHelper.post('api/country/CreateCountry', body);
   }
 
   public update = (body: any) => {
-    return this.repositoryHelper.put('api/country/update', body);
+    return this.repositoryHelper.put('api/country/UpdateCountry', body);
   }
 
   public delete = (id: number) => {
     return this.repositoryHelper.delete('api/country/delete?id=' + id);
   }
 
-  public toggle = (id: number) => {
-    return this.repositoryHelper.put('api/country/toggle?id=' + id, null);
+  public toggle = (id: number , enable : boolean) => {
+    return this.repositoryHelper.put('api/country/EnableCountry/' + id+"/"+enable, null);
   }
 
-  public default = (id: number) => {
-    return this.repositoryHelper.put('api/country/default?id=' + id, null);
+  public default = (id: number,enable : boolean) => {
+    return this.repositoryHelper.put('api/country/DefaultCountry/' + id+"/"+enable, null);
   }
 
 }

@@ -23,16 +23,11 @@ export class DashboardLayoutComponent implements OnInit {
       this.isAuthenticated = isAuthenticated;
     });
 
+    this.isAuthenticated = true;
     this.name = this.authenticationService.getName();
     this.role = this.authenticationService.getRole();
 
-    this.authenticationService.getRolePermissionList(this.authenticationService.getRoleId())
-        .pipe(first())
-        .subscribe({
-          next: response => {
-            this.rolePermissions = response.data;
-          }
-        });
+   
   }
 
   onLogout = () => {
