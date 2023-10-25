@@ -53,16 +53,10 @@ export class LeadCreateComponent implements OnInit {
    ) { }
 
   ngOnInit() { 
-   
-    
-    // this.booleanTypes = Object.keys(BooleanType).filter(key => !isNaN(+key)).map(key => { return { id: +key, name: BooleanType[key] }});
-    // this.priceTypes = Object.keys(PriceType).filter(key => !isNaN(+key)).map(key => { return { id: +key, name: PriceType[key] } });
-    // this.vendorReference = Object.keys(PriceType).filter(key => !isNaN(+key)).map(key => { return { id: +key, name: VendorReference[key] } });
-
 
     this.modalFormGroup = this.formBuilder.group({
       id: new FormControl('' ),
-      revNo: new FormControl(0, [Validators.required]),
+      revNo: new FormControl('', [Validators.required]),
       purchaseOrderTypeId: new FormControl('', [Validators.required]),
       exportLicenseId: new FormControl('', [Validators.required]),
       exportLicenseOthers: new FormControl(''),
