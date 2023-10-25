@@ -5,19 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { CustomerService } from 'src/app/services/customer.service';
-import { EndUserService } from 'src/app/services/end-user.service';
-import { ExportLicenseService } from 'src/app/services/export-license.service';
-import { PaymentTermService } from 'src/app/services/payment-term.service';
-import { TradeTermService } from 'src/app/services/trade-term.service';
-import { VendorService } from 'src/app/services/vendor.service';
 import { BooleanType } from 'src/app/variables/boolean-type.enum';
 import { PriceType } from 'src/app/variables/price-type.enum';
 import { DocumentService } from '../../../services/document.service';
-import { ItemService } from '../../../services/item.service';
-import { PurchaseOrderTypeService } from '../../../services/purchase-order-type.service';
-import { SalesDepartmentService } from '../../../services/sales-department.service';
-import { VendorContactService } from '../../../services/vendor-contact.service';
+ 
 import { VendorReference } from '../../../variables/vendor-reference.enum';
 
 
@@ -57,9 +48,8 @@ export class LeadCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
 
     private datepipe: DatePipe,
-    public activatedRoute: ActivatedRoute,
-    private itemService: ItemService,
-    private vendorContactService: VendorContactService,
+    public activatedRoute: ActivatedRoute
+ 
    ) { }
 
   ngOnInit() { 
