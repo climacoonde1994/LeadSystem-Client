@@ -80,16 +80,6 @@ export class ClientListComponent implements OnInit {
       }, (reason) => { }
     );
   }
-
-  openDefaultModal(item?: any) {
-    const modalRef = this.modalService.open(ClientDefaultComponent);
-    modalRef.componentInstance.item = item;
-    modalRef.result.then(
-      (data: any) => {
-        this.loadList();
-      }, (reason) => { }
-    );
-  }
-   
+ 
 
 }

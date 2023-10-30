@@ -34,10 +34,67 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="Description"> Description <span class="text-danger">*</span></label>
-          <textarea type="text" class="form-control" formControlName="Description" placeholder="Description" rows="5"></textarea>
+          <textarea type="text" class="form-control" formControlName="Description" placeholder="Description" rows="2"></textarea>
           <span class="text-danger small" *ngIf="!modalForm.Description.valid && modalForm.Description.touched">
             <span *ngIf="modalForm.Description.hasError('required')">Description is required.</span>
           </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Adress1"> Adress 1 <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Adress1" placeholder="Adress1" />
+         
+          <span class="text-danger small" *ngIf="!modalForm.Adress1.valid && modalForm.Adress1.touched   ">
+            <span *ngIf="modalForm.Adress1.hasError('required') || modalForm.Adress1?.errors">Adress 1 is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Adress2"> Adress 2 </label>
+          <input type="text" class="form-control" formControlName="Adress2" placeholder="Adress2" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="CountryId"> City/State <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country">
+            <ng-option *ngFor="let country of countries" [value]="country.CountryId">{{ country.Name }}</ng-option>
+          </ng-select>
+          <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.CountryId.touched">
+            <span *ngIf="modalForm.CountryId.hasError('required')  ">Country is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="CountryId"> Country <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country">
+            <ng-option *ngFor="let country of countries" [value]="country.CountryId">{{ country.Name }}</ng-option>
+          </ng-select>
+          <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.CountryId.touched">
+            <span *ngIf="modalForm.CountryId.hasError('required')  ">Country is required.</span>
+          </span>
+        </div>
+      </div>
+   
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="Phone"> Phone<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Phone" placeholder="Phone" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="FAX"> FAX </label>
+          <input type="text" class="form-control" formControlName="FAX" placeholder="FAX" />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="URL">URL</label>
+          <input type="text" class="form-control" formControlName="URL" placeholder="URL" />
         </div>
       </div>
     </div>

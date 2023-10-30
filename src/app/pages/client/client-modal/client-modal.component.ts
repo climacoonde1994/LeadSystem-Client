@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { ClientService } from 'src/app/services/client.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-client-modal',
@@ -18,10 +19,12 @@ export class ClientModalComponent implements OnInit {
   public errors: any[];
   public modalFormGroup: FormGroup;
   public regionList: any[];
+  public countries : any[];
 
   constructor(
     private formBuilder: FormBuilder,
     private clientService: ClientService,
+    private countryService: CountryService,
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
@@ -33,18 +36,33 @@ export class ClientModalComponent implements OnInit {
       Code: new FormControl('C1', [Validators.required]),
       Name: new FormControl('SHONGOLOLER', [Validators.required]),
       Description:  new FormControl('SHONGOLOLER', [Validators.required]),
-      Adress1:  new FormControl('CEBU CITY', [Validators.required]),
-      Adress2:  new FormControl('CEBU CITY'),
-      CountryId:  new FormControl(1),
-      CityStateId:  new FormControl(1),
-      Phone:  new FormControl('CEBU CITY'),
-      FAX:  new FormControl('CEBU CITY'),
-      URL:  new FormControl('CEBU CITY'),
+      Adress1:  new FormControl('', [Validators.required]),
+      Adress2:  new FormControl(''),
+      CountryId:  new FormControl(0,[Validators.required] ),
+      CityStateId:  new FormControl( ),
+      Phone:  new FormControl('',[Validators.required]),
+      FAX:  new FormControl(''),
+      URL:  new FormControl(''),
       
     }, { validator: WhiteSpace(['Code','Name']) }
     );
 
     this.modalFormGroup.patchValue(this.item);
+
+    
+    this.countryService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.countries = response
+     
+      },
+      error: response => {
+        
+      }
+    }
+);
+
   }
  
   onSubmit() {
@@ -97,8 +115,12 @@ export class ClientModalComponent implements OnInit {
 
   }
 
+  
+
   get modalForm() {
     return this.modalFormGroup.controls;
   }
+
+
 
 }
