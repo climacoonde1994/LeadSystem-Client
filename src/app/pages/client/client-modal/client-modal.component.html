@@ -58,19 +58,19 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="CountryId"> City/State <span class="text-danger">*</span></label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country">
-            <ng-option *ngFor="let country of countries" [value]="country.CountryId">{{ country.Name }}</ng-option>
+          <label for="CityId"> City/State <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CityId" formControlName="CityId"   placeholder="Select City">
+            <ng-option *ngFor="let city of filteredcities" [value]="city.CityId">{{ city.Name }}</ng-option>
           </ng-select>
-          <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.CountryId.touched">
-            <span *ngIf="modalForm.CountryId.hasError('required')  ">Country is required.</span>
+          <span class="text-danger small" *ngIf="!modalForm.CityId.valid && modalForm.CityId.touched">
+            <span *ngIf="modalForm.CityId.hasError('required')  ">City is required.</span>
           </span>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="CountryId"> Country <span class="text-danger">*</span></label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country">
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country"  (change)="onChange()">
             <ng-option *ngFor="let country of countries" [value]="country.CountryId">{{ country.Name }}</ng-option>
           </ng-select>
           <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.CountryId.touched">
@@ -78,6 +78,7 @@
           </span>
         </div>
       </div>
+      
    
       <div class="col-md-6">
         <div class="form-group">

@@ -2,20 +2,20 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CountryService } from 'src/app/services/country.service';
-import { CountryDeleteComponent } from '../country-delete/country-delete.component';
-import { CountryModalComponent } from '../country-modal/country-modal.component';
-import { CountryToggleComponent } from '../country-toggle/country-toggle.component';
+import { CityService } from 'src/app/services/city.service';
+import { CityDeleteComponent } from '../city-delete/city-delete.component';
+import { CityModalComponent } from '../city-modal/city-modal.component';
+import { CityToggleComponent } from '../city-toggle/city-toggle.component';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
-import { CountryDefaultComponent } from '../country-default/country-default.component';
+import { CityDefaultComponent } from '../city-default/city-default.component';
 
 @Component({
-  selector: 'app-country-detail',
-  templateUrl: './country-detail.component.html',
-  styleUrls: ['./country-detail.component.css']
+  selector: 'app-city-detail',
+  templateUrl: './city-detail.component.html',
+  styleUrls: ['./city-detail.component.css']
 })
-export class CountryDetailComponent implements OnInit {
+export class CityDetailComponent implements OnInit {
 
   public item: any;
 
@@ -24,7 +24,7 @@ export class CountryDetailComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private toastHelper: ToastHelper,
-    private countryService: CountryService,
+    private cityService: CityService,
     private location: Location) { }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class CountryDetailComponent implements OnInit {
 
   loadItem() {
     this.activatedRoute.params.subscribe(params => {
-      this.countryService.getById(params['id'])
+      this.cityService.getById(params['id'])
         .subscribe(response => {
           this.item = response.data;
         }, (error) => {
@@ -43,7 +43,7 @@ export class CountryDetailComponent implements OnInit {
   }
 
   openModal(item?: any) {
-    const modalRef = this.modalService.open(CountryModalComponent);
+    const modalRef = this.modalService.open(CityModalComponent);
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {
@@ -53,7 +53,7 @@ export class CountryDetailComponent implements OnInit {
   }
 
   openToggleModal(item?: any) {
-    const modalRef = this.modalService.open(CountryToggleComponent);
+    const modalRef = this.modalService.open(CityToggleComponent);
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {
@@ -63,11 +63,11 @@ export class CountryDetailComponent implements OnInit {
   }
 
   openDeleteModal(item?: any) {
-    const modalRef = this.modalService.open(CountryDeleteComponent);
+    const modalRef = this.modalService.open(CityDeleteComponent);
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {
-        this.router.navigate(['/country-list']);
+        this.router.navigate(['/city-list']);
       }, (reason) => { }
     );
   }
@@ -77,7 +77,7 @@ export class CountryDetailComponent implements OnInit {
   }
 
   openDefaultModal(item?: any) {
-    const modalRef = this.modalService.open(CountryDefaultComponent);
+    const modalRef = this.modalService.open(CityDefaultComponent);
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {

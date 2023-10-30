@@ -6,6 +6,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { ClientService } from 'src/app/services/client.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
 import { CountryService } from 'src/app/services/country.service';
+import { CityService } from 'src/app/services/city.service';
 
 @Component({
   selector: 'app-client-modal',
@@ -20,11 +21,15 @@ export class ClientModalComponent implements OnInit {
   public modalFormGroup: FormGroup;
   public regionList: any[];
   public countries : any[];
+  public cities : any[];
+  public filteredcities : any[];
+
 
   constructor(
     private formBuilder: FormBuilder,
     private clientService: ClientService,
     private countryService: CountryService,
+    private cityService: CityService,
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
@@ -33,13 +38,13 @@ export class ClientModalComponent implements OnInit {
   ngOnInit() {
 
     this.modalFormGroup = this.formBuilder.group({
-      Code: new FormControl('C1', [Validators.required]),
-      Name: new FormControl('SHONGOLOLER', [Validators.required]),
-      Description:  new FormControl('SHONGOLOLER', [Validators.required]),
+      Code: new FormControl('', [Validators.required]),
+      Name: new FormControl('', [Validators.required]),
+      Description:  new FormControl('', [Validators.required]),
       Adress1:  new FormControl('', [Validators.required]),
       Adress2:  new FormControl(''),
       CountryId:  new FormControl(0,[Validators.required] ),
-      CityStateId:  new FormControl( ),
+      CityId:  new FormControl( ),
       Phone:  new FormControl('',[Validators.required]),
       FAX:  new FormControl(''),
       URL:  new FormControl(''),
@@ -61,7 +66,22 @@ export class ClientModalComponent implements OnInit {
         
       }
     }
-);
+   
+    );
+
+    this.cityService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.cities = response
+     
+      },
+      error: response => {
+        
+      }
+    }
+   
+    );
 
   }
  
@@ -75,7 +95,7 @@ export class ClientModalComponent implements OnInit {
       Adress1: this.modalForm.Adress1.value,
       Adress2: this.modalForm.Adress2.value,
       CountryId: this.modalForm.CountryId.value,
-      CityStateId: this.modalForm.CityStateId.value,
+      CityId: this.modalForm.CityId.value,
       Phone: this.modalForm.Phone.value,
       FAX: this.modalForm.FAX.value,
       URL: this.modalForm.URL.value,
@@ -121,6 +141,11 @@ export class ClientModalComponent implements OnInit {
     return this.modalFormGroup.controls;
   }
 
+  onChange(){
+
+    this.filteredcities = this.cities.filter(x => x.CountryId == this.modalForm.CountryId.value);
+ 
+  }
 
 
 }

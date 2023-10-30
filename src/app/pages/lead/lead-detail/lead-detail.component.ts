@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LeadService } from 'src/app/services/lead.service';
 import { LeadDeleteComponent } from '../lead-delete/lead-delete.component';
-import { LeadModalComponent } from '../lead-modal/lead-modal.component';
+import { LeadClientModalComponent } from '../lead-client-modal/lead-client-modal.component';
 import { LeadToggleComponent } from '../lead-toggle/lead-toggle.component';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
@@ -43,7 +43,7 @@ export class LeadDetailComponent implements OnInit {
   }
 
   openModal(item?: any) {
-    const modalRef = this.modalService.open(LeadModalComponent);
+    const modalRef = this.modalService.open(LeadClientModalComponent);
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {

@@ -32,10 +32,11 @@
                     </div>
                 </div>
             </div>
-            <form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+            <form [formGroup]="modalFormGroup" autocomplete="off" novalidate  >
                 <div class="row mt-3">
                     <div class="col-lg-12">
                       <div class="card card-fluid">
+                      
                         <div class="card-header">
                           <div class="d-flex align-items-center">
                             <span class="mr-auto">Client </span>
@@ -43,16 +44,21 @@
                         </div>
                         <div class="card-body">
                           <div class="form-row">
+                            <div class="col-md-1">
+                              <div class="form-group">
+                                <button class="btn btn-info ml-auto mt-4 " (click)="openClientModal()">Select Client</button>
+                              </div>
+                            </div>
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="id"> Client Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                                <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Description <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Description" />
+                                <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
                               </div>
                             </div>                        
                           </div>
@@ -60,7 +66,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="id"> Address 1 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="Address 1"   />
+                                <input type="text" class="form-control" formControlName="Address1" placeholder="Address 1"   />
                               </div>
                             </div>
                                                
@@ -69,7 +75,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="id"> Address 2 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="Address 2"   />
+                                <input type="text" class="form-control" formControlName="Address2" placeholder="Address 2"   />
                               </div>
                             </div>
                                                
@@ -78,19 +84,19 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="id"> City <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                                <input type="text" class="form-control" formControlName="City" readonly />
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Country <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Description" />
+                                <input type="textarea" class="form-control" formControlName="Country" placeholder="Description" />
                               </div>
                             </div> 
                             <div class="col-md-4">
                               <div class="form-group">
-                                <label for="revNo"> Zip <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Description" />
+                                <label for="revNo"> ZIP <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="ZIP" placeholder="Description" />
                               </div>
                             </div>                           
                           </div>
@@ -98,19 +104,19 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="id"> Phone <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                                <input type="text" class="form-control" formControlName="Phone" placeholder="System Generated" readonly />
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
-                                <label for="revNo"> Fax <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Description" />
+                                <label for="revNo"> FAX <span class="text-danger">*</span></label>
+                                <input type="textarea" class="form-control" formControlName="FAX" placeholder="Description" />
                               </div>
                             </div> 
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> URL <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Description" />
+                                <input type="textarea" class="form-control" formControlName="URL" placeholder="Description" />
                               </div>
                             </div>                           
                           </div>
@@ -126,22 +132,19 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="id"> Lead Number <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                                <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
-                                <span class="text-danger small" *ngIf="!modalForm.revNo.valid && modalForm.revNo.touched">
-                                  <span *ngIf="modalForm.revNo.hasError('required')">Revision Number is required.</span>
-                                </span>
+                                <input type="date" class="form-control" formControlName="LeadDate"   />
                               </div>
                             </div>  
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Private <span class="text-danger">*</span></label>
-                                <input type="checkbox" class="form-control"   placeholder="Revision Number" />
+                                <input type="checkbox" class="form-control"    />
                                  
                               </div>
                             </div>                        
@@ -173,7 +176,7 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Makati TIme <span class="text-danger">*</span></label>
-                                <input type="datetime" class="form-control"      />
+                                <input type="datetime" class="form-control" />
                               </div>
                             </div>  
                                                
@@ -193,7 +196,7 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                                <input type="date" class="form-control" formControlName="City" placeholder="Revision Number" />
                               </div>
                             </div>  
                                                  
@@ -203,17 +206,17 @@
                               <div class="form-group">
                                 <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
                                 <select class="form-control" name="status" >
-                                  <option  >Climaco Onde Jr</option>
-                                  <option  >Kenny Rogers</option>
-                                  <option  >Whiteny Houston</option>
-                                  <option  >Asking Alexandria</option>
+                                  <option>Climaco Onde Jr</option>
+                                  <option>Kenny Rogers</option>
+                                  <option>Whiteny Houston</option>
+                                  <option>Asking Alexandria</option>
                                </select>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
+                                <input type="date" class="form-control" formControlName="City" placeholder="Revision Number" />
                               </div>
                             </div>  
                            
@@ -260,16 +263,14 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="id"> Meet Date <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" formControlName="id" placeholder="System Generated" readonly />
+                                <input type="date" class="form-control" formControlName="City" placeholder="System Generated" readonly />
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="revNo"> Time <span class="text-danger">*</span></label>
-                                <input type="textarea" class="form-control" formControlName="revNo" placeholder="Revision Number" />
-                                <span class="text-danger small" *ngIf="!modalForm.revNo.valid && modalForm.revNo.touched">
-                                  <span *ngIf="modalForm.revNo.hasError('required')">Revision Number is required.</span>
-                                </span>
+                                <input type="textarea" class="form-control" formControlName="City" placeholder="Revision Number" />
+                               
                               </div>
                             </div>  
                             <div class="col-md-4">
@@ -284,7 +285,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="id"> Remarks <span class="text-danger">*</span></label>
-                                <textarea class="form-control" name="" formControlName="id"  cols="10" rows="5"></textarea>
+                                <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
                                  
                               </div>
                             </div>
@@ -423,7 +424,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="id"> Internet Contact List <span class="text-danger">*</span></label>
-                                <textarea class="form-control" name="" formControlName="id"  cols="10" rows="5"></textarea>
+                                <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
                                  
                               </div>
                             </div>
@@ -433,7 +434,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="id"> Action Notes Needed <span class="text-danger">*</span></label>
-                                <textarea class="form-control" name="" formControlName="id"  cols="10" rows="5"></textarea>
+                                <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
                                  
                               </div>
                             </div>
@@ -443,7 +444,7 @@
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="id"> Internet Notes <span class="text-danger">*</span></label>
-                                <textarea class="form-control" name="" formControlName="id"  cols="10" rows="5"></textarea>
+                                <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
                                  
                               </div>
                             </div>

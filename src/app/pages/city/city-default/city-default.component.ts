@@ -3,22 +3,21 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { CountryService } from 'src/app/services/country.service';
+import { CityService } from 'src/app/services/city.service';
 
 @Component({
-  selector: 'app-country-delete',
-  templateUrl: './country-delete.component.html',
-  styleUrls: ['./country-delete.component.css']
+  selector: 'app-city-default',
+  templateUrl: './city-default.component.html',
+  styleUrls: ['./city-default.component.css']
 })
 
-export class CountryDeleteComponent implements OnInit {
+export class CityDefaultComponent implements OnInit {
 
   @Input() item: any;
   public errors: any[];
 
   constructor(
-    private router: Router,
-    private countryService: CountryService,
+    private cityService: CityService,
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
@@ -28,11 +27,11 @@ export class CountryDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.countryService.delete(this.item.id)
+    this.cityService.default(this.item._id, !this.item.Default)
       .pipe(first())
       .subscribe({
-        next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " country.");
+        next: response => { 
+          this.toastHelper.showSuccess("You have successfully " + (response.Default ? "set" : "unset") + " " + response.Name + "  as default city.");
           this.activeModal.close();
         },
         error: response => {

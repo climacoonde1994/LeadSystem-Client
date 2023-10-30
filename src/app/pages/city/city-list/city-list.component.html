@@ -16,8 +16,8 @@
                 </span>
             </div>
             <div class="col pl-1 justify-content-center align-self-center">
-                <span class="text-muted m-0"> Country Management </span>
-                <h4 class="m-0"> Country List </h4>
+                <span class="text-muted m-0"> City Management </span>
+                <h4 class="m-0"> City List </h4>
             </div>
         </div>
       </header>
@@ -25,17 +25,17 @@
         <header class="page-title-bar">
           <div class="row">
             <div class="col-auto d-none d-sm-flex">
-              <button class="btn btn-info ml-auto" (click)="openModal()">Create New Country</button>
+              <button class="btn btn-info ml-auto" (click)="openModal()">Create New City</button>
             </div>
             <div class="col">
               <div class="row">
                 <div class="col-md-12">
                     <div class="input-group has-spinner">
-                        <span class="spinner-border spinner-border-sm text-info show" *ngIf="countryService.loading | async"></span>
+                        <span class="spinner-border spinner-border-sm text-info show" *ngIf="cityService.loading | async"></span>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><span class="fas fa-search"></span></span>
                         </div>
-                        <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="countryService.searchTerm">
+                        <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="cityService.searchTerm">
                     </div>
                 </div>
               </div>
@@ -49,6 +49,7 @@
                 <th class="align-middle" style="width: 10%" scope="col" sortable="code" (sort)="onSort($event)">Code</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="code" (sort)="onSort($event)">Name</th>
                 <th class="align-middle" style="width: 50%" scope="col" sortable="code" (sort)="onSort($event)">Description</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="code" (sort)="onSort($event)">ZIP</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="dateModified" (sort)="onSort($event)">Date Last Modified</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="status" (sort)="onSort($event)">Status</th>
                 <th class="align-middle" style="width: 5%"></th>
@@ -58,10 +59,11 @@
               <tr *ngFor="let item of items | async">
                 <td class="align-middle">
                   <span><i *ngIf="item.Default" class="fas fa-check text-success mr-2"></i></span>
-                <a class="text-success" routerLink="/country-detail/{{ item.id }}"><ngb-highlight [result]="item.Code" [term]="countryService.searchTerm"></ngb-highlight></a>
+                <a class="text-success" routerLink="/city-detail/{{ item.id }}"><ngb-highlight [result]="item.Code" [term]="cityService.searchTerm"></ngb-highlight></a>
                 </td>
-                <td class="align-middle"><ngb-highlight [result]="item.Name" [term]="countryService.searchTerm"></ngb-highlight></td>
-                <td class="align-middle"><ngb-highlight [result]="item.Description" [term]="countryService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle"><ngb-highlight [result]="item.Name" [term]="cityService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle"><ngb-highlight [result]="item.Description" [term]="cityService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle"><ngb-highlight [result]="item.ZIP" [term]="cityService.searchTerm"></ngb-highlight></td>
                 <td class="align-middle">{{ item?.CreatedDate | dateAgo }}</td>
                 <td class="align-middle">
                   <span *ngIf="item.Enabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
@@ -89,7 +91,7 @@
 
           <div class="d-flex justify-content-center p-2" *ngIf="total | async">
             <ngb-pagination
-              [collectionSize]="(total | async)!" [(page)]="countryService.page" [pageSize]="countryService.pageSize">
+              [collectionSize]="(total | async)!" [(page)]="cityService.page" [pageSize]="cityService.pageSize">
             </ngb-pagination>
           </div>
         </div>

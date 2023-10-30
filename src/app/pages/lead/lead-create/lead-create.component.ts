@@ -10,6 +10,10 @@ import { PriceType } from 'src/app/variables/price-type.enum';
 import { DocumentService } from '../../../services/document.service';
  
 import { VendorReference } from '../../../variables/vendor-reference.enum';
+import { ClientModalComponent } from '../../client/client-modal/client-modal.component';
+import { LeadClientModalComponent } from '../lead-client-modal/lead-client-modal.component';
+import { CityService } from 'src/app/services/city.service';
+import { CountryService } from 'src/app/services/country.service';
 
 
 
@@ -22,9 +26,12 @@ export class LeadCreateComponent implements OnInit {
 
   @Input() item: any;
 
+  public selectedCity : any;
+  public selectedCountry : any;
+
   
-  public purchaseOrderTypes: any[] = [];
-  public documents: any[] = [];
+  public cities: any[] = [];
+  public countries: any[] = [];
   public exportLicenses: any[] = [];
   public salesDepartments: any[] = [];
   public tradeTerms: any[] = [];
@@ -34,9 +41,7 @@ export class LeadCreateComponent implements OnInit {
   public booleanTypes: any[] = [];
   public priceTypes: any[] = [];
   public vendorReference: any[] = [];
-  public vendors: any[] = [];
-  public vendorContacts: any[] = [];
-  public purchaseOrderDetails: any[] = [];
+ 
   public PoDetails: any = {};
   public errors: any[];
   public modalFormGroup: FormGroup;
@@ -46,8 +51,11 @@ export class LeadCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-
+    private modalService: NgbModal,
+    private cityService: CityService,
     private datepipe: DatePipe,
+    private toastHelper: ToastHelper,
+    private countryService: CountryService,
     public activatedRoute: ActivatedRoute
  
    ) { }
@@ -55,30 +63,63 @@ export class LeadCreateComponent implements OnInit {
   ngOnInit() { 
 
     this.modalFormGroup = this.formBuilder.group({
-      id: new FormControl('' ),
-      revNo: new FormControl('', [Validators.required]),
-      purchaseOrderTypeId: new FormControl('', [Validators.required]),
-      exportLicenseId: new FormControl('', [Validators.required]),
-      exportLicenseOthers: new FormControl(''),
-      salesDepartmentId: new FormControl('', [Validators.required]),
-      documentId: new FormControl('', [Validators.required]),
-      documentOthers: new FormControl(''),
-      vendorId: new FormControl('', [Validators.required]),
-      vendorContactId: new FormControl('', [Validators.required]),
-      vendorReferenceNo: new FormControl('', [Validators.required]),
-      oANo: new FormControl('', [Validators.required]),
-      tradeTermId: new FormControl('', [Validators.required]),
-      paymentTermId: new FormControl('', [Validators.required]),
-      customerId: new FormControl('', [Validators.required]),
-      customerReferenceNo: new FormControl('', [Validators.required]),
-      consignee: new FormControl('', [Validators.required]),
-      endUserId: new FormControl('', [Validators.required]),
+      ClientId: new FormControl(''),
+      ClientName: new FormControl(''),
+      Description: new FormControl(''),
+      Address1: new FormControl(''),
+      Address2: new FormControl(''),
+      City: new FormControl(''),
+      Country: new FormControl(''),
+      ZIP: new FormControl(''),
+      FAX: new FormControl(''),
+      Phone: new FormControl(''),
+      URL : new FormControl(''),
+      LeadId : new FormControl(''),
+      LeadNo : new FormControl(''),
+      LeadDate : new FormControl(''),
+      Status : new FormControl(''),
+      StatusComment : new FormControl(''),
+      SalesPersonId : new FormControl(''),
+      FollowUpDate : new FormControl(''),
+      SalesPersonId2 : new FormControl(''),
+      FollowUpDate2 : new FormControl(''),
+      SourceId : new FormControl(''),
+      Quality : new FormControl(''),
+      Likelihood : new FormControl(''),
+      Comments : new FormControl(''),
+      ActionNeeded : new FormControl(''),
+      MeetDate : new FormControl(''),
+      Remarks : new FormControl(''),
+      InternetContactList : new FormControl(''),
+      ActionNeededNotes : new FormControl(''),
+      InternetNotes : new FormControl(''),
+
+
     });
-    
-  
-    
-    
- 
+
+    this.countryService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.countries = response
+     
+      },
+      error: response => {
+        
+      }
+    }
+    );
+    this.cityService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.cities = response
+      },
+      error: response => {
+        
+      }
+    }
+    );
  
   }
 
@@ -86,7 +127,7 @@ export class LeadCreateComponent implements OnInit {
 
 
     console.log(this.modalForm)
-    const requestdetails: any[] = this.purchaseOrderDetails;
+ 
 
 
     const request: any = {
@@ -109,74 +150,49 @@ export class LeadCreateComponent implements OnInit {
       endUserId: this.modalForm.endUserId.value,
       documentOthers: this.modalForm.documentOthers.value,
       exportLicenseOthers: this.modalForm.exportLicenseOthers.value,
-      purchaseOrderDetails: requestdetails
-     
+ 
     
     };
    
    
-    // this.purchaseOrderService.create(request)
-    //   .pipe(first())
-    //   .subscribe({
-    //     next: response => {
-    //       this.toastHelper.showSuccess("You have successfully created " + response.data.id + " purchase order..");
-    //       this.router.navigate(["/purchase-order-update/" + response.data.id]);
-    //     },
-    //     error: response => {
-    //       this.toastHelper.showError("Has error");
-    //       this.errors = response.errors;
-    //     }
-    //   });
+ 
  
   }
 
   openSalesContactModal(id?: number) {
 
-    //const modalRef = this.modalService.open(SelectSalesContactModalComponent);
-
-   
-    // if (id > 0){
-    //   const item: any = {
-    //     id: id,
-    //     salesSectionId: this.modalForm.salesSectionId.value,
-    //   }
-    //   modalRef.componentInstance.item = item;
-    // }
-   
-    // modalRef.result.then(
-    //   (data: any) => {
-        
-    //   }, (reason) => { }
-    // );
+  
   }
 
 
   openAddressModal(id?: number , type? : any) {
-
-    // const modalRef = this.modalService.open(AddressModalComponent);
-    // if (id > 0) {
-    //   const item: any = {
-    //     id: id
-    //   }
-    //   modalRef.componentInstance.item = item;
-    // }
-
-    // modalRef.result.then(
-    //   (data: any) => {
-
-    //     if (type == 'S') {
-    //       this.modalForm.shippingAddressId.patchValue(data.id);
-    //       this.modalForm.shippingAddress.patchValue(data.address1 + ', ' + data.address2);
-    //     }
-    //     if (type == 'B') {
-    //       this.modalForm.billingAddressId.patchValue(data.id);
-    //       this.modalForm.billingAddress.patchValue(data.address1 + ', ' + data.address2);
-    //     }
-
-         
-    //   }, (reason) => { }
-    // );
+ 
   }
+
+  openClientModal()
+  {
+ 
+    const modalRef = this.modalService.open(LeadClientModalComponent ,{size: 'xl' });
+    modalRef.result.then(
+      (data: any) => {
+        this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
+        this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
+        this.modalFormGroup.get('ClientName').setValue(data.Name);
+        this.modalFormGroup.get('Description').setValue(data.Description);
+        this.modalFormGroup.get('Address1').setValue(data.Adress1);
+        this.modalFormGroup.get('Address2').setValue(data.Adress2);
+        this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
+        this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
+        this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
+        this.modalFormGroup.get('Phone').setValue(data.Phone);
+        this.modalFormGroup.get('FAX').setValue(data.FAX);
+        this.modalFormGroup.get('URL').setValue(data.URL);
+        this.modalFormGroup.get('ClientId').setValue(data.ClientId);
+      }, (reason) => { }
+    );
+     
+  }
+
 
   
   
@@ -190,8 +206,7 @@ export class LeadCreateComponent implements OnInit {
   }
 
   removeDetails(index: any) {
-    this.purchaseOrderDetails.splice(index,1)
-
+ 
   }
 
  
@@ -212,46 +227,12 @@ export class LeadCreateComponent implements OnInit {
 
   setDefaultItems(itemlist: any[]) {
 
-    this.purchaseOrderDetails = [];
-    if (itemlist.length > 0) {  
-      for (let i = 0; i < itemlist.length; i++)
-      {
-        this.PoDetails = {
-          purchaseOrderDetailId: i + 1,
-          partNumber: itemlist[i].partNo,
-          description: itemlist[i].description1,
-          deliveryDate: this.datepipe.transform(new Date(), 'yyyy-MM-dd'),
-          quantity: 0,
-          price: 0
-        }
-        this.purchaseOrderDetails.push(this.PoDetails);
-      }
-      
-    }
-
-  }
-
-  onChange($event: any, othersfield: any, itemlist: any) {
-
-   let name = itemlist.filter((x: { id: string; }) => x.id == $event)[0].name as string;
-
-    const control = this.modalForm[othersfield];
-    if (name.includes('Other'))
-    {
-      this.hideElements(othersfield,false)
-      control.addValidators(Validators.required)
- 
-    }
-    else {
-      control.clearValidators();
-      control.setValue('');
-      this.hideElements(othersfield, true)
-   ;
-   
     
-    }
+   
+
   }
 
+ 
   hideElements(field: string, hidden: boolean) {
 
     if (field == 'exportLicenseOthers') {

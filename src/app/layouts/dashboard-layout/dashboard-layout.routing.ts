@@ -17,6 +17,7 @@ import { DepartmentListComponent } from 'src/app/pages/department/department-lis
 import { SpecialtyListComponent } from 'src/app/pages/specialty/specialty-list/specialty-list.component';
 import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-list/systemtype-list.component';
 import { ClientListComponent } from 'src/app/pages/client/client-list/client-list.component';
+import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
  
 
 
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'specialty-list', component: SpecialtyListComponent },
   { path: 'systemtype-list', component: SystemTypeListComponent },
   { path: 'client-list', component: ClientListComponent },
+  { path: 'city-list', component: CityListComponent },
 ];
 
 export const DashboardLayoutRoutes = RouterModule.forChild(routes);

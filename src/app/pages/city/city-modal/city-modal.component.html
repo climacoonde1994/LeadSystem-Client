@@ -1,6 +1,6 @@
 <div class="modal-header">
-  <h5 class="modal-title" *ngIf="item != null">Update Country</h5>
-  <h5 class="modal-title" *ngIf="item == null"> Create New Country </h5>
+  <h5 class="modal-title" *ngIf="item != null">Update City</h5>
+  <h5 class="modal-title" *ngIf="item == null"> Create New City </h5>
 </div>
 <form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
   <div class="modal-body">
@@ -40,6 +40,26 @@
           </span>
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="ZIP"> ZIP  <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="ZIP" placeholder="ZIP" />
+          
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="CountryId"> Country <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country">
+            <ng-option *ngFor="let country of countries" [value]="country.CountryId">{{ country.Name }}</ng-option>
+          </ng-select>
+          <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.CountryId.touched">
+            <span *ngIf="modalForm.CountryId.hasError('required')  ">Country is required.</span>
+          </span>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="modal-footer">

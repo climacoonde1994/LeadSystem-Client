@@ -3,21 +3,21 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { CountryService } from 'src/app/services/country.service';
+import { CityService } from 'src/app/services/city.service';
 
 @Component({
-  selector: 'app-country-default',
-  templateUrl: './country-default.component.html',
-  styleUrls: ['./country-default.component.css']
+  selector: 'app-city-toggle',
+  templateUrl: './city-toggle.component.html',
+  styleUrls: ['./city-toggle.component.css']
 })
 
-export class CountryDefaultComponent implements OnInit {
+export class CityToggleComponent implements OnInit {
 
   @Input() item: any;
   public errors: any[];
 
   constructor(
-    private countryService: CountryService,
+    private cityService: CityService,
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
@@ -27,11 +27,11 @@ export class CountryDefaultComponent implements OnInit {
 
   onSubmit() {
 
-    this.countryService.default(this.item._id, !this.item.Default)
+    this.cityService.toggle(this.item._id , !this.item.Enabled)
       .pipe(first())
       .subscribe({
-        next: response => { 
-          this.toastHelper.showSuccess("You have successfully " + (response.Default ? "set" : "unset") + " " + response.Name + "  as default country.");
+        next: response => {
+          this.toastHelper.showSuccess("You have successfully " + (response.Enabled ? "enabled" : "disabled") + " " + this.item.Name + " city.");
           this.activeModal.close();
         },
         error: response => {

@@ -25,7 +25,7 @@ import { StateListComponent } from 'src/app/pages/state/state-list/state-list.co
 import { StateModalComponent } from 'src/app/pages/state/state-modal/state-modal.component';
 import { StateDetailComponent } from 'src/app/pages/state/state-detail/state-detail.component';
 import { LeadListComponent } from 'src/app/pages/lead/lead-list/lead-list.component';
-import { LeadModalComponent } from 'src/app/pages/lead/lead-modal/lead-modal.component';
+import { LeadClientModalComponent } from 'src/app/pages/lead/lead-client-modal/lead-client-modal.component';
 import { LeadDetailComponent } from 'src/app/pages/lead/lead-detail/lead-detail.component';
 
 
@@ -46,6 +46,9 @@ import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-d
 import { SourceListComponent } from 'src/app/pages/source/source-list/source-list.component';
 import { SourceModalComponent } from 'src/app/pages/source/source-modal/source-modal.component';
 import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source-detail.component';
+import { CityDetailComponent } from 'src/app/pages/city/city-detail/city-detail.component';
+import { CityModalComponent } from 'src/app/pages/city/city-modal/city-modal.component';
+import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
 
 
 @NgModule({
@@ -66,13 +69,13 @@ import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source
     CountryListComponent, CountryModalComponent, CountryDetailComponent,
     DocumentListComponent, DocumentModalComponent, DocumentDetailComponent,
     StateListComponent, StateModalComponent, StateDetailComponent,
-    LeadListComponent, LeadModalComponent, LeadDetailComponent,LeadCreateComponent,
+    LeadListComponent, LeadClientModalComponent, LeadDetailComponent,LeadCreateComponent,
     UserListComponent, UserModalComponent, UserDetailComponent,
     RoleListComponent, RoleModalComponent, RoleDetailComponent,
     SourceListComponent, SourceModalComponent, SourceDetailComponent,
     ClientListComponent, ClientModalComponent, ClientDetailComponent,
     DepartmentListComponent, DepartmentModalComponent, DepartmentDetailComponent,
-    CountryListComponent, CountryModalComponent, CountryDetailComponent,
+    CityListComponent, CityModalComponent, CityDetailComponent,
     SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
     SystemTypeListComponent ,SystemTypeModalComponent, SystemTypeDetailComponent,
     PermissionListComponent,

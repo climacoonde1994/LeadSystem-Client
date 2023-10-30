@@ -3,21 +3,22 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { CountryService } from 'src/app/services/country.service';
+import { CityService } from 'src/app/services/city.service';
 
 @Component({
-  selector: 'app-country-toggle',
-  templateUrl: './country-toggle.component.html',
-  styleUrls: ['./country-toggle.component.css']
+  selector: 'app-city-delete',
+  templateUrl: './city-delete.component.html',
+  styleUrls: ['./city-delete.component.css']
 })
 
-export class CountryToggleComponent implements OnInit {
+export class CityDeleteComponent implements OnInit {
 
   @Input() item: any;
   public errors: any[];
 
   constructor(
-    private countryService: CountryService,
+    private router: Router,
+    private cityService: CityService,
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
@@ -27,11 +28,11 @@ export class CountryToggleComponent implements OnInit {
 
   onSubmit() {
 
-    this.countryService.toggle(this.item._id , !this.item.Enabled)
+    this.cityService.delete(this.item.id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully " + (response.Enabled ? "enabled" : "disabled") + " " + this.item.Name + " country.");
+          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " city.");
           this.activeModal.close();
         },
         error: response => {
