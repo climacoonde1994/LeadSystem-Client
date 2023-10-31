@@ -49,6 +49,8 @@ import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source
 import { CityDetailComponent } from 'src/app/pages/city/city-detail/city-detail.component';
 import { CityModalComponent } from 'src/app/pages/city/city-modal/city-modal.component';
 import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
+import { LeadNoteModalComponent } from 'src/app/pages/lead/lead-note-modal/lead-note-modal.component';
+import { LeadProposalModalComponent } from 'src/app/pages/lead/lead-proposal-modal/lead-proposal-modal.component';
 
 
 @NgModule({
@@ -78,7 +80,7 @@ import { CityListComponent } from 'src/app/pages/city/city-list/city-list.compon
     CityListComponent, CityModalComponent, CityDetailComponent,
     SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
     SystemTypeListComponent ,SystemTypeModalComponent, SystemTypeDetailComponent,
-    PermissionListComponent,
+    PermissionListComponent, LeadNoteModalComponent ,LeadProposalModalComponent
  
 
   ]

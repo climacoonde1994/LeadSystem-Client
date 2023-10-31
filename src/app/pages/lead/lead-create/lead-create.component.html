@@ -303,24 +303,17 @@
                               <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th class="align-middle" style="width: 15%" scope="col" sortable="code"  >Date</th>
+                                    <th class="align-middle" style="width: 25%" scope="col" sortable="code"  >Date</th>
                                     <th class="align-middle" style="width: 65%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
-                                
+                                    <th class="align-middle" style="width: 10%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td class="align-middle">10/11/2023<ngb-highlight></ngb-highlight></td>
-                                    <td class="align-middle">This is a sample record<ngb-highlight></ngb-highlight></td>
+                                  <tr *ngFor="let note of notes">
+                                    <td class="align-middle">{{note.Date  | date}}<ngb-highlight></ngb-highlight></td>
+                                    <td class="align-middle">{{note.Description}}<ngb-highlight></ngb-highlight></td>
+                                    <td class="align-middle"><ngb-highlight></ngb-highlight></td>
                                   </tr>
-                                  <tr>
-                                    <td class="align-middle">10/11/2023<ngb-highlight></ngb-highlight></td>
-                                    <td class="align-middle">This is a sample record<ngb-highlight></ngb-highlight></td>
-                                  </tr>  <tr>
-                                    <td class="align-middle">10/11/2023<ngb-highlight></ngb-highlight></td>
-                                    <td class="align-middle">This is a sample record<ngb-highlight></ngb-highlight></td>
-                                  </tr>
-                                
                                 </tbody>
                               </table>
                     
@@ -340,7 +333,7 @@
                                 <thead>
                                   <tr>
                                     <th class="align-middle" style="width: 75%" scope="col" sortable="code">Proposal</th>
-                                    <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openModal()"><i class="fas fa-plus"></i></button></th>
+                                    <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openProposalModal()"><i class="fas fa-plus"></i></button></th>
                                 
                                   </tr>
                                 </thead>

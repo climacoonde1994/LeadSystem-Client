@@ -5,15 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { BooleanType } from 'src/app/variables/boolean-type.enum';
-import { PriceType } from 'src/app/variables/price-type.enum';
-import { DocumentService } from '../../../services/document.service';
- 
-import { VendorReference } from '../../../variables/vendor-reference.enum';
-import { ClientModalComponent } from '../../client/client-modal/client-modal.component';
 import { LeadClientModalComponent } from '../lead-client-modal/lead-client-modal.component';
 import { CityService } from 'src/app/services/city.service';
 import { CountryService } from 'src/app/services/country.service';
+import { LeadNoteModalComponent } from '../lead-note-modal/lead-note-modal.component';
+import { LeadProposalModalComponent } from '../lead-proposal-modal/lead-proposal-modal.component';
 
 
 
@@ -28,21 +24,14 @@ export class LeadCreateComponent implements OnInit {
 
   public selectedCity : any;
   public selectedCountry : any;
-
-  
   public cities: any[] = [];
   public countries: any[] = [];
-  public exportLicenses: any[] = [];
-  public salesDepartments: any[] = [];
-  public tradeTerms: any[] = [];
-  public paymentTerms: any[] = [];
-  public customers: any[] = [];
-  public endUsers: any[] = [];
-  public booleanTypes: any[] = [];
-  public priceTypes: any[] = [];
-  public vendorReference: any[] = [];
+  
+  public notes: any[] = [];
  
-  public PoDetails: any = {};
+ 
+ 
+ 
   public errors: any[];
   public modalFormGroup: FormGroup;
   public selectedVendorId: any;
@@ -193,6 +182,58 @@ export class LeadCreateComponent implements OnInit {
      
   }
 
+  openNotesModal()
+  {
+ 
+    const modalRef = this.modalService.open(LeadNoteModalComponent ,{size: 'lg' });
+    modalRef.result.then(
+      (data: any) => {
+        this.notes.push(data)
+       console.log(data)
+      }, (reason) => { }
+    );
+     
+  }
+
+  openProposalModal()
+  {
+ 
+    const modalRef = this.modalService.open(LeadProposalModalComponent ,{size: 'lg' });
+    modalRef.result.then(
+      (data: any) => {
+        this.notes.push(data)
+       console.log(data)
+      }, (reason) => { }
+    );
+     
+  }
+
+  openDocumentModal()
+  {
+ 
+    const modalRef = this.modalService.open(LeadNoteModalComponent ,{size: 'lg' });
+    modalRef.result.then(
+      (data: any) => {
+        this.notes.push(data)
+       console.log(data)
+      }, (reason) => { }
+    );
+     
+  }
+
+  
+  openCutPasteModal()
+  {
+ 
+    const modalRef = this.modalService.open(LeadNoteModalComponent ,{size: 'lg' });
+    modalRef.result.then(
+      (data: any) => {
+        this.notes.push(data)
+       console.log(data)
+      }, (reason) => { }
+    );
+     
+  }
 
   
   
