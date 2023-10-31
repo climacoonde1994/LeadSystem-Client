@@ -1,0 +1,114 @@
+<div class="modal-header">
+  <h5 class="modal-title" *ngIf="item != null">Update Employee</h5>
+  <h5 class="modal-title" *ngIf="item == null"> Create New Employee </h5>
+</div>
+<form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="col-md-12" *ngIf="errors">
+        <div class="alert alert-danger" role="alert">
+          <ul class="list-unstyled m-0">
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> FirstName  <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="FirstName" placeholder="FirstName" />
+          <span class="text-danger small" *ngIf="!modalForm.FirstName.valid && modalForm.FirstName.touched">
+            <span *ngIf="modalForm.FirstName.hasError('required')  || modalForm.FirstName?.errors ">FirstName is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> MiddleName  <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="MiddleName" placeholder="MiddleName" />
+          
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Name"> Last Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="LastName" placeholder="LastName" />
+          <span class="text-danger small" *ngIf="!modalForm.LastName.valid && modalForm.LastName.touched   ">
+            <span *ngIf="modalForm.LastName.hasError('required') || modalForm.LastName?.errors">Last Name is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> Suffix   </label>
+          <ng-select appearance="outline"    labelForId="Suffix" formControlName="Suffix"   placeholder="Select Suffix"   >
+            <ng-option>Sr.</ng-option>
+            <ng-option>Jr.</ng-option>
+            <ng-option>III</ng-option>
+            <ng-option>IV</ng-option>
+            <ng-option>V</ng-option>
+            <ng-option>VI</ng-option>
+          </ng-select>
+         
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Adress1"> Adress 1 <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Adress1" placeholder="Adress1" />
+         
+          <span class="text-danger small" *ngIf="!modalForm.Adress1.valid && modalForm.Adress1.touched   ">
+            <span *ngIf="modalForm.Adress1.hasError('required') || modalForm.Adress1?.errors">Adress 1 is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Adress2"> Adress 2 </label>
+          <input type="text" class="form-control" formControlName="Adress2" placeholder="Adress2" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="CityId"> City/State <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CityId" formControlName="CityId"   placeholder="Select City">
+            <ng-option *ngFor="let city of filteredcities" [value]="city.CityId">{{ city.Name }}</ng-option>
+          </ng-select>
+          <span class="text-danger small" *ngIf="!modalForm.CityId.valid && modalForm.CityId.touched">
+            <span *ngIf="modalForm.CityId.hasError('required')  ">City is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="CountryId"> Country <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="CountryId" formControlName="CountryId"   placeholder="Select Country"  (change)="onChange()">
+            <ng-option *ngFor="let country of countries" [value]="country.CountryId">{{ country.Name }}</ng-option>
+          </ng-select>
+          <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.CountryId.touched">
+            <span *ngIf="modalForm.CountryId.hasError('required')  ">Country is required.</span>
+          </span>
+        </div>
+      </div>
+      
+   
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="Phone"> Phone<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Phone" placeholder="Phone" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="FAX"> Email </label>
+          <input type="text" class="form-control" formControlName="Email" placeholder="Email" />
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </div>
+</form>
+

@@ -51,6 +51,9 @@ import { CityModalComponent } from 'src/app/pages/city/city-modal/city-modal.com
 import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
 import { LeadNoteModalComponent } from 'src/app/pages/lead/lead-note-modal/lead-note-modal.component';
 import { LeadProposalModalComponent } from 'src/app/pages/lead/lead-proposal-modal/lead-proposal-modal.component';
+import { EmployeeListComponent } from 'src/app/pages/employee/employee-list/employee-list.component';
+import { EmployeeModalComponent } from 'src/app/pages/employee/employee-modal/employee-modal.component';
+import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/employee-detail.component';
 
 
 @NgModule({
@@ -80,7 +83,8 @@ import { LeadProposalModalComponent } from 'src/app/pages/lead/lead-proposal-mod
     CityListComponent, CityModalComponent, CityDetailComponent,
     SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
     SystemTypeListComponent ,SystemTypeModalComponent, SystemTypeDetailComponent,
-    PermissionListComponent, LeadNoteModalComponent ,LeadProposalModalComponent
+    PermissionListComponent, LeadNoteModalComponent ,LeadProposalModalComponent,
+    EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent
  
 
   ]
