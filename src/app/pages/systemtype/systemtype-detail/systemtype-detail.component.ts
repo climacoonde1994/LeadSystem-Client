@@ -35,7 +35,7 @@ export class SystemTypeDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.systemtypeService.getById(params['id'])
         .subscribe(response => {
-          this.item = response.data;
+          this.item = response;
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })

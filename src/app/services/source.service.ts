@@ -94,7 +94,7 @@ export class SourceService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/source/getById?id=' + id);
+    return this.repositoryHelper.get('api/source/BySourceId/' + id);
   }
 
   public getByCode = (code: string) => {

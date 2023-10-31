@@ -58,7 +58,7 @@
               <tr *ngFor="let item of items | async">
                 <td class="align-middle">
                   <span><i *ngIf="item.Default" class="fas fa-check text-success mr-2"></i></span>
-                <a class="text-success" routerLink="/country-detail/{{ item.id }}"><ngb-highlight [result]="item.Code" [term]="countryService.searchTerm"></ngb-highlight></a>
+                <a class="text-success" routerLink="/country-detail/{{ item.CountryId }}"><ngb-highlight [result]="item.Code" [term]="countryService.searchTerm"></ngb-highlight></a>
                 </td>
                 <td class="align-middle"><ngb-highlight [result]="item.Name" [term]="countryService.searchTerm"></ngb-highlight></td>
                 <td class="align-middle"><ngb-highlight [result]="item.Description" [term]="countryService.searchTerm"></ngb-highlight></td>

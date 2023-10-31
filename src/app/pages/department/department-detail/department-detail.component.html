@@ -18,7 +18,7 @@
                   </div>
                   <div class="col pl-1 justify-content-center align-self-center">
                     <span class="text-muted m-0"> Department Information </span>
-                      <h4 class="m-0"> {{ item?.name }} </h4>
+                      <h4 class="m-0"> {{ item?.Name }} </h4>
                   </div>
               </div>
           </header>
@@ -39,9 +39,9 @@
                                                 <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-ellipsis-v"></i></button>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                   <div class="dropdown-arrow mr-n1"></div>
-                                                  <div class="dropdown-item" (click)="openDefaultModal(item)"> {{ item?.isDefault ? "Unset as default" : "Set as default" }}  </div>
+                                                  <div class="dropdown-item" (click)="openDefaultModal(item)"> {{ item?.Default ? "Unset as default" : "Set as default" }}  </div>
                                                   <div class="dropdown-item" (click)="openModal(item)"> Update </div>
-                                                  <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.isEnabled ? "Disable" : "Enable" }} </div>
+                                                  <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.Enabled ? "Disable" : "Enable" }} </div>
                                                   <div class="dropdown-divider"></div>
                                                   <div class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
                                                 </div>
@@ -53,21 +53,21 @@
                             <div class="card-body">
                               <dl class="row">
                                 <dt class="col-sm-2">Code</dt>
-                                <dd class="col-sm-10">{{ item?.code }}</dd>
+                                <dd class="col-sm-10">{{ item?.Code }}</dd>
                                 <dt class="col-sm-2">Name</dt>
-                                <dd class="col-sm-10">{{ item?.name }}</dd>
+                                <dd class="col-sm-10">{{ item?.Description }}</dd>
                                 <dt class="col-sm-2">Default</dt>
                                 <dd class="col-sm-10">
-                                  <span *ngIf="item?.isDefault"><i class="fas fa-check text-success mr-1"></i> Yes</span>
-                                  <span *ngIf="!item?.isDefault"><i class="fas fa-times text-danger mr-1"></i> No</span>
+                                  <span *ngIf="item?.Default"><i class="fas fa-check text-success mr-1"></i> Yes</span>
+                                  <span *ngIf="!item?.Default"><i class="fas fa-times text-danger mr-1"></i> No</span>
                                 </dd>
                                 <dt class="col-sm-2">Status</dt>
                                 <dd class="col-sm-10">
-                                  <span *ngIf="item?.isEnabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
-                                  <span *ngIf="!item?.isEnabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
+                                  <span *ngIf="item?.Enabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
+                                  <span *ngIf="!item?.Enabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
                                 </dd>
                                 <dt class="col-sm-2">Date Created</dt>
-                                <dd class="col-sm-10">{{ item?.dateCreated | dateAgo }}</dd>
+                                <dd class="col-sm-10">{{ item?.CreatedDate | dateAgo }}</dd>
                                 <dt class="col-sm-2">Created By</dt>
                                 <dd class="col-sm-10">{{ item?.createdBy }}</dd>
                                 <dt class="col-sm-2">Date Last Modified</dt>
@@ -81,12 +81,7 @@
                   </div>
                 </ng-template>
               </li>
-              <li ngbNavItem="states">
-                <a ngbNavLink routerLink="." fragment="states">States</a>
-                <ng-template ngbNavContent>
-                  <app-state-list></app-state-list>
-                </ng-template>
-              </li>
+              
             </ul>
 
             <div [ngbNavOutlet]="nav" class="mt-3"></div>

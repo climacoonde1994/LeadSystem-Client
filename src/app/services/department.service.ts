@@ -94,7 +94,7 @@ export class DepartmentService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/department/getById?id=' + id);
+    return this.repositoryHelper.get('api/department/ByDepartmentId/' + id);
   }
 
   public getByCode = (code: string) => {

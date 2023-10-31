@@ -94,7 +94,7 @@ export class CityService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/city/getById?id=' + id);
+    return this.repositoryHelper.get('api/city/ByCityId/' + id);
   }
 
   public getByCode = (code: string) => {

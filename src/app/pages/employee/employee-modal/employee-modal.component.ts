@@ -7,6 +7,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
 import { CountryService } from 'src/app/services/country.service';
 import { CityService } from 'src/app/services/city.service';
+import { DepartmentService } from 'src/app/services/department.service';
 
 @Component({
   selector: 'app-employee-modal',
@@ -22,7 +23,11 @@ export class EmployeeModalComponent implements OnInit {
   public regionList: any[];
   public countries : any[];
   public cities : any[];
+  public departments : any[];
   public filteredcities : any[];
+
+  public suffixes : any[];
+
 
 
   constructor(
@@ -31,7 +36,11 @@ export class EmployeeModalComponent implements OnInit {
     private countryService: CountryService,
     private cityService: CityService,
     private toastHelper: ToastHelper,
-    public activeModal: NgbActiveModal) { }
+    private departmentService : DepartmentService,
+    public activeModal: NgbActiveModal) {
+
+      
+     }
 
 
 
@@ -46,7 +55,7 @@ export class EmployeeModalComponent implements OnInit {
       LastName:  new FormControl('', [Validators.required]),
       Suffix:  new FormControl(),
       Position:  new FormControl('', [Validators.required]),
-      Department:  new FormControl('', [Validators.required]),
+      DepartmentId:  new FormControl('', [Validators.required]),
       Adress1:  new FormControl('', [Validators.required]),
       Adress2:  new FormControl(''),
       CityId:  new FormControl( ),
@@ -58,6 +67,20 @@ export class EmployeeModalComponent implements OnInit {
 
     this.modalFormGroup.patchValue(this.item);
 
+  
+    this.departmentService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.departments = response
+     
+      },
+      error: response => {
+        
+      }
+    }
+   
+    );
     
     this.countryService.getList()
     .pipe(first())
@@ -87,22 +110,34 @@ export class EmployeeModalComponent implements OnInit {
    
     );
 
+    this.suffixes.push({Suffix : 'Sr.'})
+      this.suffixes.push({Suffix : 'Jr.'})
+      this.suffixes.push({Suffix : 'III'})
+      this.suffixes.push({Suffix : 'IV'})
+      this.suffixes.push({Suffix : 'V'})
+
+      console.log(this.suffixes)
+
   }
  
   onSubmit() {
+ 
 
     const request: any = {
       EmployeeId : 0,
-      Code: this.modalForm.Code.value,
-      Name: this.modalForm.Name.value,
-      Description: this.modalForm.Description.value,
+      FirstName: this.modalForm.FirstName.value,
+      MiddleName: this.modalForm.MiddleName.value,
+      LastName: this.modalForm.LastName.value,
+      Suffix: this.modalForm.Suffix.value,
+      Position: this.modalForm.Position.value,
+      DepartmentId: this.modalForm.DepartmentId.value,
       Adress1: this.modalForm.Adress1.value,
       Adress2: this.modalForm.Adress2.value,
       CountryId: this.modalForm.CountryId.value,
       CityId: this.modalForm.CityId.value,
       Phone: this.modalForm.Phone.value,
-      FAX: this.modalForm.FAX.value,
-      URL: this.modalForm.URL.value,
+      Email: this.modalForm.Email.value,
+ 
     };
 
     if (this.item == null){
@@ -149,6 +184,16 @@ export class EmployeeModalComponent implements OnInit {
 
     this.filteredcities = this.cities.filter(x => x.CountryId == this.modalForm.CountryId.value);
  
+  }
+
+   
+  getsuffix(){
+
+    this.suffixes.push({Suffix : 'Sr.'})
+    this.suffixes.push({Suffix : 'Jr.'})
+    this.suffixes.push({Suffix : 'III'})
+    this.suffixes.push({Suffix : 'IV'})
+    this.suffixes.push({Suffix : 'V'})
   }
 
 

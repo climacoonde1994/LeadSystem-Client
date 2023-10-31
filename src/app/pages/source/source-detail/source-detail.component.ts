@@ -35,7 +35,8 @@ export class SourceDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.sourceService.getById(params['id'])
         .subscribe(response => {
-          this.item = response.data;
+          this.item = response;
+          console.log(this.item)
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })

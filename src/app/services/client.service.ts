@@ -94,7 +94,7 @@ export class ClientService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/client/getById?id=' + id);
+    return this.repositoryHelper.get('api/client/ByClientId/' + id);
   }
 
   public getByCode = (code: string) => {

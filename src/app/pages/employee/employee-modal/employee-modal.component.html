@@ -40,15 +40,11 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="code"> Suffix   </label>
-          <ng-select appearance="outline"    labelForId="Suffix" formControlName="Suffix"   placeholder="Select Suffix"   >
-            <ng-option>Sr.</ng-option>
-            <ng-option>Jr.</ng-option>
-            <ng-option>III</ng-option>
-            <ng-option>IV</ng-option>
-            <ng-option>V</ng-option>
-            <ng-option>VI</ng-option>
+        
+
+          <ng-select appearance="outline" [searchable]="true"  labelForId="Suffix" formControlName="Suffix"   placeholder="Select Suffix"  >
+            <ng-option *ngFor="let suffix of suffixes" [value]="suffix.Suffix">{{ suffix.Suffix }}</ng-option>
           </ng-select>
-         
         </div>
       </div>
       <div class="col-md-12">
@@ -65,6 +61,26 @@
         <div class="form-group">
           <label for="Adress2"> Adress 2 </label>
           <input type="text" class="form-control" formControlName="Adress2" placeholder="Adress2" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="Position">Position <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Position" placeholder="Position" />
+          <span class="text-danger small" *ngIf="!modalForm.Position.valid && modalForm.Position.touched">
+            <span *ngIf="modalForm.Position.hasError('required')  ">City is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="DepartmentId"> Department <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="DepartmentId" formControlName="DepartmentId"   placeholder="Select Department"  (change)="onChange()">
+            <ng-option *ngFor="let department of departments" [value]="department.DepartmentId">{{ department.Name }}</ng-option>
+          </ng-select>
+          <span class="text-danger small" *ngIf="!modalForm.CountryId.valid && modalForm.DepartmentId.touched">
+            <span *ngIf="modalForm.DepartmentId.hasError('required')  ">Country is required.</span>
+          </span>
         </div>
       </div>
       <div class="col-md-6">

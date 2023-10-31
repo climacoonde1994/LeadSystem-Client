@@ -19,6 +19,13 @@ import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-lis
 import { ClientListComponent } from 'src/app/pages/client/client-list/client-list.component';
 import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
 import { EmployeeListComponent } from 'src/app/pages/employee/employee-list/employee-list.component';
+import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source-detail.component';
+import { DepartmentDetailComponent } from 'src/app/pages/department/department-detail/department-detail.component';
+import { CityDetailComponent } from 'src/app/pages/city/city-detail/city-detail.component';
+import { SpecialtyDetailComponent } from 'src/app/pages/specialty/specialty-detail/specialty-detail.component';
+import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-detail/systemtype-detail.component';
+import { ClientDetailComponent } from 'src/app/pages/client/client-detail/client-detail.component';
+import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/employee-detail.component';
  
 
 
@@ -37,13 +44,21 @@ const routes: Routes = [
   { path: 'role-detail/:id', component: RoleDetailComponent },
   { path: 'lead-create', component: LeadCreateComponent },
   { path: 'source-list', component: SourceListComponent },
+  { path: 'source-detail/:id', component: SourceDetailComponent },
   { path: 'department-list', component: DepartmentListComponent },
-  { path: 'country-list', component: CountryListComponent },
-  { path: 'specialty-list', component: SpecialtyListComponent },
-  { path: 'systemtype-list', component: SystemTypeListComponent },
-  { path: 'client-list', component: ClientListComponent },
+  { path: 'department-detail/:id', component: DepartmentDetailComponent },
   { path: 'city-list', component: CityListComponent },
+  { path: 'city-detail/:id', component: CityDetailComponent },
+  { path: 'country-list', component: CountryListComponent },
+  { path: 'country-detail/:id', component: CountryDetailComponent },
+  { path: 'specialty-list', component: SpecialtyListComponent },
+  { path: 'specialty-detail/:id', component: SpecialtyDetailComponent },
+  { path: 'systemtype-list', component: SystemTypeListComponent },
+  { path: 'systemtype-detail/:id', component: SystemTypeDetailComponent },
+  { path: 'client-list', component: ClientListComponent },
+  { path: 'client-detail/:id', component: ClientDetailComponent },
   { path: 'employee-list', component: EmployeeListComponent },
+  { path: 'employee-detail/:id', component: EmployeeDetailComponent },
 ];
 
 export const DashboardLayoutRoutes = RouterModule.forChild(routes);

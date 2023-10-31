@@ -94,7 +94,7 @@ export class SpecialtyService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/specialty/getById?id=' + id);
+    return this.repositoryHelper.get('api/specialty/BySpecialtyId/' + id);
   }
 
   public getByCode = (code: string) => {

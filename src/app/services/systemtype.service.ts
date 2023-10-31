@@ -94,7 +94,7 @@ export class SystemTypeService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/systemtype/getById?id=' + id);
+    return this.repositoryHelper.get('api/systemtype/BySystemTypeId/' + id);
   }
 
   public getByCode = (code: string) => {

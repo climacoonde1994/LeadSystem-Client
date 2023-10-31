@@ -94,7 +94,7 @@ export class CountryService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/country/getById?id=' + id);
+    return this.repositoryHelper.get('api/country/ByCountryId/' + id);
   }
 
   public getByCode = (code: string) => {
