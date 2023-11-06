@@ -73,41 +73,54 @@ export class LeadService {
   }
 
   public loadList = () => {
-   
+    this.getList().subscribe(response => {
+      this.$search.pipe(
+        tap(() => this.$loading.next(true)),
+        debounceTime(200),
+        switchMap(() => this.search(response)),
+        delay(200),
+        tap(() => this.$loading.next(false))
+      ).subscribe(result => {
+        this.$items.next(result.items);
+        this.$total.next(result.total);
+      });
+
+      this.$search.next();
+    });
   }
 
   public getList = () => {
-    return this.repositoryHelper.get('api/lead/getList');
+    return this.repositoryHelper.get('api/leadheader/All');
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/lead/getById?id=' + id);
+    return this.repositoryHelper.get('api/leadheader/getById?id=' + id);
   }
 
   public getByCode = (code: string) => {
-    return this.repositoryHelper.get('api/lead/getByCode?code=' + code);
+    return this.repositoryHelper.get('api/leadheader/getByCode?code=' + code);
   }
 
   
 
   public create = (body: any) => {
-    return this.repositoryHelper.post('api/lead/create', body);
+    return this.repositoryHelper.post('api/leadheader/create', body);
   }
 
   public update = (body: any) => {
-    return this.repositoryHelper.put('api/lead/update', body);
+    return this.repositoryHelper.put('api/leadheader/update', body);
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/lead/delete?id=' + id);
+    return this.repositoryHelper.delete('api/leadheader/delete?id=' + id);
   }
 
   public toggle = (id: number) => {
-    return this.repositoryHelper.put('api/lead/toggle?id=' + id, null);
+    return this.repositoryHelper.put('api/leadheader/toggle?id=' + id, null);
   }
 
   public default = (id: number) => {
-    return this.repositoryHelper.put('api/lead/default?id=' + id, null);
+    return this.repositoryHelper.put('api/leadheader/default?id=' + id, null);
   }
 
 }
