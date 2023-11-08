@@ -1,0 +1,630 @@
+<div class="page-section">
+           
+    <form [formGroup]="modalFormGroup" autocomplete="off" novalidate  >
+        <div class="row mt-3">
+            <div class="col-lg-12">
+              <div class="card card-fluid">
+              
+                <div class="card-header">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-auto">Client </span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <button class="btn btn-info ml-auto mt-4 " (click)="openClientModal()">Select Client</button>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> Client Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Description <span class="text-danger">*</span></label>
+                        <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
+                      </div>
+                    </div>                        
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id"> Address 1 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="Address1" placeholder="Address 1"   />
+                      </div>
+                    </div>
+                                       
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id"> Address 2 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="Address2" placeholder="Address 2"   />
+                      </div>
+                    </div>
+                                       
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> City <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="City" readonly />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Country <span class="text-danger">*</span></label>
+                        <input type="textarea" class="form-control" formControlName="Country" placeholder="Description" />
+                      </div>
+                    </div> 
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> ZIP <span class="text-danger">*</span></label>
+                        <input type="textarea" class="form-control" formControlName="ZIP" placeholder="Description" />
+                      </div>
+                    </div>                           
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> Phone <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="Phone" placeholder="System Generated" readonly />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> FAX <span class="text-danger">*</span></label>
+                        <input type="textarea" class="form-control" formControlName="FAX" placeholder="Description" />
+                      </div>
+                    </div> 
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> URL <span class="text-danger">*</span></label>
+                        <input type="textarea" class="form-control" formControlName="URL" placeholder="Description" />
+                      </div>
+                    </div>                           
+                  </div>
+                  
+                </div>
+                <div class="card-body border-top card-header">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-auto">Highlight</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" formControlName="LeadDate"   />
+                      </div>
+                    </div>  
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Private <span class="text-danger">*</span></label>
+                        <input type="checkbox" class="form-control"    />
+                         
+                      </div>
+                    </div>                        
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> Status <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option  >Active</option>
+                          <option  >Dead</option>
+                          <option  >Solid</option>
+                          <option  >Close</option>
+                       </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Status Comment <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option  >Active Lead</option>
+                          <option  >Long Term</option>
+                          <option  >Email Only</option>
+                          <option  >Old Client</option>
+                       </select>
+                      </div>
+                    </div>  
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Makati TIme <span class="text-danger">*</span></label>
+                        <input type="datetime" class="form-control" />
+                      </div>
+                    </div>  
+                                       
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="id"> Sales Person <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option  >Climaco Onde Jr</option>
+                          <option  >Kenny Rogers</option>
+                          <option  >Whiteny Houston</option>
+                          <option  >Asking Alexandria</option>
+                       </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" formControlName="City" placeholder="Revision Number" />
+                      </div>
+                    </div>  
+                                         
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option>Climaco Onde Jr</option>
+                          <option>Kenny Rogers</option>
+                          <option>Whiteny Houston</option>
+                          <option>Asking Alexandria</option>
+                       </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" formControlName="City" placeholder="Revision Number" />
+                      </div>
+                    </div>  
+                   
+                                         
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> Source <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option  >Internet</option>
+                          <option  >News Paper</option>
+                          <option  >Facebook</option>
+                          <option  >Ads</option>
+                       </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Quality <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option  >Unknown</option>
+                          <option  >Minor Importance</option>
+                          <option  >Important Lead</option>
+                          <option  >Routine Lead</option>
+                          <option  >Hot</option>
+                       </select>
+                      </div>
+                    </div>  
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Likelihood <span class="text-danger">*</span></label>
+                        <select class="form-control" name="status" >
+                          <option  >Unknown</option>
+                          <option  >Normal</option>
+                          <option  >Not Promising</option>
+                          <option  >Promising</option>
+                       </select>
+                      </div>
+                    </div>  
+         
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="id"> Meet Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" formControlName="City" placeholder="System Generated"   />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Time <span class="text-danger">*</span></label>
+                        <input type="time" class="form-control" formControlName="City" placeholder="Revision Number" />
+                       
+                      </div>
+                    </div>  
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="revNo"> Action Needed <span class="text-danger">*</span></label>
+                        <input type="checkbox" class="form-control"   placeholder="Revision Number" />
+                         
+                      </div>
+                    </div>                        
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id"> Remarks <span class="text-danger">*</span></label>
+                        <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
+                         
+                      </div>
+                    </div>
+                                       
+                  </div>
+                </div>
+                <div class="card-body border-top card-header">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-auto">Notes</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="page-section">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="align-middle" style="width: 25%" scope="col" sortable="code"  >Date</th>
+                            <th class="align-middle" style="width: 65%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
+                            <th class="align-middle" style="width: 10%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let note of notes">
+                            <td class="align-middle">{{note.Date  | date}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{note.Description}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"><ngb-highlight></ngb-highlight></td>
+                          </tr>
+                        </tbody>
+                      </table>
+            
+                     
+                    </div>              
+                  </div>
+                </div>
+                <div class="card-body border-top card-header">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-auto">Attachment</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="page-section">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="align-middle" style="width: 75%" scope="col" sortable="code">Proposal</th>
+                            <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openProposalModal()"><i class="fas fa-plus"></i></button></th>
+                        
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="align-middle">This is a sample proposal<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">  
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-eye"></i></button> 
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-pen"></i></button>
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-trash"></i></button>
+                              <ngb-highlight></ngb-highlight>
+                            </td>
+                           
+                          </tr>
+                
+                        </tbody>
+                      </table>
+            
+                     
+                    </div>              
+                  </div>
+
+                  <div class="form-row">
+                    <div class="page-section">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="align-middle" style="width: 75%" scope="col" sortable="code">Document</th>
+                            <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openModal()"><i class="fas fa-plus"></i></button></th>
+                        
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="align-middle"><a  href="">This is a sample Document </a><ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">  
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-eye"></i></button> 
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-pen"></i></button>
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-trash"></i></button>
+                              <ngb-highlight></ngb-highlight>
+                            </td>
+                           
+                          </tr>
+                
+                        </tbody>
+                      </table>
+            
+                     
+                    </div>              
+                  </div>
+                  <div class="form-row">
+                    <div class="page-section">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="align-middle" style="width: 75%" scope="col" sortable="code">Cut and Paste</th>
+                            <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openModal()"><i class="fas fa-plus"></i></button></th>
+                        
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="align-middle"><a  href="">This is a sample cutting and pasting </a><ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">  
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-eye"></i></button> 
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-pen"></i></button>
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-trash"></i></button>
+                              <ngb-highlight></ngb-highlight>
+                            </td>
+                           
+                          </tr>
+                
+                        </tbody>
+                      </table>
+            
+                     
+                    </div>              
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id"> Internet Contact List <span class="text-danger">*</span></label>
+                        <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
+                         
+                      </div>
+                    </div>
+                                       
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id"> Action Notes Needed <span class="text-danger">*</span></label>
+                        <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
+                         
+                      </div>
+                    </div>
+                                       
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id"> Internet Notes <span class="text-danger">*</span></label>
+                        <textarea class="form-control" name="" formControlName="City"  cols="10" rows="5"></textarea>
+                         
+                      </div>
+                    </div>
+                                       
+                  </div>
+                </div>
+                <div class="card-body border-top card-header">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-auto">Contact List</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="page-section">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="align-middle" style="width: 5%" scope="col" sortable="code">Salutation</th>
+                            <th class="align-middle" style="width: 15%" scope="col" sortable="code">First Name</th>
+                            <th class="align-middle" style="width: 15%" scope="col" sortable="code">Last Name</th>
+                            <th class="align-middle" style="width: 5%" scope="col" sortable="code">Status</th>
+                            <th class="align-middle" style="width: 10%" scope="col" sortable="code">Department</th>
+                            <th class="align-middle" style="width: 10%" scope="col" sortable="code">Type</th>
+                            <th class="align-middle" style="width: 20%" scope="col" sortable="code">Email</th>
+                            <th class="align-middle" style="width: 20%" scope="col" sortable="code">Remarks</th>
+                            <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openModal()"><i class="fas fa-plus"></i></button></th>
+                        
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="align-middle"> Engr <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> Climaco <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> Onde <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> Active <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> Defense <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> General <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> climaco.onde10@gmail.com <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle"> Gwapot kaayo <ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">  
+                              <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-trash"></i></button> 
+                              <ngb-highlight></ngb-highlight>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+            
+                     
+                    </div>              
+                  </div>
+                </div>
+                <div class="card-body border-top card-header">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-auto">Specialty</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">WEB</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">MOBILE</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">DESKTOP</label>
+                    </div>
+                    <div class="checkbox-container col-md-2">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">OTHER</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Classic</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">IOs</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Access</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Telehelp</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">.NET</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Android</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">C/C++</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Design</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">.PHP</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Xamarin</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Delphi</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">CRM</label>
+                    </div>
+                  </div>
+                  
+
+
+
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Perl</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Objective C</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">FoxPro</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Store</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Cold Fsn</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Swift</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">JAVA</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Time</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-3 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">.NET MVC</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">XCode</label>
+                    </div>
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">VB6</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">Account</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-6 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">.NET CORE</label>
+                    </div>
+                   
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">.NET</label>
+                    </div>
+                    <div class="checkbox-container col-md-2 ">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">PRTNR</label>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="checkbox-container col-md-6 ml-4">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">LAMP</label>
+                    </div>
+                    
+                    <div class="checkbox-container col-md-3">
+                      <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                      <label for="myCheckbox">WPF</label>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+    </form>
+    
+  </div>

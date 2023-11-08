@@ -22,11 +22,12 @@ export class LeadCreateComponent implements OnInit {
 
   @Input() item: any;
 
+  public mode : boolean = true
+
   public selectedCity : any;
   public selectedCountry : any;
   public cities: any[] = [];
   public countries: any[] = [];
-  
   public notes: any[] = [];
  
  
