@@ -22,7 +22,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.Code.toLowerCase().includes(term.toLowerCase()) || item.Name.toLowerCase().includes(term.toLowerCase() ) || item.Description.toLowerCase().includes(term.toLowerCase() );
+  return item.FirstName.toLowerCase().includes(term.toLowerCase()) || item.LastName.toLowerCase().includes(term.toLowerCase() ) || item.FullName.toLowerCase().includes(term.toLowerCase() );
 }
 
 @Injectable({ providedIn: 'root'})

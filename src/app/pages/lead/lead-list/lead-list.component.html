@@ -46,33 +46,31 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 15%" scope="col" sortable="code" (sort)="onSort($event)">Code</th>
-                <th class="align-middle" style="width: 50%" scope="col" sortable="code" (sort)="onSort($event)">Name</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="LeadNo" (sort)="onSort($event)">Lead No</th>
+                <th class="align-middle" style="width: 20%" scope="col" sortable="ClientName" (sort)="onSort($event)">Client</th>
+                <th class="align-middle" style="width: 10%" scope="col" sortable="LeadDate" (sort)="onSort($event)">Lead Date</th>
+                <th class="align-middle" style="width: 10%" scope="col" sortable="Status" (sort)="onSort($event)">Status</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="dateModified" (sort)="onSort($event)">Date Last Modified</th>
-                <th class="align-middle" style="width: 15%" scope="col" sortable="status" (sort)="onSort($event)">Status</th>
+ 
                 <th class="align-middle" style="width: 5%"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of items | async">
                 <td class="align-middle">
-                  <span><i *ngIf="item.isDefault" class="fas fa-check text-success mr-2"></i></span>
-                <a class="text-success" routerLink="/lead-detail/{{ item.id }}"><ngb-highlight [result]="item.code" [term]="leadService.searchTerm"></ngb-highlight></a>
+                 
+                <a class="text-success" routerLink="/lead-detail/{{ item.LeadNo }}"><ngb-highlight [result]="item.LeadNo" [term]="leadService.searchTerm"></ngb-highlight></a>
                 </td>
-                <td class="align-middle"><ngb-highlight [result]="item.name" [term]="leadService.searchTerm"></ngb-highlight></td>
-                <td class="align-middle">{{ item?.dateModified | dateAgo }}</td>
-                <td class="align-middle">
-                  <span *ngIf="item.isEnabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
-                  <span *ngIf="!item.isEnabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
-                </td>
+                <td class="align-middle"><ngb-highlight [result]="item.ClientName" [term]="leadService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle">{{ item?.LeadDate | date }}</td>
+                <td class="align-middle"><ngb-highlight [result]="item.Status" [term]="leadService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle">{{ item?.CreatedDate | date }}</td>
                 <td class="align-middle text-right">
                   <div class="dropdown">
                     <button class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button>
                     <div class="dropdown-menu dropdown-menu-right">
                       <div class="dropdown-arrow mr-n1"></div>
-                      <div class="dropdown-item" (click)="openDefaultModal(item)"> {{ item?.isDefault ? "Unset as default" : "Set as default" }}  </div>
                       <div class="dropdown-item" (click)="openModal(item)"> Update </div>
-                      <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.isEnabled ? "Disable" : "Enable" }} </div>
                       <div class="dropdown-divider"></div>
                       <div class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
                     </div>

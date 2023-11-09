@@ -54,6 +54,7 @@ import { LeadProposalModalComponent } from 'src/app/pages/lead/lead-proposal-mod
 import { EmployeeListComponent } from 'src/app/pages/employee/employee-list/employee-list.component';
 import { EmployeeModalComponent } from 'src/app/pages/employee/employee-modal/employee-modal.component';
 import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/employee-detail.component';
+import { LeadContactModalComponent } from 'src/app/pages/lead/lead-contact-modal/lead-contact-modal.component';
 
 
 @NgModule({
@@ -74,7 +75,7 @@ import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/
     CountryListComponent, CountryModalComponent, CountryDetailComponent,
     DocumentListComponent, DocumentModalComponent, DocumentDetailComponent,
     StateListComponent, StateModalComponent, StateDetailComponent,
-    LeadListComponent, LeadClientModalComponent, LeadDetailComponent,LeadCreateComponent,
+    LeadListComponent, LeadClientModalComponent, LeadDetailComponent,LeadCreateComponent,LeadContactModalComponent,
     UserListComponent, UserModalComponent, UserDetailComponent,
     RoleListComponent, RoleModalComponent, RoleDetailComponent,
     SourceListComponent, SourceModalComponent, SourceDetailComponent,

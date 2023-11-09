@@ -22,7 +22,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.code.toLowerCase().includes(term.toLowerCase()) || item.name.toLowerCase().includes(term.toLowerCase());
+  return item.Status.toLowerCase().includes(term.toLowerCase()) || item.ClientName.toLowerCase().includes(term.toLowerCase()) || item.LeadNo.toLowerCase().includes(term.toLowerCase())  ;
 }
 
 @Injectable({ providedIn: 'root'})
@@ -104,11 +104,11 @@ export class LeadService {
   
 
   public create = (body: any) => {
-    return this.repositoryHelper.post('api/leadheader/create', body);
+    return this.repositoryHelper.post('api/leadheader/CreateLeadHeader', body);
   }
 
   public update = (body: any) => {
-    return this.repositoryHelper.put('api/leadheader/update', body);
+    return this.repositoryHelper.put('api/leadheader/UpdateLeadHeader', body);
   }
 
   public delete = (id: number) => {

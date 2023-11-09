@@ -23,9 +23,8 @@
       </div>
       <div class="col-md-12">
         <div class="form-group">
-          <label for="code"> MiddleName  <span class="text-danger">*</span></label>
+          <label for="Name"> Middle Name</label>
           <input type="text" class="form-control" formControlName="MiddleName" placeholder="MiddleName" />
-          
         </div>
       </div>
       <div class="col-md-12">
@@ -40,8 +39,6 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="code"> Suffix   </label>
-        
-
           <ng-select appearance="outline" [searchable]="true"  labelForId="Suffix" formControlName="Suffix"   placeholder="Select Suffix"  >
             <ng-option *ngFor="let suffix of suffixes" [value]="suffix.Suffix">{{ suffix.Suffix }}</ng-option>
           </ng-select>
@@ -51,7 +48,6 @@
         <div class="form-group">
           <label for="Adress1"> Adress 1 <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="Adress1" placeholder="Adress1" />
-         
           <span class="text-danger small" *ngIf="!modalForm.Adress1.valid && modalForm.Adress1.touched   ">
             <span *ngIf="modalForm.Adress1.hasError('required') || modalForm.Adress1?.errors">Adress 1 is required.</span>
           </span>

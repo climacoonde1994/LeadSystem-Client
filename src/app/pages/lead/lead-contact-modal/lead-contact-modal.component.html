@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h5 class="modal-title" *ngIf="item != null">Update Employee</h5>
+  <h5 class="modal-title" *ngIf="item == null"> Create New Employee </h5>
+</div>
+<form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="col-md-12" *ngIf="errors">
+        <div class="alert alert-danger" role="alert">
+          <ul class="list-unstyled m-0">
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> Salutation   </label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="Suffix" formControlName="Salutation"   placeholder="Select Suffix"  >
+            <ng-option *ngFor="let salutation of salutations" [value]="salutation.Salutations">{{ salutation.Salutations }}</ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> FirstName  <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="FirstName" placeholder="FirstName" />
+          <span class="text-danger small" *ngIf="!modalForm.FirstName.valid && modalForm.FirstName.touched">
+            <span *ngIf="modalForm.FirstName.hasError('required')  || modalForm.FirstName?.errors ">FirstName is required.</span>
+          </span>
+        </div>
+      </div>
+     
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Name"> Last Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="LastName" placeholder="LastName" />
+          <span class="text-danger small" *ngIf="!modalForm.LastName.valid && modalForm.LastName.touched   ">
+            <span *ngIf="modalForm.LastName.hasError('required') || modalForm.LastName?.errors">Last Name is required.</span>
+          </span>
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <div class="form-group">
+            <label for="id"> Status <span class="text-danger">*</span></label>
+            <select class="form-control" name="status" formControlName="Status" >
+              <option  >Active</option>
+              <option  >Inactive</option>
+           </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="DepartmentId"> Department <span class="text-danger">*</span></label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="DepartmentId" formControlName="DepartmentId"   placeholder="Select Department" (change)="onDepartmentChange($event)"  >
+            <ng-option *ngFor="let department of departments" [value]="department.DepartmentId">{{ department.Name }}</ng-option>
+          </ng-select>
+         
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="DepartmentId"> Type </label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="SystemTypeId" formControlName="DepartmentId"   placeholder="Select Department" (change)="onSystemTypehange($event)"  >
+            <ng-option *ngFor="let systemtype of systemtypes" [value]="systemtype.SystemTypeId">{{ systemtype.Name }}</ng-option>
+          </ng-select>
+          
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="FAX"> Email </label>
+          <input type="text" class="form-control" formControlName="Email" placeholder="Email" />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="FAX"> Remarks </label>
+          <input type="text" class="form-control" formControlName="Remarks" placeholder="Remarks" />
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </div>
+</form>
+

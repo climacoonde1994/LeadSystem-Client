@@ -10,6 +10,9 @@ import { CityService } from 'src/app/services/city.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadNoteModalComponent } from '../lead-note-modal/lead-note-modal.component';
 import { LeadProposalModalComponent } from '../lead-proposal-modal/lead-proposal-modal.component';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { LeadContactModalComponent } from '../lead-contact-modal/lead-contact-modal.component';
+import { LeadService } from 'src/app/services/lead.service';
 
 
 
@@ -29,6 +32,8 @@ export class LeadCreateComponent implements OnInit {
   public cities: any[] = [];
   public countries: any[] = [];
   public notes: any[] = [];
+  public employees: any[] = [];
+  public leadcontacts: any[] = [];
  
  
  
@@ -46,13 +51,16 @@ export class LeadCreateComponent implements OnInit {
     private datepipe: DatePipe,
     private toastHelper: ToastHelper,
     private countryService: CountryService,
-    public activatedRoute: ActivatedRoute
+    private employeeService: EmployeeService,
+    public activatedRoute: ActivatedRoute,
+    public leadService : LeadService,
  
    ) { }
 
   ngOnInit() { 
 
     this.modalFormGroup = this.formBuilder.group({
+      LeadHeaderId :   new FormControl(''),
       ClientId: new FormControl(''),
       ClientName: new FormControl(''),
       Description: new FormControl(''),
@@ -83,9 +91,22 @@ export class LeadCreateComponent implements OnInit {
       InternetContactList : new FormControl(''),
       ActionNeededNotes : new FormControl(''),
       InternetNotes : new FormControl(''),
-
-
     });
+
+
+    
+    this.employeeService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.employees = response
+     
+      },
+      error: response => {
+        
+      }
+    }
+    );
 
     this.countryService.getList()
     .pipe(first())
@@ -116,32 +137,41 @@ export class LeadCreateComponent implements OnInit {
   onSubmit() {
 
 
-    console.log(this.modalForm)
- 
 
 
     const request: any = {
    
-      id: 0,
-      revNo: this.modalForm.revNo.value,
-      purchaseOrderTypeId: this.modalForm.purchaseOrderTypeId.value,
-      exportLicenseId: this.modalForm.exportLicenseId.value,
-      salesDepartmentId: this.modalForm.salesDepartmentId.value,
-      documentId: this.modalForm.documentId.value,
-      vendorId: this.modalForm.vendorId.value,
-      vendorContactId: this.modalForm.vendorContactId.value,
-      vendorReferenceNo: this.modalForm.vendorReferenceNo.value,
-      oANo: this.modalForm.oANo.value,
-      tradeTermId: this.modalForm.tradeTermId.value,
-      paymentTermId: this.modalForm.paymentTermId.value,
-      customerId: this.modalForm.customerId.value,
-      customerReferenceNo: this.modalForm.customerReferenceNo.value,
-      consignee: this.modalForm.consignee.value,
-      endUserId: this.modalForm.endUserId.value,
-      documentOthers: this.modalForm.documentOthers.value,
-      exportLicenseOthers: this.modalForm.exportLicenseOthers.value,
+      LeadId :this.modalForm.LeadId.value,
+      LeadNo :this.modalForm.LeadNo.value,
+      LeadDate :this.modalForm.LeadDate.value,
+      ClientId:this.modalForm.ClientId.value,
+      ClientName:this.modalForm.ClientName.value,
+      Description:this.modalForm.Description.value,
+      Address1:this.modalForm.Address1.value,
+      Address2:this.modalForm.Address2.value,
+      City:this.modalForm.City.value,
+      Country:this.modalForm.Country.value,
+      ZIP:this.modalForm.ZIP.value,
+      FAX:this.modalForm.FAX.value,
+      Phone:this.modalForm.Phone.value,
+      URL :this.modalForm.URL.value,
+      Status :this.modalForm.Status.value,
+      StatusComment :this.modalForm.StatusComment.value,
+      SalesPersonId :this.modalForm.SalesPersonId.value,
+      FollowUpDate :this.modalForm.FollowUpDate.value,
+      SalesPersonId2 :this.modalForm.SalesPersonId2.value,
+      FollowUpDate2 :this.modalForm.FollowUpDate2.value,
+      SourceId :this.modalForm.SourceId.value,
+      Quality :this.modalForm.Quality.value,
+      Likelihood :this.modalForm.Likelihood.value,
+      Comments :this.modalForm.Comments.value,
+      ActionNeeded :this.modalForm.ActionNeeded.value,
+      MeetDate :this.modalForm.MeetDate.value,
+      Remarks :this.modalForm.Remarks.value,
+      InternetContactList :this.modalForm.InternetContactList.value,
+      ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
+      InternetNotes :this.modalForm.InternetNotes.value,
  
-    
     };
    
    
@@ -149,16 +179,61 @@ export class LeadCreateComponent implements OnInit {
  
   }
 
-  openSalesContactModal(id?: number) {
+  saveLeadheader( ) {
+    const request: any = {
+   
+      LeadId :this.modalForm.LeadId.value,
+      LeadNo :this.modalForm.LeadNo.value,
+      LeadDate :this.modalForm.LeadDate.value,
+      ClientId:this.modalForm.ClientId.value,
+      ClientName:this.modalForm.ClientName.value,
+      Description:this.modalForm.Description.value,
+      Address1:this.modalForm.Address1.value,
+      Address2:this.modalForm.Address2.value,
+      City:this.modalForm.City.value,
+      Country:this.modalForm.Country.value,
+      ZIP:this.modalForm.ZIP.value,
+      FAX:this.modalForm.FAX.value,
+      Phone:this.modalForm.Phone.value,
+      URL :this.modalForm.URL.value,
+      Status :this.modalForm.Status.value,
+      StatusComment :this.modalForm.StatusComment.value,
+      SalesPersonId :this.modalForm.SalesPersonId.value,
+      FollowUpDate :this.modalForm.FollowUpDate.value,
+      SalesPersonId2 :this.modalForm.SalesPersonId2.value,
+      FollowUpDate2 :this.modalForm.FollowUpDate2.value,
+      SourceId :this.modalForm.SourceId.value,
+      Quality :this.modalForm.Quality.value,
+      Likelihood :this.modalForm.Likelihood.value,
+      Comments :this.modalForm.Comments.value,
+      ActionNeeded :this.modalForm.ActionNeeded.value,
+      MeetDate :this.modalForm.MeetDate.value,
+      Remarks :this.modalForm.Remarks.value,
+      InternetContactList :this.modalForm.InternetContactList.value,
+      ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
+      InternetNotes :this.modalForm.InternetNotes.value,
+    
+    };
+
+    console.log(request)
+
+    this.leadService.create(request)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+        this.toastHelper.showSuccess("You have successfully created " + response.Name + " employee.");
+         
+      },
+      error: response => {
+        this.errors = response.errors;
+      }
+    });
 
   
   }
 
 
-  openAddressModal(id?: number , type? : any) {
- 
-  }
-
+  
   openClientModal()
   {
  
@@ -182,6 +257,9 @@ export class LeadCreateComponent implements OnInit {
     );
      
   }
+
+
+
 
   openNotesModal()
   {
@@ -275,14 +353,17 @@ export class LeadCreateComponent implements OnInit {
   }
 
  
-  hideElements(field: string, hidden: boolean) {
 
-    if (field == 'exportLicenseOthers') {
-      this.hideExport = hidden
-    }
-    if (field == 'documentOthers') {
-      this.hideDocument = hidden;
-    }
+  openLeadContactModal(item?: any) {
+    const modalRef = this.modalService.open(LeadContactModalComponent);
+ 
+
+    modalRef.result.then(
+      (data: any) => {
+       this.leadcontacts.push(data)
+      }, (reason) => { }
+    );
+    
   }
 
  

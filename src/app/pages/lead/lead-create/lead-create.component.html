@@ -39,26 +39,26 @@
                         <button class="btn btn-info mr-1" (click)="openClientModal()">Close</button>
                       </div>
                       <div *ngIf="mode" >
-                        <button class="btn btn-warning  mr-1  " (click)="openClientModal()">Cancel</button>
-                        <button class="btn btn-success  mr-1  " (click)="openClientModal()">Save</button>
+                        <button class="btn btn-warning  mr-1  " routerLink="/lead-system-list">Cancel</button>
+                        <button class="btn btn-success  mr-1  " (click)="saveLeadheader()">Save</button>
                       </div>
                     </div>
                     
                   </div>
                   <div class="card-body">
                     <div class="form-row">
-                      <div class="col-md-1">
+                      <div class="col-md-1 mt-1">
                         <div class="form-group">
                           <button class="btn btn-info ml-auto mt-4 " (click)="openClientModal()">Select Client</button>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-5">
                         <div class="form-group">
                           <label for="id"> Client Name <span class="text-danger">*</span></label>
                           <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label for="revNo"> Description <span class="text-danger">*</span></label>
                           <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
@@ -74,25 +74,22 @@
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                          <label for="LeadDate"> Lead Date <span class="text-danger">*</span></label>
                           <input type="date" class="form-control" formControlName="LeadDate"   />
                         </div>
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id"> Sales Person <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
-                            <option  >Climaco Onde Jr</option>
-                            <option  >Kenny Rogers</option>
-                            <option  >Whiteny Houston</option>
-                            <option  >Asking Alexandria</option>
-                         </select>
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId"   placeholder="Select Sales Person">
+                            <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
+                          </ng-select>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
                           <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
-                          <input type="date" class="form-control" formControlName="City" placeholder="Revision Number" />
+                          <input type="date" class="form-control" formControlName="FollowUpDate"   />
                         </div>
                       </div>  
                      
@@ -102,7 +99,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label for="id"> Status <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
+                          <select class="form-control" name="status" formControlName="Status" >
                             <option  >Active</option>
                             <option  >Dead</option>
                             <option  >Solid</option>
@@ -112,8 +109,8 @@
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="revNo"> Status Comment <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
+                          <label for="revNo"> Status Comment </label>
+                          <select class="form-control" name="StatusComment"   formControlName="StatusComment">
                             <option  >Active Lead</option>
                             <option  >Long Term</option>
                             <option  >Email Only</option>
@@ -125,18 +122,15 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
-                            <option>Climaco Onde Jr</option>
-                            <option>Kenny Rogers</option>
-                            <option>Whiteny Houston</option>
-                            <option>Asking Alexandria</option>
-                         </select>
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
+                            <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
+                          </ng-select>
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
                           <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
-                          <input type="date" class="form-control" formControlName="City" placeholder="Revision Number" />
+                          <input type="date" class="form-control" formControlName="FollowUpDate2"  />
                         </div>
                       </div>  
                       
@@ -170,25 +164,26 @@
                             <th class="align-middle" style="width: 10%" scope="col" sortable="code">Type</th>
                             <th class="align-middle" style="width: 20%" scope="col" sortable="code">Email</th>
                             <th class="align-middle" style="width: 20%" scope="col" sortable="code">Remarks</th>
-                            <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openModal()"><i class="fas fa-plus"></i></button></th>
+                            <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openLeadContactModal()"><i class="fas fa-plus"></i></button></th>
                         
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="align-middle"> Engr <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> Climaco <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> Onde <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> Active <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> Defense <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> General <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> climaco.onde10@gmail.com <ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle"> Gwapot kaayo <ngb-highlight></ngb-highlight></td>
+                          <tr *ngFor="let leadcontact of leadcontacts">
+                            <td class="align-middle">{{leadcontact.Salutation}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.FirstName}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.LastName}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.Status}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.Department}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.Type}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.Email}}<ngb-highlight></ngb-highlight></td>
+                            <td class="align-middle">{{leadcontact.Remarks}}<ngb-highlight></ngb-highlight></td>
                             <td class="align-middle">  
                               <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-trash"></i></button> 
                               <ngb-highlight></ngb-highlight>
                             </td>
                           </tr>
+                         
                         </tbody>
                       </table>
             
@@ -646,25 +641,26 @@
                               <th class="align-middle" style="width: 10%" scope="col" sortable="code">Type</th>
                               <th class="align-middle" style="width: 20%" scope="col" sortable="code">Email</th>
                               <th class="align-middle" style="width: 20%" scope="col" sortable="code">Remarks</th>
-                              <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openModal()"><i class="fas fa-plus"></i></button></th>
+                              <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openLeadContactModal()"><i class="fas fa-plus"></i></button></th>
                           
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td class="align-middle"> Engr <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> Climaco <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> Onde <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> Active <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> Defense <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> General <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> climaco.onde10@gmail.com <ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> Gwapot kaayo <ngb-highlight></ngb-highlight></td>
+                            <tr *ngFor="let leadcontact of leadcontacts">
+                              <td class="align-middle">{{leadcontact.Salutation}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.FirstName}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.LastName}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.Status}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.Department}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.Type}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.Email}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.Remarks}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">  
                                 <button class="btn btn-info ml-auto mr-1" (click)="openModal()"><i class="fas fa-trash"></i></button> 
                                 <ngb-highlight></ngb-highlight>
                               </td>
                             </tr>
+                           
                           </tbody>
                         </table>
               
