@@ -5,10 +5,9 @@ import { SortDirective, SortEvent } from 'src/app/directives/sort.directive';
 import { LeadService, } from 'src/app/services/lead.service';
 import { LeadDeleteComponent } from '../lead-delete/lead-delete.component';
 import { LeadClientModalComponent } from '../lead-client-modal/lead-client-modal.component';
-import { LeadToggleComponent } from '../lead-toggle/lead-toggle.component';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
-import { LeadDefaultComponent } from '../lead-default/lead-default.component';
+ 
 
 @Component({
   selector: 'app-lead-list',
@@ -61,13 +60,7 @@ export class LeadListComponent implements OnInit {
   }
 
   openToggleModal(item?: any) {
-    const modalRef = this.modalService.open(LeadToggleComponent);
-    modalRef.componentInstance.item = item;
-    modalRef.result.then(
-      (data: any) => {
-        this.loadList();
-      }, (reason) => { }
-    );
+   
   }
 
   openDeleteModal(item?: any) {
@@ -81,13 +74,7 @@ export class LeadListComponent implements OnInit {
   }
 
   openDefaultModal(item?: any) {
-    const modalRef = this.modalService.open(LeadDefaultComponent);
-    modalRef.componentInstance.item = item;
-    modalRef.result.then(
-      (data: any) => {
-        this.loadList();
-      }, (reason) => { }
-    );
+    
   }
    
 

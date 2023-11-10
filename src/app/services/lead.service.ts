@@ -22,7 +22,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.Status.toLowerCase().includes(term.toLowerCase()) || item.ClientName.toLowerCase().includes(term.toLowerCase()) || item.LeadNo.toLowerCase().includes(term.toLowerCase())  ;
+  return item.Status.toLowerCase().includes(term.toLowerCase()) || item.ClientName?.toLowerCase().includes(term.toLowerCase()) || item.LeadNo?.toLowerCase().includes(term.toLowerCase())  ;
 }
 
 @Injectable({ providedIn: 'root'})
@@ -115,12 +115,6 @@ export class LeadService {
     return this.repositoryHelper.delete('api/leadheader/delete?id=' + id);
   }
 
-  public toggle = (id: number) => {
-    return this.repositoryHelper.put('api/leadheader/toggle?id=' + id, null);
-  }
-
-  public default = (id: number) => {
-    return this.repositoryHelper.put('api/leadheader/default?id=' + id, null);
-  }
+  
 
 }

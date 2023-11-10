@@ -39,9 +39,9 @@
                                                 <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-ellipsis-v"></i></button>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                   <div class="dropdown-arrow mr-n1"></div>
-                                                  <div class="dropdown-item" (click)="openDefaultModal(item)"> {{ item?.isDefault ? "Unset as default" : "Set as default" }}  </div>
+                                                
                                                   <div class="dropdown-item" (click)="openModal(item)"> Update </div>
-                                                  <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.isEnabled ? "Disable" : "Enable" }} </div>
+ 
                                                   <div class="dropdown-divider"></div>
                                                   <div class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
                                                 </div>

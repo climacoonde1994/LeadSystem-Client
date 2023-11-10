@@ -24,11 +24,11 @@ import { DocumentService } from 'src/app/services/document.service';
 
 
 @Component({
-  selector: 'app-lead-create',
-  templateUrl: './lead-create.component.html',
-  styleUrls: ['./lead-create.component.css']
+  selector: 'app-lead-update',
+  templateUrl: './lead-update.component.html',
+  styleUrls: ['./lead-update.component.css']
 })
-export class LeadCreateComponent implements OnInit {
+export class LeadUpdateComponent implements OnInit {
 
   @Input() item: any;
 
@@ -234,12 +234,12 @@ export class LeadCreateComponent implements OnInit {
     this.saveLeadProposals(7);
     this.saveLeadCutPastes(7);
     this.saveLeadDocuments(7)
-    // this.leadService.create(request)
+    // this.leadService.update(request)
     // .pipe(first())
     // .subscribe({
     //   next: response => {
        
-    //     this.toastHelper.showSuccess("You have successfully created " + response.LeadNo + " Lead.");
+    //     this.toastHelper.showSuccess("You have successfully updated " + response.LeadNo + " Lead.");
     //     this.saveLeadContact(response.LeadId);
  
     //   },
@@ -260,7 +260,7 @@ export class LeadCreateComponent implements OnInit {
         this.leadcontacts[i].LeadId = leadId;
       }
     
-      this.leadContactService.create(this.leadcontacts)
+      this.leadContactService.update(this.leadcontacts)
       .pipe(first())
       .subscribe({
         next: response => {
@@ -285,7 +285,7 @@ export class LeadCreateComponent implements OnInit {
        this.proposals[i].LeadId = leadId;
      }
    
-     this.proposalService.create(this.proposals)
+     this.proposalService.update(this.proposals)
      .pipe(first())
      .subscribe({
        next: response => {
@@ -307,7 +307,7 @@ export class LeadCreateComponent implements OnInit {
      this.notes[i].LeadId = leadId;
    }
  
-   this.noteService.create(this.notes)
+   this.noteService.update(this.notes)
    .pipe(first())
    .subscribe({
      next: response => {
@@ -329,7 +329,7 @@ saveLeadCutPastes(leadId : any){
      this.cutpastes[i].LeadId = leadId;
    }
  
-   this.cutPasteService.create(this.cutpastes)
+   this.cutPasteService.update(this.cutpastes)
    .pipe(first())
    .subscribe({
      next: response => {
@@ -344,24 +344,7 @@ saveLeadCutPastes(leadId : any){
 
 saveLeadDocuments(leadId : any){
 
-  if(this.documents.length > 0 )
-  {
-
-   for(var i = 0 ; i <  this.documents.length ; i++)
-   {
-    this.selectedFile = <File>this.documents[i].File
-    const formData = new FormData();
-    formData.append('file', this.selectedFile, this.selectedFile.name);
-    
-       
-
-     this.documentService.create(formData,this.selectedFile.name,this.selectedFile.type.split('/')[1] , this.selectedFile.type.split('/')[0] , leadId)
-     .pipe(first())
-     .subscribe( );
-   }
- 
- 
-  }
+   
 }
 
 

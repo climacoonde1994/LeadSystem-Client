@@ -12,21 +12,18 @@
           </ul>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="code"> Date  <span class="text-danger">*</span></label>
-          <input type="date" class="form-control" formControlName="Date" placeholder="Code" />
-        </div>
-      </div>
+       
        
       <div class="col-md-12">
-        <div class="form-group">
-          <label for="Description"> Description <span class="text-danger">*</span></label>
-          <textarea type="text" class="form-control" formControlName="Description" placeholder="Description" rows="5"></textarea>
-          <span class="text-danger small" *ngIf="!modalForm.Description.valid && modalForm.Description.touched">
-            <span *ngIf="modalForm.Description.hasError('required')">Description is required.</span>
-          </span>
-        </div>
+        <h5 class="text-center" for="html">Please specify the type of project</h5><br>
+          <input type="radio" id="prog" name="Radio1" formControlName="Radio1" value="Programming">
+          <label for="html">Programming</label><br>
+          <input type="radio" id="progdesign" name="Radio2" formControlName="Radio2" value="Programming and Design">
+          <label for="css">Programming and Design</label><br>
+          <input type="radio" id="design" name="Radio3" formControlName="Radio3" value="Pure Design">
+          <label for="javascript"> Pure Design</label><br>
+          <input type="radio" id="techsupport" name="Radio4" formControlName="Radio4" value="Technical Support">
+          <label for="javascript"> Technical Support</label>
       </div>
       <div class="col-md-12">
         <div class="form-group">

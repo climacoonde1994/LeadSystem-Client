@@ -6,12 +6,12 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
  
  
 @Component({
-  selector: 'app-lead-proposal-modal',
-  templateUrl: './lead-proposal-modal.component.html',
-  styleUrls: ['./lead-proposal-modal.component.css']
+  selector: 'app-lead-cutpaste-modal',
+  templateUrl: './lead-cutpaste-modal.component.html',
+  styleUrls: ['./lead-cutpaste-modal.component.css']
 })
 
-export class LeadProposalModalComponent implements OnInit {
+export class LeadCutPasteModalComponent implements OnInit {
 
   @Input() item: any;
   public errors: any[];
@@ -25,27 +25,28 @@ export class LeadProposalModalComponent implements OnInit {
   ngOnInit() {
 
     this.modalFormGroup = this.formBuilder.group({
+      CutPasteId : new FormControl(),
       LeadId : new FormControl(),
-      ProposalId: new FormControl(),
-      Radio1: new FormControl(),
-      Radio2: new FormControl(),
-      Radio3: new FormControl(),
-      Radio4: new FormControl(),
-    } 
+      Date: new FormControl('',[Validators.required]),
+      Title: new FormControl('',[Validators.required]),
+      Description:  new FormControl('', [Validators.required]),
+     } 
     );
 
- 
   }
 
   onSubmit() {
 
     const request: any = {
+      CutPasteId : 0,
       LeadId : 0,
-      ProposalId: 0,
-      Proposal: this.modalForm.Radio1.value ?? this.modalForm.Radio2.value ?? this.modalForm.Radio3.value  ??this.modalForm.Radio4.value,
+      Date: this.modalForm.Date.value,
+      Title: this.modalForm.Title.value,
+      Description: this.modalForm.Description.value
     };
-    
-     this.activeModal.close(request);
+ 
+    this.activeModal.close(request);
+
   }
 
   get modalForm() {

@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h5 class="modal-title" *ngIf="item != null">Commentary</h5>
+ 
+</div>
+<form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="col-md-12" *ngIf="errors">
+        <div class="alert alert-danger" role="alert">
+          <ul class="list-unstyled m-0">
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> Date  <span class="text-danger">*</span></label>
+          <input type="date" class="form-control" formControlName="Date" placeholder="Date" />
+          <span class="text-danger small" *ngIf="!modalForm.Date.valid && modalForm.Date.touched">
+            <span *ngIf="modalForm.Date.hasError('required')">Date is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> Title  <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Title" placeholder="Title" />
+          <span class="text-danger small" *ngIf="!modalForm.Title.valid && modalForm.Title.touched">
+            <span *ngIf="modalForm.Title.hasError('required')">Title is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Description"> Communication <span class="text-danger">*</span></label>
+          <textarea type="text" class="form-control" formControlName="Description" placeholder="Description" rows="25"></textarea>
+          <span class="text-danger small" *ngIf="!modalForm.Description.valid && modalForm.Description.touched">
+            <span *ngIf="modalForm.Description.hasError('required')">Communication is required.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </div>
+</form>
+

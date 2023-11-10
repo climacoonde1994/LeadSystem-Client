@@ -47,33 +47,12 @@ export class DocumentModalComponent implements OnInit {
 
     if (this.item == null){
 
-      this.documentService.create(request)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.data.name + " document.");
-          this.activeModal.close();
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      });
+      
     }
     else {
 
       request.id = this.item.id;
- 
-      this.documentService.update(request)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.data.name + " document.");
-          this.activeModal.close();
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      });
+  
     }
 
   }

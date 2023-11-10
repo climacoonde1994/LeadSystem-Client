@@ -55,6 +55,9 @@ import { EmployeeListComponent } from 'src/app/pages/employee/employee-list/empl
 import { EmployeeModalComponent } from 'src/app/pages/employee/employee-modal/employee-modal.component';
 import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/employee-detail.component';
 import { LeadContactModalComponent } from 'src/app/pages/lead/lead-contact-modal/lead-contact-modal.component';
+import { LeadDocumentModalComponent } from 'src/app/pages/lead/lead-document-modal/lead-document-modal.component';
+import { LeadCutPasteModalComponent } from 'src/app/pages/lead/lead-cutpaste-modal/lead-cutpaste-modal.component';
+import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.component';
 
 
 @NgModule({
@@ -75,7 +78,9 @@ import { LeadContactModalComponent } from 'src/app/pages/lead/lead-contact-modal
     CountryListComponent, CountryModalComponent, CountryDetailComponent,
     DocumentListComponent, DocumentModalComponent, DocumentDetailComponent,
     StateListComponent, StateModalComponent, StateDetailComponent,
-    LeadListComponent, LeadClientModalComponent, LeadDetailComponent,LeadCreateComponent,LeadContactModalComponent,
+    LeadListComponent, LeadClientModalComponent, LeadDetailComponent,
+    LeadCreateComponent,LeadContactModalComponent,LeadDocumentModalComponent,
+    LeadCutPasteModalComponent,LeadUpdateComponent,
     UserListComponent, UserModalComponent, UserDetailComponent,
     RoleListComponent, RoleModalComponent, RoleDetailComponent,
     SourceListComponent, SourceModalComponent, SourceDetailComponent,

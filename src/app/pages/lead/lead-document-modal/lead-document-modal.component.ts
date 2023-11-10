@@ -6,17 +6,19 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
  
  
 @Component({
-  selector: 'app-lead-note-modal',
-  templateUrl: './lead-note-modal.component.html',
-  styleUrls: ['./lead-note-modal.component.css']
+  selector: 'app-lead-document-modal',
+  templateUrl: './lead-document-modal.component.html',
+  styleUrls: ['./lead-document-modal.component.css']
 })
 
-export class LeadNoteModalComponent implements OnInit {
+export class LeadDocumentModalComponent implements OnInit {
 
   @Input() item: any;
   public errors: any[];
   public modalFormGroup: FormGroup;
   public regionList: any[];
+  public selectedFile: File = null;
+  public selectedFileName: any = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,22 +27,25 @@ export class LeadNoteModalComponent implements OnInit {
   ngOnInit() {
 
     this.modalFormGroup = this.formBuilder.group({
-      NoteId : new FormControl(),
+      DocumentId : new FormControl(),
       LeadId : new FormControl(),
       Date: new FormControl([Validators.required]),
-      Description:  new FormControl('', [Validators.required]),
+      FileName:  new FormControl('', [Validators.required]),
+      File:  new FormControl('', [Validators.required]),
      } 
     );
 
   }
+  
 
   onSubmit() {
-
+ 
     const request: any = {
-      NoteId : 0,
+      DocumentId : 0,
       LeadId : 0,
       Date: this.modalForm.Date.value,
-      Description: this.modalForm.Description.value
+      FileName: this.modalForm.FileName.value,
+      File: this.selectedFile
     };
  
     this.activeModal.close(request);
@@ -49,6 +54,11 @@ export class LeadNoteModalComponent implements OnInit {
 
   get modalForm() {
     return this.modalFormGroup.controls;
+  }
+
+  onFileSelected(event : any) {
+    this.selectedFile = <File>event.target.files[0];
+
   }
 
 }

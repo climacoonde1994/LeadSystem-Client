@@ -22,12 +22,12 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.code.toLowerCase().includes(term.toLowerCase()) || item.name.toLowerCase().includes(term.toLowerCase());
+  return item.Status.toLowerCase().includes(term.toLowerCase()) || item.ClientName?.toLowerCase().includes(term.toLowerCase()) || item.LeadNo?.toLowerCase().includes(term.toLowerCase())  ;
 }
 
 @Injectable({ providedIn: 'root'})
 
-export class DocumentService {
+export class LeadContactService {
 
   private $loading = new BehaviorSubject<boolean>(true);
   private $search = new Subject<void>();
@@ -77,7 +77,7 @@ export class DocumentService {
       this.$search.pipe(
         tap(() => this.$loading.next(true)),
         debounceTime(200),
-        switchMap(() => this.search(response.data)),
+        switchMap(() => this.search(response)),
         delay(200),
         tap(() => this.$loading.next(false))
       ).subscribe(result => {
@@ -90,37 +90,31 @@ export class DocumentService {
   }
 
   public getList = () => {
-    return this.repositoryHelper.get('api/document/getList');
+    return this.repositoryHelper.get('api/leadcontact/All');
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/document/getById?id=' + id);
+    return this.repositoryHelper.get('api/leadcontact/getById?id=' + id);
   }
 
   public getByCode = (code: string) => {
-    return this.repositoryHelper.get('api/document/getByCode?code=' + code);
+    return this.repositoryHelper.get('api/leadcontact/getByCode?code=' + code);
   }
 
+  
 
-  public create(formData: FormData,filename : string , filetype : string , prefix : string, leadId : string) {
-    return this.repositoryHelper.upload('api/document/'+filename+'/'+filetype+'/'+prefix+'/'+leadId, formData);
+  public create = (body: any) => {
+    return this.repositoryHelper.post('api/leadcontact/CreateLeadContact', body);
   }
 
- 
   public update = (body: any) => {
-    return this.repositoryHelper.put('api/document/update', body);
+    return this.repositoryHelper.put('api/leadcontact/UpdateLeadContact', body);
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/document/delete?id=' + id);
+    return this.repositoryHelper.delete('api/leadcontact/delete?id=' + id);
   }
 
-  public toggle = (id: number) => {
-    return this.repositoryHelper.put('api/document/toggle?id=' + id, null);
-  }
-
-  public default = (id: number) => {
-    return this.repositoryHelper.put('api/document/default?id=' + id, null);
-  }
+  
 
 }
