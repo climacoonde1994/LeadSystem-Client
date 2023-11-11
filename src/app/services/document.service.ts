@@ -97,6 +97,11 @@ export class DocumentService {
     return this.repositoryHelper.get('api/document/getById?id=' + id);
   }
 
+  
+  public getByLeadId = (id: string) => {
+    return this.repositoryHelper.get('api/document/ByLeadId/' + id);
+  }
+
   public getByCode = (code: string) => {
     return this.repositoryHelper.get('api/document/getByCode?code=' + code);
   }

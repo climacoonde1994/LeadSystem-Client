@@ -97,6 +97,10 @@ export class CutPasteService {
     return this.repositoryHelper.get('api/cutpaste/getById?id=' + id);
   }
 
+  public getByLeadId = (id: string) => {
+    return this.repositoryHelper.get('api/cutpaste/ByLeadId/' + id);
+  }
+
   public getByCode = (code: string) => {
     return this.repositoryHelper.get('api/cutpaste/getByCode?code=' + code);
   }

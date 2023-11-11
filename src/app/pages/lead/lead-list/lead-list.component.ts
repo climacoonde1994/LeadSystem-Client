@@ -58,6 +58,7 @@ export class LeadListComponent implements OnInit {
       }, (reason) => { }
     );
   }
+  
 
   openToggleModal(item?: any) {
    

@@ -97,6 +97,10 @@ export class NoteService {
     return this.repositoryHelper.get('api/note/getById?id=' + id);
   }
 
+  public getByLeadId = (id: string) => {
+    return this.repositoryHelper.get('api/note/ByLeadId/' + id);
+  }
+
   public getByCode = (code: string) => {
     return this.repositoryHelper.get('api/note/getByCode?code=' + code);
   }

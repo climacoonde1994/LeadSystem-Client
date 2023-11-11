@@ -192,6 +192,12 @@ export class LeadCreateComponent implements OnInit {
   }
 
   saveLeadheader( ) {
+
+    if(this.validateLeadForm())
+    {
+      
+      return ;
+    }
     const request: any = {
    
       LeadId :this.modalForm.LeadId.value,
@@ -229,24 +235,22 @@ export class LeadCreateComponent implements OnInit {
 
    
    
-    this.saveLeadContact(7);
-    this.saveLeadNotes(7);
-    this.saveLeadProposals(7);
-    this.saveLeadCutPastes(7);
-    this.saveLeadDocuments(7)
-    // this.leadService.create(request)
-    // .pipe(first())
-    // .subscribe({
-    //   next: response => {
-       
-    //     this.toastHelper.showSuccess("You have successfully created " + response.LeadNo + " Lead.");
-    //     this.saveLeadContact(response.LeadId);
- 
-    //   },
-    //   error: response => {
-    //     this.errors = response.errors;
-    //   }
-    // });
+  
+    this.leadService.create(request)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+          this.saveLeadContact(response.LeadId);
+          this.saveLeadNotes(response.LeadId);
+        this.saveLeadProposals(response.LeadId);
+        this.saveLeadCutPastes(response.LeadId);
+        this.saveLeadDocuments(response.LeadId);
+        this.toastHelper.showSuccess("You have successfully created " + response.LeadId + " Lead.");
+      },
+      error: response => {
+        this.errors = response.errors;
+      }
+    });
 
   
   }
@@ -490,6 +494,36 @@ saveLeadDocuments(leadId : any){
     return this.modalFormGroup.controls;
   }
 
+
+  validateLeadForm(){
+    this.errors = [];
+    if(this.checkEmptyStringNull(this.modalForm.LeadDate.value)){
+      this.errors.push('Lead Date is required');
+    }
+    if(this.checkEmptyStringNull(this.modalForm.ClientId.value)){
+      this.errors.push('Client is required');
+    }
+    if(this.checkEmptyStringNull(this.modalForm.Status.value)){
+      this.errors.push('Status is required');
+    }
+    if(this.checkEmptyStringNull(this.modalForm.StatusComment.value)){
+      this.errors.push('Status Comment is required');
+    }
+    if(this.checkEmptyStringNull(this.modalForm.SalesPersonId.value)){
+      this.errors.push('SalesPerson is required');
+    }
+    if(this.checkEmptyStringNull(this.modalForm.FollowUpDate.value)){
+      this.errors.push('FollowUp Date  is required');
+    }
+
+    return this.errors.length > 0;
+    
+  }
+
+  checkEmptyStringNull(data : any)
+  { 
+    return  data == '' || data == null
+  }
  
 
 

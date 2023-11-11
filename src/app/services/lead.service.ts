@@ -93,8 +93,8 @@ export class LeadService {
     return this.repositoryHelper.get('api/leadheader/All');
   }
 
-  public getById = (id: number) => {
-    return this.repositoryHelper.get('api/leadheader/getById?id=' + id);
+  public getById = (id: string) => {
+    return this.repositoryHelper.get('api/leadheader/ByLeadHeaderId/' + id);
   }
 
   public getByCode = (code: string) => {

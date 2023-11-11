@@ -97,6 +97,12 @@ export class ClientService {
     return this.repositoryHelper.get('api/client/ByClientId/' + id);
   }
 
+  public getByLeadId = (id: string) => {
+    return this.repositoryHelper.get('api/client/ByLeadId/' + id);
+  }
+
+  
+
   public getByCode = (code: string) => {
     return this.repositoryHelper.get('api/client/getByCode?code=' + code);
   }

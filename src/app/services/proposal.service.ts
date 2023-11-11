@@ -97,6 +97,10 @@ export class ProposalService {
     return this.repositoryHelper.get('api/proposal/getById?id=' + id);
   }
 
+  public getByLeadId = (id: string) => {
+    return this.repositoryHelper.get('api/proposal/ByLeadId/' + id);
+  }
+
   public getByCode = (code: string) => {
     return this.repositoryHelper.get('api/proposal/getByCode?code=' + code);
   }

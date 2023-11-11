@@ -21,6 +21,7 @@
                     <h4 class="m-0"> Create Lead </h4>
                   </div>
               </div>
+              
           </header>
 
           
@@ -29,8 +30,18 @@
             <ul ngbNav #nav="ngbNav" [activeId]="activatedRoute.fragment | async" class="nav-tabs">
               <li ngbNavItem="information">
                 <a ngbNavLink routerLink="." fragment="information">Information</a>
+                
                 <ng-template ngbNavContent>
                   <div class="card-body border-top card-header">
+                    <div class="form-row">
+                      <div class="col-md-12" *ngIf="errors">
+                        <div class="alert alert-danger" role="alert">
+                          <ul class="list-unstyled m-0">
+                            <li *ngFor="let error of errors">{{ error }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Highlight</span>
                       <div *ngIf="!mode" >
@@ -54,13 +65,13 @@
                       </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label for="id"> Client Name <span class="text-danger">*</span></label>
+                          <label for="id"> Client Name </label>
                           <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="revNo"> Description <span class="text-danger">*</span></label>
+                          <label for="revNo"> Description </label>
                           <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
                         </div>
                       </div>                        
@@ -68,19 +79,19 @@
                     <div class="form-row">
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                          <label for="id"> Lead Number </label>
                           <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="LeadDate"> Lead Date <span class="text-danger">*</span></label>
+                          <label for="LeadDate"> Lead Date </label>
                           <input type="date" class="form-control" formControlName="LeadDate"   />
                         </div>
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Sales Person <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person </label>
                           <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId"   placeholder="Select Sales Person">
                             <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
                           </ng-select>
@@ -88,7 +99,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate"   />
                         </div>
                       </div>  
@@ -98,7 +109,7 @@
                     <div class="form-row">
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="id"> Status <span class="text-danger">*</span></label>
+                          <label for="id"> Status </label>
                           <select class="form-control" name="status" formControlName="Status" >
                             <option  >Active</option>
                             <option  >Dead</option>
@@ -121,7 +132,7 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person 2 </label>
                           <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
                             <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
                           </ng-select>
@@ -129,7 +140,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date 2 </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate2"  />
                         </div>
                       </div>  
@@ -141,7 +152,7 @@
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="id"> Remarks <span class="text-danger">*</span></label>
+                          <label for="id"> Remarks </label>
                           <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
                            
                         </div>
@@ -207,19 +218,19 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                          <label for="id"> Lead Number </label>
                           <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                          <label for="revNo"> Lead Date </label>
                           <input type="date" class="form-control" formControlName="LeadDate"   />
                         </div>
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Private <span class="text-danger">*</span></label>
+                          <label for="revNo"> Private </label>
                           <input type="checkbox" class="form-control"    />
                            
                         </div>
@@ -228,7 +239,7 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Status <span class="text-danger">*</span></label>
+                          <label for="id"> Status </label>
                           <select class="form-control" name="status" >
                             <option  >Active</option>
                             <option  >Dead</option>
@@ -239,7 +250,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Status Comment <span class="text-danger">*</span></label>
+                          <label for="revNo"> Status Comment </label>
                           <select class="form-control" name="status" >
                             <option  >Active Lead</option>
                             <option  >Long Term</option>
@@ -251,7 +262,7 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Makati TIme <span class="text-danger">*</span></label>
+                          <label for="revNo"> Makati TIme </label>
                           <input type="datetime" class="form-control" />
                         </div>
                       </div>  
@@ -260,7 +271,7 @@
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="id"> Sales Person <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person </label>
                           <select class="form-control" name="status" >
                             <option  >Climaco Onde Jr</option>
                             <option  >Kenny Rogers</option>
@@ -271,7 +282,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate"   />
                         </div>
                       </div>  
@@ -280,7 +291,7 @@
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person 2 </label>
                           <select class="form-control" name="status" >
                             <option>Climaco Onde Jr</option>
                             <option>Kenny Rogers</option>
@@ -291,7 +302,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date 2 </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate2" placeholder="Revision Number" />
                         </div>
                       </div>  
@@ -301,7 +312,7 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Source <span class="text-danger">*</span></label>
+                          <label for="id"> Source </label>
                           <select class="form-control" name="status" >
                             <option  >Internet</option>
                             <option  >News Paper</option>
@@ -312,7 +323,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Quality <span class="text-danger">*</span></label>
+                          <label for="revNo"> Quality </label>
                           <select class="form-control" name="status" >
                             <option  >Unknown</option>
                             <option  >Minor Importance</option>
@@ -324,7 +335,7 @@
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Likelihood <span class="text-danger">*</span></label>
+                          <label for="revNo"> Likelihood </label>
                           <select class="form-control" name="status" >
                             <option  >Unknown</option>
                             <option  >Normal</option>
@@ -338,20 +349,20 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Meet Date <span class="text-danger">*</span></label>
+                          <label for="id"> Meet Date </label>
                           <input type="date" class="form-control" formControlName="MeetDate" placeholder="System Generated"   />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Time <span class="text-danger">*</span></label>
+                          <label for="revNo"> Time </label>
                           <input type="time" class="form-control" formControlName="Remarks" placeholder="Revision Number" />
                          
                         </div>
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Action Needed <span class="text-danger">*</span></label>
+                          <label for="revNo"> Action Needed </label>
                           <input type="checkbox" class="form-control"   placeholder="Revision Number" />
                            
                         </div>
@@ -360,7 +371,7 @@
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="id"> Remarks <span class="text-danger">*</span></label>
+                          <label for="id"> Remarks </label>
                           <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
                            
                         </div>
@@ -555,13 +566,13 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Client Name <span class="text-danger">*</span></label>
+                          <label for="id"> Client Name </label>
                           <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Description <span class="text-danger">*</span></label>
+                          <label for="revNo"> Description  </label>
                           <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
                         </div>
                       </div>                        
@@ -569,7 +580,7 @@
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="id"> Address 1 <span class="text-danger">*</span></label>
+                          <label for="id"> Address 1  </label>
                           <input type="text" class="form-control" formControlName="Address1" placeholder="Address 1"   />
                         </div>
                       </div>
@@ -578,7 +589,7 @@
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="id"> Address 2 <span class="text-danger">*</span></label>
+                          <label for="id"> Address 2 </label>
                           <input type="text" class="form-control" formControlName="Address2" placeholder="Address 2"   />
                         </div>
                       </div>
@@ -587,19 +598,19 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> City <span class="text-danger">*</span></label>
+                          <label for="id"> City </label>
                           <input type="text" class="form-control" formControlName="City" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Country <span class="text-danger">*</span></label>
+                          <label for="revNo"> Country </label>
                           <input type="textarea" class="form-control" formControlName="Country" placeholder="Description" />
                         </div>
                       </div> 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> ZIP <span class="text-danger">*</span></label>
+                          <label for="revNo"> ZIP </label>
                           <input type="textarea" class="form-control" formControlName="ZIP" placeholder="Description" />
                         </div>
                       </div>                           
@@ -607,19 +618,19 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Phone <span class="text-danger">*</span></label>
+                          <label for="id"> Phone </label>
                           <input type="text" class="form-control" formControlName="Phone" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> FAX <span class="text-danger">*</span></label>
+                          <label for="revNo"> FAX </label>
                           <input type="textarea" class="form-control" formControlName="FAX" placeholder="Description" />
                         </div>
                       </div> 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> URL <span class="text-danger">*</span></label>
+                          <label for="revNo"> URL </label>
                           <input type="textarea" class="form-control" formControlName="URL" placeholder="Description" />
                         </div>
                       </div>                           

@@ -20,6 +20,7 @@ import { LeadCutPasteModalComponent } from '../lead-cutpaste-modal/lead-cutpaste
 import { CutPasteService } from 'src/app/services/cutpaste.service';
 import { ProposalService } from 'src/app/services/proposal.service';
 import { DocumentService } from 'src/app/services/document.service';
+import { ClientService } from 'src/app/services/client.service';
 
 
 
@@ -32,7 +33,8 @@ export class LeadUpdateComponent implements OnInit {
 
   @Input() item: any;
 
-  public mode : boolean = true
+  public mode : boolean = true;
+  public LeadId : string = '';
 
   public selectedCity : any;
   public selectedCountry : any;
@@ -47,6 +49,7 @@ export class LeadUpdateComponent implements OnInit {
   public cutpastes: any[] = [];
   public selectedFile: File = null;
 
+  public LeadHeader : any = {};
  
  
  
@@ -60,7 +63,6 @@ export class LeadUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private cityService: CityService,
-    private datepipe: DatePipe,
     private toastHelper: ToastHelper,
     private countryService: CountryService,
     private employeeService: EmployeeService,
@@ -70,12 +72,12 @@ export class LeadUpdateComponent implements OnInit {
     public noteService : NoteService,
     public proposalService : ProposalService,
     public cutPasteService : CutPasteService,
-    public documentService : DocumentService
+    public documentService : DocumentService,
+    public clientService : ClientService
     
    ) { }
 
   ngOnInit() { 
-
     this.modalFormGroup = this.formBuilder.group({
       LeadHeaderId :   new FormControl(''),
       ClientId: new FormControl(''),
@@ -110,8 +112,9 @@ export class LeadUpdateComponent implements OnInit {
       InternetNotes : new FormControl(''),
     });
 
+    this.LeadId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    
+        
     this.employeeService.getList()
     .pipe(first())
     .subscribe({
@@ -149,47 +152,139 @@ export class LeadUpdateComponent implements OnInit {
     }
     );
  
+
+    this.leadService.getById(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: data => {
+
+          this.modalFormGroup.get('LeadId').setValue(data.LeadId);
+          this.modalFormGroup.get('ClientId').setValue(data.ClientId);
+          this.modalFormGroup.get('LeadNo').setValue(data.LeadNo);
+          this.modalFormGroup.get('LeadDate').setValue(data.LeadDate);
+          this.modalFormGroup.get('Status').setValue(data.Status);
+          this.modalFormGroup.get('StatusComment').setValue(data.StatusComment);
+          this.modalFormGroup.get('SalesPersonId').setValue(data.SalesPersonId);
+          this.modalFormGroup.get('FollowUpDate').setValue(data.FollowUpDate);
+          this.modalFormGroup.get('SalesPersonId2').setValue(data.SalesPersonI2d);
+          this.modalFormGroup.get('FollowUpDate2').setValue(data.FollowUpDate2);
+          this.modalFormGroup.get('SourceId').setValue(data.SourceId);
+          this.modalFormGroup.get('Quality').setValue(data.Quality);
+          this.modalFormGroup.get('Likelihood').setValue(data.Likelihood);
+          this.modalFormGroup.get('Comments').setValue(data.Comments);
+          this.modalFormGroup.get('ActionNeeded').setValue(data.ActionNeeded);
+          this.modalFormGroup.get('MeetDate').setValue(data.MeetDate);
+          this.modalFormGroup.get('Remarks').setValue(data.Remarks);
+          this.modalFormGroup.get('InternetContactList').setValue(data.InternetContactList);
+          this.modalFormGroup.get('ActionNeededNotes').setValue(data.ActionNeededNotes);
+          this.modalFormGroup.get('InternetNotes').setValue(data.InternetNotes);
+
+        
+        },
+        error: response => {
+          this.errors = response.errors;
+        }
+      });
+
+      this.clientService.getByLeadId(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: data => {
+
+          this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
+          this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
+          this.modalFormGroup.get('ClientName').setValue(data.Name);
+          this.modalFormGroup.get('Description').setValue(data.Description);
+          this.modalFormGroup.get('Address1').setValue(data.Adress1);
+          this.modalFormGroup.get('Address2').setValue(data.Adress2);
+          this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
+          this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
+          this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
+          this.modalFormGroup.get('Phone').setValue(data.Phone);
+          this.modalFormGroup.get('FAX').setValue(data.FAX);
+          this.modalFormGroup.get('URL').setValue(data.URL);
+          this.modalFormGroup.get('ClientId').setValue(data.ClientId);
+
+     
+        },
+        error: response => {
+          this.errors = response.errors;
+        }
+      });
+
+      this.leadContactService.getByLeadId(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: response => {
+        this.leadcontacts = response
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
+      this.noteService.getByLeadId(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: response => {
+        console.log(this.notes)
+        this.notes = response
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
+      this.proposalService.getByLeadId(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: response => {
+         
+        this.proposals = response
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
+      this.documentService.getByLeadId(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: response => {
+         
+        this.documents = response
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
+      this.cutPasteService.getByLeadId(this.LeadId)
+      .pipe(first())
+      .subscribe({
+        next: response => {
+         
+        this.cutpastes = response
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
+       
+
+    
+
+
+
   }
 
-  onSubmit() {
-    const request: any = {
-      LeadId :this.modalForm.LeadId.value,
-      LeadNo :this.modalForm.LeadNo.value,
-      LeadDate :this.modalForm.LeadDate.value,
-      ClientId:this.modalForm.ClientId.value,
-      ClientName:this.modalForm.ClientName.value,
-      Description:this.modalForm.Description.value,
-      Address1:this.modalForm.Address1.value,
-      Address2:this.modalForm.Address2.value,
-      City:this.modalForm.City.value,
-      Country:this.modalForm.Country.value,
-      ZIP:this.modalForm.ZIP.value,
-      FAX:this.modalForm.FAX.value,
-      Phone:this.modalForm.Phone.value,
-      URL :this.modalForm.URL.value,
-      Status :this.modalForm.Status.value,
-      StatusComment :this.modalForm.StatusComment.value,
-      SalesPersonId :this.modalForm.SalesPersonId.value,
-      FollowUpDate :this.modalForm.FollowUpDate.value,
-      SalesPersonId2 :this.modalForm.SalesPersonId2.value,
-      FollowUpDate2 :this.modalForm.FollowUpDate2.value,
-      SourceId :this.modalForm.SourceId.value,
-      Quality :this.modalForm.Quality.value,
-      Likelihood :this.modalForm.Likelihood.value,
-      Comments :this.modalForm.Comments.value,
-      ActionNeeded :this.modalForm.ActionNeeded.value,
-      MeetDate :this.modalForm.MeetDate.value,
-      Remarks :this.modalForm.Remarks.value,
-      InternetContactList :this.modalForm.InternetContactList.value,
-      ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
-      InternetNotes :this.modalForm.InternetNotes.value,
  
-    };
-   
-   
- 
- 
-  }
 
   saveLeadheader( ) {
     const request: any = {
@@ -229,25 +324,8 @@ export class LeadUpdateComponent implements OnInit {
 
    
    
-    this.saveLeadContact(7);
-    this.saveLeadNotes(7);
-    this.saveLeadProposals(7);
-    this.saveLeadCutPastes(7);
-    this.saveLeadDocuments(7)
-    // this.leadService.update(request)
-    // .pipe(first())
-    // .subscribe({
-    //   next: response => {
-       
-    //     this.toastHelper.showSuccess("You have successfully updated " + response.LeadNo + " Lead.");
-    //     this.saveLeadContact(response.LeadId);
+    
  
-    //   },
-    //   error: response => {
-    //     this.errors = response.errors;
-    //   }
-    // });
-
   
   }
 
