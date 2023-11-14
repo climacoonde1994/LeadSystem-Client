@@ -3,4 +3,8 @@
     display: flex;
     align-items: center;
 }
+
+.hover-item:hover {
+    background-color: skyblue;
+}
  

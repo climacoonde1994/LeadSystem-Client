@@ -129,7 +129,6 @@
                          </select>
                         </div>
                       </div>  
-
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id"> Sales Person 2 </label>
@@ -143,11 +142,7 @@
                           <label for="revNo"> Follow Up Date 2 </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate2"  />
                         </div>
-                      </div>  
-                      
-
-                     
-                                         
+                      </div>                 
                     </div>
                     <div class="form-row">
                       <div class="col-md-6">
@@ -156,11 +151,13 @@
                           <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
                            
                         </div>
-                      </div>
-                                     
-                                           
+                      </div>                     
                     </div>
-                
+                  </div>
+                  <div class="card-body border-top card-header">
+                    <div class="d-flex align-items-center">
+                      <span class="mr-auto">Contact List</span>
+                    </div>
                   </div>
                   <div class="form-row">
                     <div class="page-section">
@@ -313,18 +310,16 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id"> Source </label>
-                          <select class="form-control" name="status" >
-                            <option  >Internet</option>
-                            <option  >News Paper</option>
-                            <option  >Facebook</option>
-                            <option  >Ads</option>
-                         </select>
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SourceId" formControlName="SourceId"   placeholder="Select Source">
+                            <ng-option *ngFor="let source of sources" [value]="source.SourceId">{{ source.Name }}</ng-option>
+                          </ng-select>
+                        
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> Quality </label>
-                          <select class="form-control" name="status" >
+                          <select class="form-control" name="status" formControlName="Quality" >
                             <option  >Unknown</option>
                             <option  >Minor Importance</option>
                             <option  >Important Lead</option>
@@ -336,7 +331,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> Likelihood </label>
-                          <select class="form-control" name="status" >
+                          <select class="form-control" name="status" formControlName="Likelihood">
                             <option  >Unknown</option>
                             <option  >Normal</option>
                             <option  >Not Promising</option>
@@ -363,7 +358,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> Action Needed </label>
-                          <input type="checkbox" class="form-control"   placeholder="Revision Number" />
+                          <input type="checkbox" class="form-control"   placeholder="Revision Number"  formControlName="ActionNeeded" />
                            
                         </div>
                       </div>                        

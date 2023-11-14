@@ -27,7 +27,7 @@ export class LeadNoteModalComponent implements OnInit {
     this.modalFormGroup = this.formBuilder.group({
       NoteId : new FormControl(),
       LeadId : new FormControl(),
-      Date: new FormControl([Validators.required]),
+      Date: new FormControl('',[Validators.required]),
       Description:  new FormControl('', [Validators.required]),
      } 
     );

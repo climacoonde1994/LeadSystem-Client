@@ -20,6 +20,8 @@ import { LeadCutPasteModalComponent } from '../lead-cutpaste-modal/lead-cutpaste
 import { CutPasteService } from 'src/app/services/cutpaste.service';
 import { ProposalService } from 'src/app/services/proposal.service';
 import { DocumentService } from 'src/app/services/document.service';
+import { SpecialtyService } from 'src/app/services/specialty.service';
+import { SourceService } from 'src/app/services/source.service';
 
 
 
@@ -39,6 +41,8 @@ export class LeadCreateComponent implements OnInit {
   public cities: any[] = [];
   public countries: any[] = [];
   public employees: any[] = [];
+  public specialties: any[] = [];
+  public sources: any[] = [];
 
   public notes: any[] = [];
   public leadcontacts: any[] = [];
@@ -70,7 +74,9 @@ export class LeadCreateComponent implements OnInit {
     public noteService : NoteService,
     public proposalService : ProposalService,
     public cutPasteService : CutPasteService,
-    public documentService : DocumentService
+    public documentService : DocumentService,
+    public specialtyService : SpecialtyService,
+    public sourceService : SourceService
     
    ) { }
 
@@ -148,6 +154,18 @@ export class LeadCreateComponent implements OnInit {
       }
     }
     );
+
+    this.sourceService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.sources = response
+      },
+      error: response => {
+      }
+    }
+    );
+
  
   }
 

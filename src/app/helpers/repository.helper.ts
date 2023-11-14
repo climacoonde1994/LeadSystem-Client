@@ -9,7 +9,7 @@ export class RepositoryHelper {
   constructor(private httpClient: HttpClient, private environmentHelper: EnvironmentHelper) { }
 
   public get = (route: string) => {
-    return this.httpClient.get<any>(this.createCompleteRoute(route, this.environmentHelper.url));
+    return this.httpClient.get<any>(this.createCompleteRoute(route, this.environmentHelper.url)  );
   }
 
   public post = (route: string, body: any) => {
@@ -28,18 +28,42 @@ export class RepositoryHelper {
     return this.httpClient.post<any>(this.createCompleteRoute(route, this.environmentHelper.url), body, this.generateContentHeaders());
   }
 
+  public download = (route: string) => {
+    return this.httpClient.get<any>(this.createCompleteRoute(route, this.environmentHelper.url) );
+  }
+
+ 
+  
+
   private createCompleteRoute = (route: string, url: string) => {
     return `${url}/${route}`;
   }
 
 
+
+
   private generateHeaders = () => {
     return {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
+      headers: new HttpHeaders({'Content-Type': 'application/json'} )
+     
     }
   }
 
+  private generateHeaders2 = () => {
+    return {
+      headers: new HttpHeaders({'Content-Type': 'application/json'} ), responseType: 'blob'
+     
+    }
+  }
+  
+
   private generateContentHeaders = () => {
+    return {
+      headers: new HttpHeaders({ 'Content-Disposition' : 'multipart/form-data' })
+    }
+  }
+
+  private generateFileHeaders = () => {
     return {
       headers: new HttpHeaders({ 'Content-Disposition' : 'multipart/form-data' })
     }

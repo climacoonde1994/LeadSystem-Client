@@ -29,7 +29,7 @@
             </div>
             <div class="col">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="input-group has-spinner">
                         <span class="spinner-border spinner-border-sm text-info show" *ngIf="leadService.loading | async"></span>
                         <div class="input-group-prepend">
@@ -41,6 +41,50 @@
               </div>
             </div>
           </div>
+          <div class="row mt-1">
+            <div class="col-auto d-none d-sm-flex mt-2">
+              <h6 class="m-1  "> Exclude </h6>
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col-md-6">
+                  
+                      <ng-select 
+                      [items]="statusList" 
+                      bindLabel="status_name" 
+                      bindValue=""
+                      [multiple]="true" 
+                      [(ngModel)]="leadService.excludeTerm" 
+                      (change)="onSelectCompany($event)" 
+                      name="statusArray"
+                      required> 
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-auto d-none d-sm-flex mt-2">
+              <h6 class="m-1  "> Employee </h6>
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col-md-6">
+                      <ng-select 
+                      [items]="emplyeeList" 
+                      bindLabel="FullName" 
+                      bindValue="EmployeeId"
+                      [multiple]="true" 
+                      [(ngModel)]="leadService.employeeTerm" 
+                      (change)="onSelectCompany($event)" 
+                      name="statusArray"
+                      required> 
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </header>
         <div class="page-section">
           <table class="table table-striped">

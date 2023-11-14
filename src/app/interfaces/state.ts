@@ -7,3 +7,14 @@ export interface State {
   sortColumn: SortColumn;
   sortDirection: SortDirection;
 }
+
+export interface LeadState {
+  page: number;
+  pageSize: number;
+  searchTerm: string;
+  excludeTerm: any[],
+  employeeTerm: any[],
+  sortColumn: SortColumn;
+  sortDirection: SortDirection;
+}
+

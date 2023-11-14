@@ -5,7 +5,7 @@ import { debounceTime, delay, switchMap, tap} from 'rxjs/operators';
 import { SortColumn, SortDirection } from '../directives/sort.directive';
 import { RepositoryHelper } from '../helpers/repository.helper';
 import { SearchResult } from '../interfaces/search-result';
-import { State } from '../interfaces/state'
+import { State,LeadState } from '../interfaces/state'
 
 
 const compare = (v1: string | number | boolean | Date, v2: string | number | boolean | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
@@ -21,9 +21,19 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
   }
 }
 
-function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.Status.toLowerCase().includes(term.toLowerCase()) || item.ClientName?.toLowerCase().includes(term.toLowerCase()) || item.LeadNo?.toLowerCase().includes(term.toLowerCase())  ;
-}
+function matches(item: any, term: string, excludeTerm : any[],employeeTerm : any[], pipe: PipeTransform) {
+ 
+
+ console.log(item)
+
+   return (excludeTerm.length > 0 ? !excludeTerm.includes(item.Status) : true) &&
+          (employeeTerm.length > 0 ? employeeTerm.includes(item.SalesPersonId) : true) &&
+         (
+          item.ClientName?.toLowerCase().includes(term.toLowerCase()) || 
+          item.LeadNo?.toLowerCase().includes(term.toLowerCase())|| 
+          item.Status?.toLowerCase().includes(term.toLowerCase())
+         );
+ }
 
 @Injectable({ providedIn: 'root'})
 
@@ -34,17 +44,19 @@ export class LeadService {
   private $items = new BehaviorSubject<any[]>([]);
   private $total = new BehaviorSubject<number>(0);
 
-  private $state: State  = {
+  private $state: LeadState  = {
     page: 1,
     pageSize: 10,
     searchTerm: '',
+    excludeTerm: [],
+    employeeTerm: [],
     sortColumn: '',
     sortDirection: ''
   };
 
   constructor(private repositoryHelper: RepositoryHelper, private decimalPipe: DecimalPipe) { }
 
-  private _set(patch: Partial<State>) {
+  private _set(patch: Partial<LeadState>) {
     Object.assign(this.$state, patch);
     this.$search.next();
   }
@@ -55,18 +67,24 @@ export class LeadService {
   get page() { return this.$state.page; }
   get pageSize() { return this.$state.pageSize; }
   get searchTerm() { return this.$state.searchTerm; }
+  get excludeTerm() { return this.$state.excludeTerm; }
+  get employeeTerm() { return this.$state.employeeTerm; }
+  
 
   set page(page: number) { this._set({page}); }
   set pageSize(pageSize: number) { this._set({pageSize}); }
   set searchTerm(searchTerm: string) { this._set({searchTerm}); }
+  set excludeTerm(excludeTerm: any[]) { this._set({excludeTerm}); }
   set sortColumn(sortColumn: SortColumn) { this._set({sortColumn}); }
   set sortDirection(sortDirection: SortDirection) { this._set({sortDirection}); }
+  set employeeTerm(employeeTerm: any[]) { this._set({employeeTerm}); }
 
   private search(items: any[]): Observable<SearchResult> {
 
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this.$state;
     items = sort(items, sortColumn, sortDirection);
-    items = items.filter(item => matches(item, searchTerm, this.decimalPipe));
+    items = items.filter(item => matches(item, searchTerm, this.excludeTerm, this.employeeTerm,this.decimalPipe));
+
     let total = items.length;
     items = items.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({items, total});
@@ -101,8 +119,6 @@ export class LeadService {
     return this.repositoryHelper.get('api/leadheader/getByCode?code=' + code);
   }
 
-  
-
   public create = (body: any) => {
     return this.repositoryHelper.post('api/leadheader/CreateLeadHeader', body);
   }
@@ -114,7 +130,5 @@ export class LeadService {
   public delete = (id: number) => {
     return this.repositoryHelper.delete('api/leadheader/delete?id=' + id);
   }
-
-  
 
 }

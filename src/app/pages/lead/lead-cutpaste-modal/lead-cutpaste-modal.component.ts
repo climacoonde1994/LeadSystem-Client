@@ -33,6 +33,8 @@ export class LeadCutPasteModalComponent implements OnInit {
      } 
     );
 
+    this.modalFormGroup.patchValue(this.item);
+
   }
 
   onSubmit() {

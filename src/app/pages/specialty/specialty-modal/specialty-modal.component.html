@@ -25,10 +25,17 @@
         <div class="form-group">
           <label for="Name"> Name <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="Name" placeholder="Name" />
-         
           <span class="text-danger small" *ngIf="!modalForm.Name.valid && modalForm.Name.touched   ">
             <span *ngIf="modalForm.Name.hasError('required') || modalForm.Name?.errors">Name is required.</span>
           </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="code"> Category   </label>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="Suffix" formControlName="Category"   placeholder="Select Category"  >
+            <ng-option *ngFor="let category of categories" [value]="category">{{ category }}</ng-option>
+          </ng-select>
         </div>
       </div>
       <div class="col-md-12">

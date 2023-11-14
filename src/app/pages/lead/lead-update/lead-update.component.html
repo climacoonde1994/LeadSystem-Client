@@ -18,7 +18,7 @@
                   </div>
                   <div class="col pl-1 justify-content-center align-self-center">
                     <span class="text-muted m-0"> Lead Management </span>
-                    <h4 class="m-0"> Create Lead </h4>
+                    <h4 class="m-0"> Update Lead </h4>
                   </div>
               </div>
           </header>
@@ -34,9 +34,9 @@
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Highlight</span>
                       <div   >
-                        <button class="btn btn-primary  mr-1  " (click)="openClientModal()">Solid</button>
-                        <button class="btn btn-danger mr-1  " (click)="openClientModal()">Dead</button>
-                        <button class="btn btn-info mr-1" (click)="openClientModal()">Close</button>
+                        <button class="btn btn-primary  mr-1  " (click)="setStatus('Solid')">Set as Solid </button>
+                        <button class="btn btn-danger mr-1  " (click)="setStatus('Dead')">Set as Dead</button>
+                        <button class="btn btn-info mr-1" (click)="setStatus('Close')">Close Lead</button>
                         <button class="btn btn-warning  mr-1  " routerLink="/lead-system-list">Cancel</button>
                         <button class="btn btn-success  mr-1  " (click)="saveLeadheader()">Save</button>
                       </div>
@@ -44,40 +44,36 @@
                   </div>
                   <div class="card-body">
                     <div class="form-row">
-                      <div class="col-md-1 mt-1">
+                      
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <button class="btn btn-info ml-auto mt-4 " (click)="openClientModal()">Select Client</button>
-                        </div>
-                      </div>
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label for="id"> Client Name <span class="text-danger">*</span></label>
+                          <label for="id"> Client Name </label>
                           <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <label for="revNo"> Description <span class="text-danger">*</span></label>
-                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
+                          <label for="revNo"> Description </label>
+                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" readonly/>
                         </div>
                       </div>                        
                     </div>
                     <div class="form-row">
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                          <label for="id"> Lead Number </label>
                           <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="LeadDate"> Lead Date <span class="text-danger">*</span></label>
+                          <label for="LeadDate"> Lead Date </label>
                           <input type="date" class="form-control" formControlName="LeadDate"   />
                         </div>
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Sales Person <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person </label>
                           <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId"   placeholder="Select Sales Person">
                             <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
                           </ng-select>
@@ -85,7 +81,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate"   />
                         </div>
                       </div>  
@@ -95,7 +91,7 @@
                     <div class="form-row">
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="id"> Status <span class="text-danger">*</span></label>
+                          <label for="id"> Status </label>
                           <select class="form-control" name="status" formControlName="Status" >
                             <option  >Active</option>
                             <option  >Dead</option>
@@ -118,7 +114,7 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person 2 </label>
                           <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
                             <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
                           </ng-select>
@@ -126,7 +122,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date 2 </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate2"  />
                         </div>
                       </div>  
@@ -138,7 +134,7 @@
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="id"> Remarks <span class="text-danger">*</span></label>
+                          <label for="id"> Remarks </label>
                           <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
                            
                         </div>
@@ -147,6 +143,11 @@
                                            
                     </div>
                 
+                  </div>
+                  <div class="card-body border-top card-header">
+                    <div class="d-flex align-items-center">
+                      <span class="mr-auto">Contact List</span>
+                    </div>
                   </div>
                   <div class="form-row">
                     <div class="page-section">
@@ -162,7 +163,6 @@
                             <th class="align-middle" style="width: 20%" scope="col" sortable="code">Email</th>
                             <th class="align-middle" style="width: 20%" scope="col" sortable="code">Remarks</th>
                             <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openLeadContactModal()"><i class="fas fa-plus"></i></button></th>
-                        
                           </tr>
                         </thead>
                         <tbody>
@@ -204,28 +204,22 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Lead Number <span class="text-danger">*</span></label>
+                          <label for="id"> Lead Number </label>
                           <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Lead Date <span class="text-danger">*</span></label>
+                          <label for="revNo"> Lead Date </label>
                           <input type="date" class="form-control" formControlName="LeadDate"   />
                         </div>
                       </div>  
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="revNo"> Private <span class="text-danger">*</span></label>
-                          <input type="checkbox" class="form-control"    />
-                           
-                        </div>
-                      </div>                        
+                                          
                     </div>
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Status <span class="text-danger">*</span></label>
+                          <label for="id"> Status </label>
                           <select class="form-control" name="status" >
                             <option  >Active</option>
                             <option  >Dead</option>
@@ -236,7 +230,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Status Comment <span class="text-danger">*</span></label>
+                          <label for="revNo"> Status Comment </label>
                           <select class="form-control" name="status" >
                             <option  >Active Lead</option>
                             <option  >Long Term</option>
@@ -248,7 +242,7 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Makati TIme <span class="text-danger">*</span></label>
+                          <label for="revNo"> Makati TIme </label>
                           <input type="datetime" class="form-control" />
                         </div>
                       </div>  
@@ -257,7 +251,7 @@
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="id"> Sales Person <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person </label>
                           <select class="form-control" name="status" >
                             <option  >Climaco Onde Jr</option>
                             <option  >Kenny Rogers</option>
@@ -268,7 +262,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate"   />
                         </div>
                       </div>  
@@ -277,7 +271,7 @@
                     <div class="form-row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="id"> Sales Person 2 <span class="text-danger">*</span></label>
+                          <label for="id"> Sales Person 2 </label>
                           <select class="form-control" name="status" >
                             <option>Climaco Onde Jr</option>
                             <option>Kenny Rogers</option>
@@ -288,7 +282,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Follow Up Date 2 <span class="text-danger">*</span></label>
+                          <label for="revNo"> Follow Up Date 2 </label>
                           <input type="date" class="form-control" formControlName="FollowUpDate2" placeholder="Revision Number" />
                         </div>
                       </div>  
@@ -298,19 +292,17 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Source <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
-                            <option  >Internet</option>
-                            <option  >News Paper</option>
-                            <option  >Facebook</option>
-                            <option  >Ads</option>
-                         </select>
+                          <label for="id"> Source </label>
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SourceId" formControlName="SourceId"   placeholder="Select Source">
+                            <ng-option *ngFor="let source of sources" [value]="source.SourceId">{{ source.Name }}</ng-option>
+                          </ng-select>
+                        
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Quality <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
+                          <label for="revNo"> Quality </label>
+                          <select class="form-control" name="status" formControlName="Quality" >
                             <option  >Unknown</option>
                             <option  >Minor Importance</option>
                             <option  >Important Lead</option>
@@ -321,8 +313,8 @@
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Likelihood <span class="text-danger">*</span></label>
-                          <select class="form-control" name="status" >
+                          <label for="revNo"> Likelihood </label>
+                          <select class="form-control" name="status" formControlName="Likelihood">
                             <option  >Unknown</option>
                             <option  >Normal</option>
                             <option  >Not Promising</option>
@@ -335,29 +327,28 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Meet Date <span class="text-danger">*</span></label>
+                          <label for="id"> Meet Date </label>
                           <input type="date" class="form-control" formControlName="MeetDate" placeholder="System Generated"   />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Time <span class="text-danger">*</span></label>
+                          <label for="revNo"> Time </label>
                           <input type="time" class="form-control" formControlName="Remarks" placeholder="Revision Number" />
                          
                         </div>
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Action Needed <span class="text-danger">*</span></label>
-                          <input type="checkbox" class="form-control"   placeholder="Revision Number" />
-                           
+                          <label for="revNo"> Action Needed </label>
+                          <input type="checkbox" class="form-control"   placeholder="Revision Number" formControlName="ActionNeeded"/>
                         </div>
                       </div>                        
                     </div>
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="id"> Remarks <span class="text-danger">*</span></label>
+                          <label for="id"> Remarks </label>
                           <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
                            
                         </div>
@@ -371,166 +362,31 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">WEB</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">MOBILE</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">DESKTOP</label>
-                      </div>
-                      <div class="checkbox-container col-md-2">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">OTHER</label>
+                    <div class="col-4">
+                      <div class="form-row">
+                        <div class="checkbox-container col-md-12">
+                          <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                          <label for="myCheckbox">WEB</label>
+                        </div>
+                        <div *ngFor="let specialty of webspecialties" class="checkbox-container col-md-12 ml-2" >
+                          <input type="checkbox" id="{{specialty.Name}}" name="myCheckbox"   class="mr-2" (change)="checkValue(specialty.Name)">
+                          <label for="myCheckbox">{{specialty.Name}}</label>
+                        </div>
                       </div>
                     </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Classic</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">IOs</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Access</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Telehelp</label>
+                    <div class="col-4">
+                      <div class="form-row">
+                        <div class="checkbox-container col-md-12">
+                          <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                          <label for="myCheckbox">WEB</label>
+                        </div>
+                        <div *ngFor="let specialty of webspecialties" class="checkbox-container col-md-12 ml-2" >
+                          <input type="checkbox" id="{{specialty.Name}}" name="myCheckbox"   class="mr-2" (change)="checkValue(specialty.Name)">
+                          <label for="myCheckbox">{{specialty.Name}}</label>
+                        </div>
                       </div>
                     </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Android</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">C/C++</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Design</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.PHP</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Xamarin</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Delphi</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">CRM</label>
-                      </div>
-                    </div>
-                    
-
-
-
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Perl</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Objective C</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">FoxPro</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Store</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Cold Fsn</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Swift</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">JAVA</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Time</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET MVC</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">XCode</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">VB6</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Account</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-6 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET CORE</label>
-                      </div>
-                     
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">PRTNR</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-6 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">LAMP</label>
-                      </div>
-                      
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">WPF</label>
-                      </div>
-                      
-                    </div>
-                    
                   </div>
-               
                 </ng-template>
               </li>
               <li ngbNavItem="client">
@@ -545,29 +401,25 @@
                   </div>
                   <div class="card-body">
                     <div class="form-row">
-                      <div class="col-md-1">
-                        <div class="form-group">
-                          <button class="btn btn-info ml-auto mt-4 " (click)="openClientModal()">Select Client</button>
-                        </div>
-                      </div>
+                      
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Client Name <span class="text-danger">*</span></label>
+                          <label for="id"> Client Name </label>
                           <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <label for="revNo"> Description <span class="text-danger">*</span></label>
-                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
+                          <label for="revNo"> Description  </label>
+                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" readonly />
                         </div>
                       </div>                        
                     </div>
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="id"> Address 1 <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" formControlName="Address1" placeholder="Address 1"   />
+                          <label for="id"> Address 1 </label>
+                          <input type="text" class="form-control" formControlName="Address1" placeholder="Address 1"  readonly />
                         </div>
                       </div>
                                          
@@ -575,8 +427,8 @@
                     <div class="form-row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="id"> Address 2 <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" formControlName="Address2" placeholder="Address 2"   />
+                          <label for="id"> Address 2 </label>
+                          <input type="text" class="form-control" formControlName="Address2" placeholder="Address 2"  readonly />
                         </div>
                       </div>
                                          
@@ -584,40 +436,40 @@
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> City <span class="text-danger">*</span></label>
+                          <label for="id"> City </label>
                           <input type="text" class="form-control" formControlName="City" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Country <span class="text-danger">*</span></label>
-                          <input type="textarea" class="form-control" formControlName="Country" placeholder="Description" />
+                          <label for="revNo"> Country </label>
+                          <input type="textarea" class="form-control" formControlName="Country" placeholder="Country"  readonly/>
                         </div>
                       </div> 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> ZIP <span class="text-danger">*</span></label>
-                          <input type="textarea" class="form-control" formControlName="ZIP" placeholder="Description" />
+                          <label for="revNo"> ZIP </label>
+                          <input type="textarea" class="form-control" formControlName="ZIP" placeholder="ZIP" readonly />
                         </div>
                       </div>                           
                     </div>
                     <div class="form-row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="id"> Phone <span class="text-danger">*</span></label>
+                          <label for="id"> Phone </label>
                           <input type="text" class="form-control" formControlName="Phone" placeholder="System Generated" readonly />
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> FAX <span class="text-danger">*</span></label>
-                          <input type="textarea" class="form-control" formControlName="FAX" placeholder="Description" />
+                          <label for="revNo"> FAX </label>
+                          <input type="textarea" class="form-control" formControlName="FAX" placeholder="FAX" readonly/>
                         </div>
                       </div> 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> URL <span class="text-danger">*</span></label>
-                          <input type="textarea" class="form-control" formControlName="URL" placeholder="Description" />
+                          <label for="revNo"> URL </label>
+                          <input type="textarea" class="form-control" formControlName="URL" placeholder="URL" readonly/>
                         </div>
                       </div>                           
                     </div>
@@ -773,13 +625,13 @@
                           <thead>
                             <tr>
                               <th class="align-middle" style="width: 75%" scope="col" sortable="code">Cut and Paste</th>
-                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openCutPasteModal()"><i class="fas fa-plus"></i></button></th>
+                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openCutPasteModal(null)"><i class="fas fa-plus"></i></button></th>
                           
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let cutpaste of cutpastes; index as i">
-                              <td class="align-middle">{{cutpaste.Title}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle hover-item"    (click)="openCutPasteModal(cutpaste)">{{cutpaste.Title}}<ngb-highlight></ngb-highlight></td>
                               <td></td>
                             </tr>
                           </tbody>

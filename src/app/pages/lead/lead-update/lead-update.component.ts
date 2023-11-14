@@ -21,6 +21,8 @@ import { CutPasteService } from 'src/app/services/cutpaste.service';
 import { ProposalService } from 'src/app/services/proposal.service';
 import { DocumentService } from 'src/app/services/document.service';
 import { ClientService } from 'src/app/services/client.service';
+import { SpecialtyService } from 'src/app/services/specialty.service';
+import { SourceService } from 'src/app/services/source.service';
 
 
 
@@ -41,6 +43,13 @@ export class LeadUpdateComponent implements OnInit {
   public cities: any[] = [];
   public countries: any[] = [];
   public employees: any[] = [];
+  public specialties: any[] = [];
+  public sources: any[] = [];
+
+  public webspecialties: any[] = [];
+  public mobilespecialties: any[] = [];
+  public desktopspecialties: any[] = [];
+  public otherspecialties: any[] = [];
 
   public notes: any[] = [];
   public leadcontacts: any[] = [];
@@ -60,12 +69,12 @@ export class LeadUpdateComponent implements OnInit {
   public hideExport = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private modalService: NgbModal,
-    private cityService: CityService,
-    private toastHelper: ToastHelper,
-    private countryService: CountryService,
-    private employeeService: EmployeeService,
+    public formBuilder: FormBuilder,
+    public modalService: NgbModal,
+    public cityService: CityService,
+    public toastHelper: ToastHelper,
+    public countryService: CountryService,
+    public employeeService: EmployeeService,
     public activatedRoute: ActivatedRoute,
     public leadService : LeadService,
     public leadContactService : LeadContactService,
@@ -73,7 +82,9 @@ export class LeadUpdateComponent implements OnInit {
     public proposalService : ProposalService,
     public cutPasteService : CutPasteService,
     public documentService : DocumentService,
-    public clientService : ClientService
+    public clientService : ClientService,
+    public specialtyService : SpecialtyService,
+    public sourceService : SourceService
     
    ) { }
 
@@ -128,6 +139,35 @@ export class LeadUpdateComponent implements OnInit {
     }
     );
 
+    this.specialtyService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.specialties = response
+      this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
+      
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+    this.sourceService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+
+      this.sources = response
+        console.log(this.sources)
+      
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
     this.countryService.getList()
     .pipe(first())
     .subscribe({
@@ -166,7 +206,7 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('StatusComment').setValue(data.StatusComment);
           this.modalFormGroup.get('SalesPersonId').setValue(data.SalesPersonId);
           this.modalFormGroup.get('FollowUpDate').setValue(data.FollowUpDate);
-          this.modalFormGroup.get('SalesPersonId2').setValue(data.SalesPersonI2d);
+          this.modalFormGroup.get('SalesPersonId2').setValue(data.SalesPersonId2);
           this.modalFormGroup.get('FollowUpDate2').setValue(data.FollowUpDate2);
           this.modalFormGroup.get('SourceId').setValue(data.SourceId);
           this.modalFormGroup.get('Quality').setValue(data.Quality);
@@ -288,21 +328,8 @@ export class LeadUpdateComponent implements OnInit {
 
   saveLeadheader( ) {
     const request: any = {
-   
       LeadId :this.modalForm.LeadId.value,
-      LeadNo :this.modalForm.LeadNo.value,
       LeadDate :this.modalForm.LeadDate.value,
-      ClientId:this.modalForm.ClientId.value,
-      ClientName:this.modalForm.ClientName.value,
-      Description:this.modalForm.Description.value,
-      Address1:this.modalForm.Address1.value,
-      Address2:this.modalForm.Address2.value,
-      City:this.modalForm.City.value,
-      Country:this.modalForm.Country.value,
-      ZIP:this.modalForm.ZIP.value,
-      FAX:this.modalForm.FAX.value,
-      Phone:this.modalForm.Phone.value,
-      URL :this.modalForm.URL.value,
       Status :this.modalForm.Status.value,
       StatusComment :this.modalForm.StatusComment.value,
       SalesPersonId :this.modalForm.SalesPersonId.value,
@@ -319,10 +346,19 @@ export class LeadUpdateComponent implements OnInit {
       InternetContactList :this.modalForm.InternetContactList.value,
       ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
       InternetNotes :this.modalForm.InternetNotes.value,
-    
     };
 
-   
+    this.leadService.update(request)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+          console.log(response)
+        this.toastHelper.showSuccess("You have successfully updated " + response.LeadId + " Lead.");
+      },
+      error: response => {
+        this.errors = response.errors;
+      }
+    });
    
     
  
@@ -457,7 +493,19 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.LastName.length > 0 && data.FirstName.length > 0 )
         {
-          this.leadcontacts.push(data)
+          data.LeadId = this.LeadId;
+          var leadcontacts : any[] = []
+          leadcontacts.push(data)
+          this.leadContactService.create(leadcontacts)
+          .pipe(first())
+          .subscribe({
+            next: response => {
+              this.leadcontacts.push(data)
+            },
+            error: response => {
+              this.errors = response.errors;
+            }
+          });
         }
   
       }, (reason) => { }
@@ -475,8 +523,21 @@ saveLeadDocuments(leadId : any){
     modalRef.result.then(
       (data: any) => {
         if(data.Date.length > 0  )
-        {
-          this.notes.push(data)
+        { 
+          data.LeadId = this.LeadId;
+          var notes : any[] = []
+          notes.push(data)
+          this.noteService.create(notes)
+          .pipe(first())
+          .subscribe({
+            next: response => {
+              this.notes.push(data)
+            },
+            error: response => {
+              this.errors = response.errors;
+            }
+          });
+          
         }
       
     
@@ -493,7 +554,19 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.Proposal.length > 0  )
         {
-          this.proposals.push(data)
+          data.LeadId = this.LeadId;
+          var proposals : any[] = []
+          proposals.push(data)
+          this.proposalService.create(proposals)
+          .pipe(first())
+          .subscribe({
+            next: response => {
+              this.proposals.push(data)
+            },
+            error: response => {
+              this.errors = response.errors;
+            }
+          });
         }
       }, (reason) => { }
     );
@@ -508,6 +581,15 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.FileName.length > 0  )
         {
+          this.selectedFile = <File>data.File
+        const formData = new FormData();
+        formData.append('file', this.selectedFile, this.selectedFile.name);
+        
+          
+
+        this.documentService.create(formData,this.selectedFile.name,this.selectedFile.type.split('/')[1] , this.selectedFile.type.split('/')[0] , this.LeadId)
+        .pipe(first())
+        .subscribe( );
           this.documents.push(data)
         }
       }, (reason) => { }
@@ -516,15 +598,29 @@ saveLeadDocuments(leadId : any){
   }
 
   
-  openCutPasteModal()
+  openCutPasteModal(item : any)
   {
  
     const modalRef = this.modalService.open(LeadCutPasteModalComponent ,{size: 'lg' });
+    modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {
         if(data.Description.length > 0  )
         {
-          this.cutpastes.push(data)
+          data.LeadId = this.LeadId;
+          var cutpastes : any[] = []
+          cutpastes.push(data)
+          this.cutPasteService.create(cutpastes)
+          .pipe(first())
+          .subscribe({
+            next: response => {
+              this.cutpastes.push(data)
+            },
+            error: response => {
+              this.errors = response.errors;
+            }
+          });
+      
         }
       }, (reason) => { }
     );
@@ -542,6 +638,63 @@ saveLeadDocuments(leadId : any){
    deleteDocument(index: any) {
     this.documents.splice(index,1)
    }
+
+   
+   downloadDocument(file : any) {
+    this.documentService.downloadById(file.FileName).subscribe(data => {
+      const blob = new Blob([data], { type: file.Prefix +'/'+ file.FileType});
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.FileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+   
+  }
+
+  setStatus(data : any){
+    const request: any = {
+      LeadId :this.modalForm.LeadId.value,
+      LeadDate :this.modalForm.LeadDate.value,
+      Status :data,
+      StatusComment :this.modalForm.StatusComment.value,
+      SalesPersonId :this.modalForm.SalesPersonId.value,
+      FollowUpDate :this.modalForm.FollowUpDate.value,
+      SalesPersonId2 :this.modalForm.SalesPersonId2.value,
+      FollowUpDate2 :this.modalForm.FollowUpDate2.value,
+      SourceId :this.modalForm.SourceId.value,
+      Quality :this.modalForm.Quality.value,
+      Likelihood :this.modalForm.Likelihood.value,
+      Comments :this.modalForm.Comments.value,
+      ActionNeeded :this.modalForm.ActionNeeded.value,
+      MeetDate :this.modalForm.MeetDate.value,
+      Remarks :this.modalForm.Remarks.value,
+      InternetContactList :this.modalForm.InternetContactList.value,
+      ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
+      InternetNotes :this.modalForm.InternetNotes.value,
+    };
+
+    this.leadService.update(request)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+        this.modalFormGroup.get('Status').setValue(data);
+        this.toastHelper.showSuccess("You have successfully set Lead as " + data );
+      },
+      error: response => {
+        this.errors = response.errors;
+      }
+    });
+
+  }
+ 
+
+  checkValue(data : any){
+    alert(data)
+  }
+
 
 
  

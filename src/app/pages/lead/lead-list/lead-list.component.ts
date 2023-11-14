@@ -7,6 +7,7 @@ import { LeadDeleteComponent } from '../lead-delete/lead-delete.component';
 import { LeadClientModalComponent } from '../lead-client-modal/lead-client-modal.component';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
+import { EmployeeService } from 'src/app/services/employee.service';
  
 
 @Component({
@@ -21,13 +22,32 @@ export class LeadListComponent implements OnInit {
   public name: string;
   public total: Observable<number>;
   public closeResult: string;
+  public statusList : any[] = ['Active' ,'Dead' , 'Solid','Future FUDs' ]
+  public statusArray : any[] = [] 
+
+  public emplyeeList : any[] = []
+  public emplyeArray : any[] = [] 
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public leadService: LeadService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public leadService: LeadService, private modalService: NgbModal, private toastHelper: ToastHelper , private employeeService: EmployeeService,) { }
 
   ngOnInit() {
     this.loadList();
+
+    this.employeeService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.emplyeeList = response
+      console.log(this.emplyeeList)
+     
+      },
+      error: response => {
+        
+      }
+    }
+    );
   }
 
   loadList() {
@@ -78,5 +98,8 @@ export class LeadListComponent implements OnInit {
     
   }
    
+  onSelectCompany(data : any){
+    
+  }
 
 }

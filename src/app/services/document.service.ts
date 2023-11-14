@@ -94,7 +94,7 @@ export class DocumentService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/document/getById?id=' + id);
+    return this.repositoryHelper.get('api/document/getById?id=' + id );
   }
 
   
@@ -110,6 +110,11 @@ export class DocumentService {
   public create(formData: FormData,filename : string , filetype : string , prefix : string, leadId : string) {
     return this.repositoryHelper.upload('api/document/'+filename+'/'+filetype+'/'+prefix+'/'+leadId, formData);
   }
+
+  public downloadById = (id: number) => {
+    return this.repositoryHelper.get('api/document/getById?id=' + id );
+  }
+
 
  
   public update = (body: any) => {

@@ -18,6 +18,8 @@ export class SpecialtyModalComponent implements OnInit {
   public errors: any[];
   public modalFormGroup: FormGroup;
   public regionList: any[];
+  public categories : any[] = ["WEB" , "MOBILE" ,"DESKTOP" ,"OTHER" ];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +33,7 @@ export class SpecialtyModalComponent implements OnInit {
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
       Description:  new FormControl('', [Validators.required]),
+      Category:  new FormControl('',[Validators.required]),
     }, { validator: WhiteSpace(['Code','Name']) }
     );
 
@@ -43,6 +46,7 @@ export class SpecialtyModalComponent implements OnInit {
       SpecialtyId : 0,
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
+      Category: this.modalForm.Category.value,
       Description: this.modalForm.Description.value
     };
 
@@ -52,7 +56,7 @@ export class SpecialtyModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.Name + " specialty.");
+          this.toastHelper.showSuccess("You have successfully created " + response.Name + " specialty under "+ response.Category);
           this.activeModal.close();
         },
         error: response => {
@@ -69,7 +73,7 @@ export class SpecialtyModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " specialty.");
+          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " specialty under "+ response.Category);
           this.activeModal.close();
         },
         error: response => {
