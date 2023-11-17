@@ -116,7 +116,7 @@ export class LeadContactService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/leadcontact/delete?id=' + id);
+    return this.repositoryHelper.delete('api/leadcontact/DeleteLeadContact/' + id);
   }
 
   

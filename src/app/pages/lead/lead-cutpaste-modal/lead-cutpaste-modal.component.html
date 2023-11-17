@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title" *ngIf="item != null">Commentary</h5>
+  <h5 class="modal-title" >Cut and Paste</h5>
  
 </div>
 <form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
@@ -41,9 +41,12 @@
       </div>
     </div>
   </div>
-  <div class="modal-footer">
+  <div *ngIf="item == null" class="modal-footer">
     <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
     <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </div>
+  <div *ngIf="item != null"  class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </form>
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import {DatePipe} from '@angular/common'
 import { ToastHelper } from 'src/app/helpers/toast.helper';
  
  
@@ -19,7 +19,8 @@ export class LeadNoteModalComponent implements OnInit {
   public regionList: any[];
 
   constructor(
-    private formBuilder: FormBuilder,
+    public formBuilder: FormBuilder,
+    public datepipe: DatePipe,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -27,10 +28,13 @@ export class LeadNoteModalComponent implements OnInit {
     this.modalFormGroup = this.formBuilder.group({
       NoteId : new FormControl(),
       LeadId : new FormControl(),
-      Date: new FormControl('',[Validators.required]),
+      Date: new FormControl((new Date()).toISOString().substring(0,10),[Validators.required]),
       Description:  new FormControl('', [Validators.required]),
      } 
     );
+
+ 
+    this.modalFormGroup.get('Date').setValue((new Date()).toISOString().substring(0,10));
 
   }
 

@@ -35,6 +35,8 @@ export class LeadDocumentModalComponent implements OnInit {
      } 
     );
 
+    this.modalFormGroup.get('Date').setValue((new Date()).toISOString().substring(0,10));
+
   }
   
 

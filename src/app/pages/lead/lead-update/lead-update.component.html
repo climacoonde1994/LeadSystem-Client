@@ -176,7 +176,7 @@
                             <td class="align-middle">{{leadcontact.Email}}<ngb-highlight></ngb-highlight></td>
                             <td class="align-middle">{{leadcontact.Remarks}}<ngb-highlight></ngb-highlight></td>
                             <td class="align-middle">  
-                              <button class="btn btn-info ml-auto mr-1" (click)="deleteContact(i)"><i class="fas fa-trash"></i></button> 
+                              <button class="btn btn-info ml-auto mr-1" (click)="deleteContact(i,leadcontact._id)"><i class="fas fa-trash"></i></button> 
                               <ngb-highlight></ngb-highlight>
                             </td>
                           </tr>
@@ -362,30 +362,164 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="col-4">
-                      <div class="form-row">
-                        <div class="checkbox-container col-md-12">
-                          <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                          <label for="myCheckbox">WEB</label>
-                        </div>
-                        <div *ngFor="let specialty of webspecialties" class="checkbox-container col-md-12 ml-2" >
-                          <input type="checkbox" id="{{specialty.Name}}" name="myCheckbox"   class="mr-2" (change)="checkValue(specialty.Name)">
-                          <label for="myCheckbox">{{specialty.Name}}</label>
-                        </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">WEB</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">MOBILE</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">DESKTOP</label>
+                      </div>
+                      <div class="checkbox-container col-md-2">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">OTHER</label>
                       </div>
                     </div>
-                    <div class="col-4">
-                      <div class="form-row">
-                        <div class="checkbox-container col-md-12">
-                          <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                          <label for="myCheckbox">WEB</label>
-                        </div>
-                        <div *ngFor="let specialty of webspecialties" class="checkbox-container col-md-12 ml-2" >
-                          <input type="checkbox" id="{{specialty.Name}}" name="myCheckbox"   class="mr-2" (change)="checkValue(specialty.Name)">
-                          <label for="myCheckbox">{{specialty.Name}}</label>
-                        </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Classic</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">IOs</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Access</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Telehelp</label>
                       </div>
                     </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">.NET</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Android</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">C/C++</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Design</label>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">.PHP</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Xamarin</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Delphi</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">CRM</label>
+                      </div>
+                    </div>
+                    
+                  
+                  
+                  
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Perl</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Objective C</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">FoxPro</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Store</label>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Cold Fsn</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Swift</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">JAVA</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Time</label>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-3 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">.NET MVC</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">XCode</label>
+                      </div>
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">VB6</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">Account</label>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-6 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">.NET CORE</label>
+                      </div>
+                     
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">.NET</label>
+                      </div>
+                      <div class="checkbox-container col-md-2 ">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">PRTNR</label>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="checkbox-container col-md-6 ml-4">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">LAMP</label>
+                      </div>
+                      
+                      <div class="checkbox-container col-md-3">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <label for="myCheckbox">WPF</label>
+                      </div>
+                      
+                    </div>
+                    
                   </div>
                 </ng-template>
               </li>
@@ -509,7 +643,7 @@
                               <td class="align-middle">{{leadcontact.Email}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">{{leadcontact.Remarks}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">  
-                                <button class="btn btn-info ml-auto mr-1" (click)="deleteContact(i)"><i class="fas fa-trash"></i></button> 
+                                <button class="btn btn-info ml-auto mr-1" (click)="deleteContact(i,leadcontact._id)"><i class="fas fa-trash"></i></button> 
                                 <ngb-highlight></ngb-highlight>
                               </td>
                             </tr>
@@ -539,15 +673,15 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="align-middle" style="width: 25%" scope="col" sortable="code"  >Date</th>
-                              <th class="align-middle" style="width: 65%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
-                              <th class="align-middle" style="width: 10%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
+                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"  >Date</th>
+                              <th class="align-middle" style="width: 70%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
+                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let note of notes">
                               <td class="align-middle">{{note.Date  | date}}<ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle">{{note.Description}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle" class="max-lines">{{note.Description}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle"><ngb-highlight></ngb-highlight></td>
                             </tr>
                           </tbody>
@@ -576,7 +710,7 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="align-middle" style="width: 75%" scope="col" sortable="code">Proposal</th>
+                              <th class="align-middle" style="width: 85%" scope="col" sortable="code">Proposal</th>
                               <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openProposalModal()"><i class="fas fa-plus"></i></button></th>
                           
                             </tr>
@@ -585,7 +719,6 @@
                             <tr *ngFor="let proposal of proposals; index as i">
                               <td class="align-middle">{{proposal.Proposal}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">  
-                                <button class="btn btn-info ml-auto mr-1" (click)="deleteProposal(i)"><i class="fas fa-trash"></i></button>
                               </td>
                             </tr>
                           </tbody>
@@ -598,7 +731,7 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="align-middle" style="width: 75%" scope="col" sortable="code">Document</th>
+                              <th class="align-middle" style="width: 85%" scope="col" sortable="code">Document</th>
                               <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openDocumentModal()"><i class="fas fa-plus"></i></button></th>
                           
                             </tr>
@@ -608,7 +741,7 @@
                             </tr>
                             <tr *ngFor="let document of documents; index as i">
                               <td class="align-middle">{{document.FileName}}<ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> <button class="btn btn-info ml-auto mr-1" (click)="deleteDocument(i)"><i class="fas fa-trash"></i></button></td>
+                              <td class="align-middle"> <button class="btn btn-info ml-auto mr-1" title="Download" (click)="deleteDocument(i)"><i class="fas fa-arrow-down"></i></button></td>
                                
                             </tr>
                              
@@ -624,14 +757,14 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="align-middle" style="width: 75%" scope="col" sortable="code">Cut and Paste</th>
+                              <th class="align-middle" style="width: 85%" scope="col" sortable="code">Cut and Paste</th>
                               <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openCutPasteModal(null)"><i class="fas fa-plus"></i></button></th>
                           
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let cutpaste of cutpastes; index as i">
-                              <td class="align-middle hover-item"    (click)="openCutPasteModal(cutpaste)">{{cutpaste.Title}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle hover-item max-lines"   (click)="openCutPasteModal(cutpaste)">{{cutpaste.Title}}<ngb-highlight></ngb-highlight></td>
                               <td></td>
                             </tr>
                           </tbody>

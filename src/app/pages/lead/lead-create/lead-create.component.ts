@@ -416,7 +416,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadContactModalComponent);
     modalRef.result.then(
       (data: any) => {
-        if(data.LastName.length > 0 && data.FirstName.length > 0 )
+        if(data.LastName && data.LastName.length > 0 && data.FirstName && data.FirstName.length > 0 )
         {
           this.leadcontacts.push(data)
         }
@@ -435,7 +435,8 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadNoteModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.Date.length > 0  )
+        
+        if(data.Description && data.Description.length > 0  )
         {
           this.notes.push(data)
         }
@@ -452,9 +453,13 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadProposalModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.Proposal.length > 0  )
+        if(data.Proposal && data.Proposal.length > 0  )
         {
-          this.proposals.push(data)
+            if(this.isProporalExist(data.Proposal))
+            {
+              return;
+            }
+            this.proposals.push(data)
         }
       }, (reason) => { }
     );
@@ -467,7 +472,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadDocumentModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.FileName.length > 0  )
+        if(data.FileName && data.FileName.length > 0  )
         {
           this.documents.push(data)
         }
@@ -483,7 +488,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadCutPasteModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.Description.length > 0  )
+        if(data.Description && data.Description.length > 0  )
         {
           this.cutpastes.push(data)
         }
@@ -546,6 +551,17 @@ saveLeadDocuments(leadId : any){
 
 
 
- 
+  isProporalExist(data: any)
+  {
+    for(var i = 0 ; i < this.proposals.length ; i++)
+    {
+      if(this.proposals[i].Proposal == data){
+        return true;
+      }
+    
+    }
+    return false;
+  }
+
  
 }

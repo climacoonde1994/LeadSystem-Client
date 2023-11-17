@@ -33,8 +33,17 @@ export class LeadCutPasteModalComponent implements OnInit {
      } 
     );
 
-    this.modalFormGroup.patchValue(this.item);
+    if(this.item)
+    {
+      this.modalFormGroup.patchValue(this.item);
+      this.modalFormGroup.get('Date').setValue((new Date(this.item.Date)).toISOString().substring(0,10));
+    }
+    else
+    {
+      this.modalFormGroup.get('Date').setValue((new Date()).toISOString().substring(0,10));
 
+    }
+   
   }
 
   onSubmit() {

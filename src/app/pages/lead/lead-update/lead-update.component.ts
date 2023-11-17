@@ -522,7 +522,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadNoteModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.Date.length > 0  )
+        if(data.Description && data.Description.length > 0  )
         { 
           data.LeadId = this.LeadId;
           var notes : any[] = []
@@ -552,8 +552,15 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadProposalModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.Proposal.length > 0  )
+        if(data.Proposal && data.Proposal.length > 0  )
         {
+            if(this.isProporalExist(data.Proposal))
+            {
+              return;
+            }
+
+
+
           data.LeadId = this.LeadId;
           var proposals : any[] = []
           proposals.push(data)
@@ -561,6 +568,7 @@ saveLeadDocuments(leadId : any){
           .pipe(first())
           .subscribe({
             next: response => {
+            
               this.proposals.push(data)
             },
             error: response => {
@@ -579,7 +587,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadDocumentModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        if(data.FileName.length > 0  )
+        if(data.FileName && data.FileName.length > 0  )
         {
           this.selectedFile = <File>data.File
         const formData = new FormData();
@@ -605,7 +613,7 @@ saveLeadDocuments(leadId : any){
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {
-        if(data.Description.length > 0  )
+        if(data.Description && data.Description.length > 0  )
         {
           data.LeadId = this.LeadId;
           var cutpastes : any[] = []
@@ -627,8 +635,19 @@ saveLeadDocuments(leadId : any){
      
   }
 
-  deleteContact(index: any) {
-   this.leadcontacts.splice(index,1)
+  deleteContact(index: any , id:any) {
+    this.leadContactService.delete(id)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+        this.leadcontacts.splice(index,1)
+      },
+      error: response => {
+        this.errors = response.errors;
+      }
+    });
+   
+  
   }
 
   deleteProposal(index: any) {
@@ -693,6 +712,18 @@ saveLeadDocuments(leadId : any){
 
   checkValue(data : any){
     alert(data)
+  }
+
+  isProporalExist(data: any)
+  {
+    for(var i = 0 ; i < this.proposals.length ; i++)
+    {
+      if(this.proposals[i].Proposal == data){
+        return true;
+      }
+    
+    }
+    return false;
   }
 
 
