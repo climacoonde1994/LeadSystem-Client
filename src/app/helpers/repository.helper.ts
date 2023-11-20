@@ -29,7 +29,7 @@ export class RepositoryHelper {
   }
 
   public download = (route: string) => {
-    return this.httpClient.get<any>(this.createCompleteRoute(route, this.environmentHelper.url) );
+    return this.httpClient.get( this.createCompleteRoute(route, this.environmentHelper.url) , { responseType: 'blob' });
   }
 
  
@@ -49,12 +49,7 @@ export class RepositoryHelper {
     }
   }
 
-  private generateHeaders2 = () => {
-    return {
-      headers: new HttpHeaders({'Content-Type': 'application/json'} ), responseType: 'blob'
-     
-    }
-  }
+ 
   
 
   private generateContentHeaders = () => {

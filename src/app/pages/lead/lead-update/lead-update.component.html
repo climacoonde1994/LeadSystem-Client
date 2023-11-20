@@ -34,7 +34,7 @@
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Highlight</span>
                       <div   >
-                        <button class="btn btn-primary  mr-1  " (click)="setStatus('Solid')">Set as Solid </button>
+                        <button class="btn btn-primary  mr-1  " (click)="setStatus('Sold')">Set as Sold </button>
                         <button class="btn btn-danger mr-1  " (click)="setStatus('Dead')">Set as Dead</button>
                         <button class="btn btn-info mr-1" (click)="setStatus('Close')">Close Lead</button>
                         <button class="btn btn-warning  mr-1  " routerLink="/lead-system-list">Cancel</button>
@@ -95,7 +95,7 @@
                           <select class="form-control" name="status" formControlName="Status" >
                             <option  >Active</option>
                             <option  >Dead</option>
-                            <option  >Solid</option>
+                            <option  >Sold</option>
                             <option  >Close</option>
                          </select>
                         </div>
@@ -223,7 +223,7 @@
                           <select class="form-control" name="status" >
                             <option  >Active</option>
                             <option  >Dead</option>
-                            <option  >Solid</option>
+                            <option  >Sold</option>
                             <option  >Close</option>
                          </select>
                         </div>
@@ -334,7 +334,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> Time </label>
-                          <input type="time" class="form-control" formControlName="Remarks" placeholder="Revision Number" />
+                          <input type="time" class="form-control" formControlName="BestTimeCall" placeholder="Revision Number" />
                          
                         </div>
                       </div>  
@@ -741,7 +741,7 @@
                             </tr>
                             <tr *ngFor="let document of documents; index as i">
                               <td class="align-middle">{{document.FileName}}<ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle"> <button class="btn btn-info ml-auto mr-1" title="Download" (click)="deleteDocument(i)"><i class="fas fa-arrow-down"></i></button></td>
+                              <td class="align-middle"> <button class="btn btn-info ml-auto mr-1" title="Download" (click)="downloadDocument(document)"><i class="fas fa-arrow-down"></i></button></td>
                                
                             </tr>
                              

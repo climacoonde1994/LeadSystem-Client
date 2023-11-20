@@ -22,7 +22,7 @@ export class LeadListComponent implements OnInit {
   public name: string;
   public total: Observable<number>;
   public closeResult: string;
-  public statusList : any[] = ['Active' ,'Dead' , 'Solid','Future FUDs' ]
+  public statusList : any[] = ['Active' ,'Dead' , 'Sold','Future FUDs' ]
   public statusArray : any[] = [] 
 
   public emplyeeList : any[] = []
@@ -40,7 +40,7 @@ export class LeadListComponent implements OnInit {
     .subscribe({
       next: response => {
       this.emplyeeList = response
-      console.log(this.emplyeeList)
+     
      
       },
       error: response => {

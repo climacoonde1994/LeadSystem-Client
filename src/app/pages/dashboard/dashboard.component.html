@@ -12,36 +12,45 @@
           <div class="page-section">
             <div class="d-flex flex-column flex-md-row">
                 <p class="lead">
-                  <span class="font-weight-bold">You have 0 leads scheduled today.</span>
-
+                  <span class="font-weight-bold">You have {{leadToday.length}} leads scheduled today.</span>
+                  <a *ngFor="let lead of leadToday" routerLink="/lead-update/{{ lead.LeadId }}" class="d-block" href="#">
+                    {{lead.Country}} - #{{lead.LeadNo}} ({{lead.BestTimeCall}})  - {{lead.MeetDate | date}}
+                  </a>
                 </p>
             </div>
             <div class="d-flex flex-column flex-md-row">
                 <p class="lead">
-                  <span class="font-weight-bold">You have 1  overdue leads.</span>
-                  <a class="d-block" href="#">US  - #9189 (1:39 PM) - 10/16/2023</a>
-                
+                  <span class="font-weight-bold">You have {{leadOverDue.length}}  overdue leads.</span>
+                  <a *ngFor="let lead of leadOverDue" routerLink="/lead-update/{{ lead.LeadId }}" class="d-block" href="#">
+                    {{lead.Country}} - #{{lead.LeadNo}} ({{lead.BestTimeCall}})  - {{lead.MeetDate | date}}
+                  </a>
                 </p>
             </div>
             <div class="d-flex flex-column flex-md-row">
                 <p class="lead">
-                  <span class="font-weight-bold">You have 1 secondary overdue leads.</span>
-                  <a class="d-block" href="#">US  - #9189 (1:39 PM) - 10/16/2023 - Pooja (CSO)</a>
+                  <span class="font-weight-bold">You have {{leadOverDue2.length}} secondary overdue leads.</span>
+                  <a *ngFor="let lead of leadOverDue2" routerLink="/lead-update/{{ lead.LeadId }}" class="d-block" href="#">
+                    {{lead.Country}} - #{{lead.LeadNo}} ({{lead.BestTimeCall}})  - {{lead.MeetDate | date}}
+                  </a>
                 </p>
             </div>
             <div class="d-flex flex-column flex-md-row">
                 <p class="lead">
-                  <span class="font-weight-bold">You have 0 leads to be called tomorrow.</span>
-            
+                  <span class="font-weight-bold">You have {{leadCallTom.length}} leads to be called tomorrow.</span>
+                  <a *ngFor="let lead of leadCallTom" routerLink="/lead-update/{{ lead.LeadId }}" class="d-block" href="#">
+                    {{lead.Country}} - #{{lead.LeadNo}} ({{lead.BestTimeCall}})  - {{lead.MeetDate | date}}
+                  </a>
                 </p>
             </div>
             <div class="d-flex flex-column flex-md-row">
                 <p class="lead">
-                  <span class="font-weight-bold">YYou have 0 leads that need action now.</span>
-            
+                  <span class="font-weight-bold">You have {{leadCallTom.length}} leads that need action now.</span>
+                  <a *ngFor="let lead of leadNeedAction" routerLink="/lead-update/{{ lead.LeadId }}" class="d-block" href="#">
+                    {{lead.Country}} - #{{lead.LeadNo}} ({{lead.BestTimeCall}})  - {{lead.MeetDate | date}}
+                  </a>
                 </p>
             </div>
-            <div class="d-flex flex-column flex-md-row">
+            <!-- <div class="d-flex flex-column flex-md-row">
                 <p class="lead">
                   <span class="font-weight-bold">All Non-Dead Government leads with deadlines.</span>
             
@@ -52,7 +61,7 @@
                   <span class="font-weight-bold">All Other Government Leads.</span>
             
                 </p>
-            </div>
+            </div> -->
             
           </div>
       </div>

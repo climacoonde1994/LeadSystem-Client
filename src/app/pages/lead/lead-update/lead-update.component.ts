@@ -117,6 +117,7 @@ export class LeadUpdateComponent implements OnInit {
       Comments : new FormControl(''),
       ActionNeeded : new FormControl(''),
       MeetDate : new FormControl(''),
+      BestTimeCall : new FormControl(''),
       Remarks : new FormControl(''),
       InternetContactList : new FormControl(''),
       ActionNeededNotes : new FormControl(''),
@@ -214,6 +215,7 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('Comments').setValue(data.Comments);
           this.modalFormGroup.get('ActionNeeded').setValue(data.ActionNeeded);
           this.modalFormGroup.get('MeetDate').setValue(data.MeetDate);
+          this.modalFormGroup.get('BestTimeCall').setValue(data.BestTimeCall);
           this.modalFormGroup.get('Remarks').setValue(data.Remarks);
           this.modalFormGroup.get('InternetContactList').setValue(data.InternetContactList);
           this.modalFormGroup.get('ActionNeededNotes').setValue(data.ActionNeededNotes);
@@ -316,12 +318,6 @@ export class LeadUpdateComponent implements OnInit {
       }
       );
 
-       
-
-    
-
-
-
   }
 
  
@@ -342,6 +338,7 @@ export class LeadUpdateComponent implements OnInit {
       Comments :this.modalForm.Comments.value,
       ActionNeeded :this.modalForm.ActionNeeded.value,
       MeetDate :this.modalForm.MeetDate.value,
+      BestTimeCall :this.modalForm.BestTimeCall.value,
       Remarks :this.modalForm.Remarks.value,
       InternetContactList :this.modalForm.InternetContactList.value,
       ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
@@ -491,7 +488,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadContactModalComponent);
     modalRef.result.then(
       (data: any) => {
-        if(data.LastName.length > 0 && data.FirstName.length > 0 )
+        if(data.LastName.length > 0 && data.FirstName.length > 0 && data.LastName && data.FirstName )
         {
           data.LeadId = this.LeadId;
           var leadcontacts : any[] = []
@@ -593,12 +590,17 @@ saveLeadDocuments(leadId : any){
         const formData = new FormData();
         formData.append('file', this.selectedFile, this.selectedFile.name);
         
-          
-
+    
         this.documentService.create(formData,this.selectedFile.name,this.selectedFile.type.split('/')[1] , this.selectedFile.type.split('/')[0] , this.LeadId)
         .pipe(first())
-        .subscribe( );
-          this.documents.push(data)
+        .subscribe({
+          next:response => {
+           data._id = response._id
+            this.documents.push(data)
+          }
+
+        } );
+          
         }
       }, (reason) => { }
     );
@@ -654,13 +656,12 @@ saveLeadDocuments(leadId : any){
     this.proposals.splice(index,1)
    }
 
-   deleteDocument(index: any) {
-    this.documents.splice(index,1)
-   }
+ 
 
    
    downloadDocument(file : any) {
-    this.documentService.downloadById(file.FileName).subscribe(data => {
+ 
+    this.documentService.downloadById(file._id).subscribe(data => {
       const blob = new Blob([data], { type: file.Prefix +'/'+ file.FileType});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -689,6 +690,7 @@ saveLeadDocuments(leadId : any){
       Comments :this.modalForm.Comments.value,
       ActionNeeded :this.modalForm.ActionNeeded.value,
       MeetDate :this.modalForm.MeetDate.value,
+      BestTimeCall :this.modalForm.BestTimeCall.value,
       Remarks :this.modalForm.Remarks.value,
       InternetContactList :this.modalForm.InternetContactList.value,
       ActionNeededNotes :this.modalForm.ActionNeededNotes.value,

@@ -112,7 +112,8 @@ export class DocumentService {
   }
 
   public downloadById = (id: number) => {
-    return this.repositoryHelper.get('api/document/getById?id=' + id );
+ 
+    return this.repositoryHelper.download('api/document/ByDownloadDocumentId/' + id );
   }
 
 

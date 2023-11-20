@@ -60,7 +60,7 @@ export class LeadDocumentModalComponent implements OnInit {
 
   onFileSelected(event : any) {
     this.selectedFile = <File>event.target.files[0];
-
+    this.modalFormGroup.get('FileName').setValue(this.selectedFile.name)
   }
 
 }

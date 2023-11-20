@@ -27,6 +27,7 @@ import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-d
 import { ClientDetailComponent } from 'src/app/pages/client/client-detail/client-detail.component';
 import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/employee-detail.component';
 import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.component';
+import { LeadDetailComponent } from 'src/app/pages/lead/lead-detail/lead-detail.component';
  
 
 
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'role-detail/:id', component: RoleDetailComponent },
   { path: 'lead-create', component: LeadCreateComponent },
   { path: 'lead-update/:id', component: LeadUpdateComponent },
+  { path: 'lead-detail/:id', component: LeadDetailComponent },
   { path: 'source-list', component: SourceListComponent },
   { path: 'source-detail/:id', component: SourceDetailComponent },
   { path: 'department-list', component: DepartmentListComponent },

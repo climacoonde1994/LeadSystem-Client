@@ -62,6 +62,7 @@ export class LeadCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
     private modalService: NgbModal,
     private cityService: CityService,
     private datepipe: DatePipe,
@@ -169,45 +170,7 @@ export class LeadCreateComponent implements OnInit {
  
   }
 
-  onSubmit() {
-    const request: any = {
-      LeadId :this.modalForm.LeadId.value,
-      LeadNo :this.modalForm.LeadNo.value,
-      LeadDate :this.modalForm.LeadDate.value,
-      ClientId:this.modalForm.ClientId.value,
-      ClientName:this.modalForm.ClientName.value,
-      Description:this.modalForm.Description.value,
-      Address1:this.modalForm.Address1.value,
-      Address2:this.modalForm.Address2.value,
-      City:this.modalForm.City.value,
-      Country:this.modalForm.Country.value,
-      ZIP:this.modalForm.ZIP.value,
-      FAX:this.modalForm.FAX.value,
-      Phone:this.modalForm.Phone.value,
-      URL :this.modalForm.URL.value,
-      Status :this.modalForm.Status.value,
-      StatusComment :this.modalForm.StatusComment.value,
-      SalesPersonId :this.modalForm.SalesPersonId.value,
-      FollowUpDate :this.modalForm.FollowUpDate.value,
-      SalesPersonId2 :this.modalForm.SalesPersonId2.value,
-      FollowUpDate2 :this.modalForm.FollowUpDate2.value,
-      SourceId :this.modalForm.SourceId.value,
-      Quality :this.modalForm.Quality.value,
-      Likelihood :this.modalForm.Likelihood.value,
-      Comments :this.modalForm.Comments.value,
-      ActionNeeded :this.modalForm.ActionNeeded.value,
-      MeetDate :this.modalForm.MeetDate.value,
-      Remarks :this.modalForm.Remarks.value,
-      InternetContactList :this.modalForm.InternetContactList.value,
-      ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
-      InternetNotes :this.modalForm.InternetNotes.value,
- 
-    };
-   
-   
- 
- 
-  }
+  
 
   saveLeadheader( ) {
 
@@ -264,6 +227,8 @@ export class LeadCreateComponent implements OnInit {
         this.saveLeadCutPastes(response.LeadId);
         this.saveLeadDocuments(response.LeadId);
         this.toastHelper.showSuccess("You have successfully created " + response.LeadId + " Lead.");
+        this.router.navigate(['/lead-update/'+response.LeadId]);
+        
       },
       error: response => {
         this.errors = response.errors;

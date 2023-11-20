@@ -6,14 +6,14 @@
               <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item active">
-                          <a routerLink="/lead-list"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Lead List </a>
+                          <a routerLink="/lead-system-list"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Lead List </a>
                       </li>
                   </ol>
               </nav>
               <div class="row text-center text-sm-left h-100 mt-3">
                   <div class="col-sm-auto col-12">
                       <span class="tile tile-lg bg-info">
-                        <i class="fas fa-flag"></i>
+                        <i class="fas fa-address-book"></i>
                       </span>
                   </div>
                   <div class="col pl-1 justify-content-center align-self-center">
@@ -52,28 +52,35 @@
                             </div>
                             <div class="card-body">
                               <dl class="row">
-                                <dt class="col-sm-2">Code</dt>
-                                <dd class="col-sm-10">{{ item?.code }}</dd>
-                                <dt class="col-sm-2">Name</dt>
-                                <dd class="col-sm-10">{{ item?.name }}</dd>
-                                <dt class="col-sm-2">Default</dt>
-                                <dd class="col-sm-10">
-                                  <span *ngIf="item?.isDefault"><i class="fas fa-check text-success mr-1"></i> Yes</span>
-                                  <span *ngIf="!item?.isDefault"><i class="fas fa-times text-danger mr-1"></i> No</span>
-                                </dd>
+                                <dt class="col-sm-2">Lead No.</dt>
+                                <dd class="col-sm-10">{{ item?.LeadNo }}</dd>
+                                <dt class="col-sm-2">Lead Date</dt>
+                                <dd class="col-sm-10">{{ item?.LeadDate | date }}</dd>
+                                <dt class="col-sm-2">Client</dt>
+                                <dd class="col-sm-10">{{ client?.Name  }}</dd>
+                                <dt class="col-sm-2">Client Description</dt>
+                                <dd class="col-sm-10">{{ client?.Description  }}</dd>
                                 <dt class="col-sm-2">Status</dt>
-                                <dd class="col-sm-10">
-                                  <span *ngIf="item?.isEnabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
-                                  <span *ngIf="!item?.isEnabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
-                                </dd>
-                                <dt class="col-sm-2">Date Created</dt>
+                                <dd class="col-sm-10">{{ item?.Status  }}</dd>
+
+                                <dt class="col-sm-2">Status Comment</dt>
+                                <dd class="col-sm-10">{{ item?.StatusComment  }}</dd>
+                                <dt class="col-sm-2">Sales Person</dt>
+                                <dd class="col-sm-10">{{ salesperson1?.FullName  }}</dd>
+                                <dt class="col-sm-2">Follow Up Date</dt>
+                                <dd class="col-sm-10">{{ item?.FollowUpDate | date }}</dd>
+                                <dt class="col-sm-2">Sales Person 2</dt>
+                                <dd class="col-sm-10">{{ salesperson2?.FullName  }}</dd>
+                                <dt class="col-sm-2">Follow Up Date 2</dt>
+                                <dd class="col-sm-10">{{ item?.FollowUpDate2 | date }}</dd>
+                                <!-- <dt class="col-sm-2">Date Created</dt>
                                 <dd class="col-sm-10">{{ item?.dateCreated | dateAgo }}</dd>
                                 <dt class="col-sm-2">Created By</dt>
                                 <dd class="col-sm-10">{{ item?.createdBy }}</dd>
                                 <dt class="col-sm-2">Date Last Modified</dt>
                                 <dd class="col-sm-10">{{ item?.dateModified | dateAgo}}</dd>
                                 <dt class="col-sm-2">Modified By</dt>
-                                <dd class="col-sm-10">{{ item?.modifiedBy }}</dd>
+                                <dd class="col-sm-10">{{ item?.modifiedBy }}</dd> -->
                               </dl>
                             </div>
                         </div>
@@ -81,12 +88,71 @@
                   </div>
                 </ng-template>
               </li>
-              <li ngbNavItem="states">
-                <a ngbNavLink routerLink="." fragment="states">States</a>
+              <li ngbNavItem="client">
+                <a ngbNavLink routerLink="." fragment="client">Client</a>
                 <ng-template ngbNavContent>
-                  <app-state-list></app-state-list>
+                  <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="card card-fluid">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                  <span class="mr-auto">Client Information</span>
+                                   
+                                </div>
+                            </div>
+                            <div class="card-body">
+                              <dl class="row">
+                                <dt class="col-sm-2">Client</dt>
+                                <dd class="col-sm-10">{{ client?.Name  }}</dd>
+                                <dt class="col-sm-2">Client Description</dt>
+                                <dd class="col-sm-10">{{ client?.Description  }}</dd>
+                                <dt class="col-sm-2">Address 1 </dt>
+                                <dd class="col-sm-10">{{ client?.Adress1  }}</dd>
+                                <dt class="col-sm-2">Address 2</dt>
+                                <dd class="col-sm-10">{{ client?.Adress2  }}</dd>
+                                <dt class="col-sm-2">City</dt>
+                                <dd class="col-sm-10">{{ city?.Name  }}</dd>
+                                <dt class="col-sm-2">Country</dt>
+                                <dd class="col-sm-10">{{ client?.Description  }}</dd>
+                                <dt class="col-sm-2">ZIP</dt>
+                                <dd class="col-sm-10">{{ city?.ZIP  }}</dd>
+                                <dt class="col-sm-2">Phone</dt>
+                                <dd class="col-sm-10">{{ client?.Phone  }}</dd>
+                                <dt class="col-sm-2">URL</dt>
+                                <dd class="col-sm-10">{{ client?.URL  }}</dd>
+                              </dl>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
                 </ng-template>
               </li>
+              <li ngbNavItem="notes">
+                <a ngbNavLink routerLink="." fragment="notes">Notes</a>
+                <ng-template ngbNavContent>
+                  <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="card card-fluid">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                  <span class="mr-auto">Notes</span>
+                                   
+                                </div>
+                            </div>
+                            <div class="card-body">
+                              <dl *ngFor="let note of notes" class="row">
+                                <dt class="col-sm-2">{{note?.Date | date}}</dt>
+                                <dd class="col-sm-10">{{ note?.Description  }}</dd>
+                                 
+                              </dl>
+                               
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </li>
+          
             </ul>
 
             <div [ngbNavOutlet]="nav" class="mt-3"></div>

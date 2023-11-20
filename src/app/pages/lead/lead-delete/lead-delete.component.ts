@@ -28,11 +28,11 @@ export class LeadDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.leadService.delete(this.item.id)
+    this.leadService.delete(this.item.LeadId)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " lead.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.LeadNo + " lead.");
           this.activeModal.close();
         },
         error: response => {

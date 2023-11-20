@@ -94,7 +94,7 @@ export class EmployeeService {
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/employee/getById?id=' + id);
+    return this.repositoryHelper.get('api/employee/ByEmployeeId/' + id);
   }
 
   public getByCode = (code: string) => {

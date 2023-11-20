@@ -23,9 +23,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 
 function matches(item: any, term: string, excludeTerm : any[],employeeTerm : any[], pipe: PipeTransform) {
  
-
- console.log(item)
-
+ 
    return (excludeTerm.length > 0 ? !excludeTerm.includes(item.Status) : true) &&
           (employeeTerm.length > 0 ? employeeTerm.includes(item.SalesPersonId) : true) &&
          (
@@ -128,7 +126,7 @@ export class LeadService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/leadheader/delete?id=' + id);
+    return this.repositoryHelper.delete('api/leadheader/DeleteLeadHeader/' + id);
   }
 
 }
