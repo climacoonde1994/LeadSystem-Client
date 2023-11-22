@@ -16,14 +16,14 @@
                 <span class="tile tile-circle bg-white text-info mr-2">  </span>
                 <span class="account-summary pr-lg-4 d-none text-white d-lg-block">
                   <span class="account-description"> Welcome </span>
-                  <span class="account-name"> CLIMACO ONDE JR </span>
+                  <span class="account-name">{{ Name}}</span>
                 </span>
             </button>
             <div class="dropdown-arrow dropdown-arrow-left"></div>
             <div class="dropdown-menu">
-                <h6 class="dropdown-header d-none d-md-block d-lg-none"> CLIMACO ONDE JR </h6>
-                <a class="dropdown-item" href="#" ><span class="dropdown-icon oi oi-person"></span> Profile </a>
-                <a class="dropdown-item" *ngIf='!isAuthenticated' (click)="onLogout()" href="#"><span class="dropdown-icon oi oi-person"></span> Logout </a>
+                <h6 class="dropdown-header d-none d-md-block d-lg-none">  {{ user?.FullName }} </h6>
+                <a class="dropdown-item" [routerLink]="['/profile']" ><span class="dropdown-icon oi oi-person"></span> Profile </a>
+                <a class="dropdown-item" *ngIf='!isAuthenticated' (click)="onLogout()" ><span class="dropdown-icon oi oi-person"></span> Logout </a>
             </div>
           </div>
         </div>
@@ -33,22 +33,7 @@
   <aside class="app-aside app-aside-expand-md app-aside-light bg-light">
       <div class="aside-content">
 
-        <header class="aside-header d-block d-md-none">
-          <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
-            <span class="tile tile-circle bg-white mr-2">   </span>
-              <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span>
-              <span class="account-summary">
-                <span class="account-description"> Welcome </span>
-                <span class="account-name"> {{ name }} </span>
-              </span>
-          </button>
-          <div id="dropdown-aside" class="dropdown-aside collapse">
-              <div class="pb-3">
-                  <a class="dropdown-item" href="#"><span class="dropdown-icon oi oi-person"></span> Profile </a>
-                  <a class="dropdown-item"   (click)="onLogout()" href="#"><span class="dropdown-icon fas fa-sign-out-alt"></span> Logout </a>
-              </div>
-          </div>
-      </header>
+         
 
           <div class="aside-menu overflow-auto"   >
 
@@ -110,6 +95,12 @@
                     <a [routerLink]="['/employee-list']" class="menu-link"  href="#">
                       <span class="menu-icon fas fa-address-book"></span> 
                       <span class="menu-text">Employee </span>
+                    </a>
+                  </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/user-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-users"></span> 
+                      <span class="menu-text">User </span>
                     </a>
                   </li>
                 

@@ -28,11 +28,11 @@ export class SourceDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.sourceService.delete(this.item.id)
+    this.sourceService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " source.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.Name + " source.");
           this.activeModal.close();
         },
         error: response => {

@@ -8,21 +8,13 @@
 {{ errorMessage }}
 </div>
 <form [formGroup]="loginFormGroup" autocomplete="off" novalidate (ngSubmit)="onLogin()">
-  <!-- <div class="form-group mb-3 text-left">
-    <label for="businessTypeId"> Business Type <span class="text-danger">*</span></label>
-    <ng-select appearance="outline" [searchable]="true" [clearable]="true" labelForId="businessTypeId" formControlName="businessTypeId">
-      <ng-option *ngFor="let businessType of businessTypes" [value]="businessType.id">{{ businessType.name }}</ng-option>
-    </ng-select>
-    <span class="text-danger small" *ngIf="!loginForm.businessType.valid && loginForm.businessType.touched">
-      <span *ngIf="loginForm.businessType.hasError('required')">Business type is required.</span>
-    </span>
-  </div> -->
+ 
   <div class="form-group mb-3 text-left">
-    <label for="emailAddress"> Email Address <span class="text-danger">*</span></label>
-    <input type="text" class="form-control" formControlName="emailAddress" placeholder="Email Address" />
-    <span class="text-danger small" *ngIf="!loginForm.emailAddress.valid && loginForm.emailAddress.touched">
-      <span *ngIf="loginForm.emailAddress.hasError('required')">Email address is required.</span>
-      <span *ngIf="loginForm.emailAddress.hasError('email')">Invalid email address.</span>
+    <label for="username"> Email Address <span class="text-danger">*</span></label>
+    <input type="text" class="form-control" formControlName="username" placeholder="Email Address" />
+    <span class="text-danger small" *ngIf="!loginForm.username.valid && loginForm.username.touched">
+      <span *ngIf="loginForm.username.hasError('required')">Email address is required.</span>
+    
     </span>
   </div>
   <div class="form-group mb-3 text-left">

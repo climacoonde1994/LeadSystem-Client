@@ -34,7 +34,7 @@ export class SpecialtyModalComponent implements OnInit {
       Name: new FormControl('', [Validators.required]),
       Description:  new FormControl('', [Validators.required]),
       Category:  new FormControl('',[Validators.required]),
-    }, { validator: WhiteSpace(['Code','Name']) }
+    }, { validator: WhiteSpace(['Code','Name','Category']) }
     );
 
     this.modalFormGroup.patchValue(this.item);

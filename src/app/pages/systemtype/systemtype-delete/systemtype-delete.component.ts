@@ -28,11 +28,11 @@ export class SystemTypeDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.systemtypeService.delete(this.item.id)
+    this.systemtypeService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " systemtype.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.Name + " systemtype.");
           this.activeModal.close();
         },
         error: response => {

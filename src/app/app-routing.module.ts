@@ -33,7 +33,8 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('./layouts/dashboard-layout/dashboard-layout.module').then(x => x.DashboardLayoutModule)
       }
-    ] 
+    ] ,
+    canActivate: [GuardHelper]
   },
   {
     path: '401',

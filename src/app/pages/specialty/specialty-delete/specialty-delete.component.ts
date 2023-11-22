@@ -28,11 +28,11 @@ export class SpecialtyDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.specialtyService.delete(this.item.id)
+    this.specialtyService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " specialty.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.Name + " specialty.");
           this.activeModal.close();
         },
         error: response => {

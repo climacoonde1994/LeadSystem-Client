@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -12,8 +11,8 @@ export class DashboardLayoutComponent implements OnInit {
 
   public isAuthenticated: boolean;
   public rolePermissions: any[];
-  public name: string;
-  public role: string;
+  public user: any = {};
+  public Name: any = "Climaco";
 
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
@@ -23,16 +22,20 @@ export class DashboardLayoutComponent implements OnInit {
       this.isAuthenticated = isAuthenticated;
     });
 
-    this.isAuthenticated = true;
-    this.name = this.authenticationService.getName();
-    this.role = this.authenticationService.getRole();
-
-   
+    this.authenticationService.loggedUser.subscribe(user => {
+    
+      this.user = user;
+      this.Name = this.user.FullName
+    
+    });
+ 
+ 
   }
 
   onLogout = () => {
-    this.authenticationService.logout();
-    this.router.navigate(["/"]);
+     
+   this.authenticationService.logout();
+    this.router.navigate(["/login"]);
   }
 
 }

@@ -112,7 +112,7 @@ export class CountryService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/country/delete?id=' + id);
+    return this.repositoryHelper.delete('api/country/DeleteCountry/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

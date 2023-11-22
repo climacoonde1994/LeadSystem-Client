@@ -11,8 +11,11 @@ import { ClaimType } from '../variables/claim-type.enum';
 export class AuthenticationService {
 
   private authenticationChange = new Subject<boolean>();
+  private user = new Subject<any>();
   public authenticationChanged = this.authenticationChange.asObservable();
+  public loggedUser = this.user.asObservable();
   public decodedToken: { [key: string]: string };
+  private FullName : string =""
 
   constructor(private repositoryHelper: RepositoryHelper, private jwtHelperService: JwtHelperService) { }
 
@@ -22,9 +25,10 @@ export class AuthenticationService {
         var response = data['response'];
       
         if (response.succeeded){
-          console.log(response)
-          localStorage.setItem('token', response.data.token);
+         this.FullName = response.data.User.FullName
+          localStorage.setItem('token', response.token);
           this.setAuthenticationState(true);
+          this.setALoggedUser(response.data.User);
         }
         return response;
     }));
@@ -66,13 +70,18 @@ export class AuthenticationService {
   }
 
   public isAuthenticated = (): boolean => {
+  
     const token = localStorage.getItem("token")!;
+    
     return token != null && !this.jwtHelperService.isTokenExpired(token);
   }
 
   public setAuthenticationState = (isAuthenticated: boolean) => {
-    alert("11")
     this.authenticationChange.next(isAuthenticated);
+  }
+
+  public setALoggedUser = (user: any) => {
+    this.user.next(user);
   }
 
   public decodeToken = () => {
@@ -81,26 +90,9 @@ export class AuthenticationService {
       this.decodedToken = this.jwtHelperService.decodeToken(token);
     }
   }
-
-  public getId = () => {
-    this.decodeToken();
-    return this.decodedToken ? this.decodedToken[ClaimType.Id] : null;
-  }
-
-  public getName = () => {
-    this.decodeToken();
-    return this.decodedToken ? this.decodedToken[ClaimType.Name] : null;
-  }
-
-  public getRole = () => {
-    this.decodeToken();
-    return this.decodedToken ? this.decodedToken[ClaimType.Role] : null;
-  }
-
-  public getRoleId = () => {
-    this.decodeToken();
-    return this.decodedToken ? this.decodedToken[ClaimType.RoleId] : null;
-  }
+ 
+  
+   
 
 
 }

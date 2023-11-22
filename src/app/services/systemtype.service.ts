@@ -112,7 +112,7 @@ export class SystemTypeService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/systemtype/delete?id=' + id);
+    return this.repositoryHelper.delete('api/systemtype/DeleteSystemType/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

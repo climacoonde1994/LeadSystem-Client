@@ -112,7 +112,7 @@ export class DepartmentService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/department/delete?id=' + id);
+    return this.repositoryHelper.delete('api/department/DeleteDepartment/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

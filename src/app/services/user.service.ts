@@ -22,7 +22,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.fullName.toLowerCase().includes(term.toLowerCase()) || item.emailAddress.toLowerCase().includes(term.toLowerCase());
+  return item.Email.toLowerCase().includes(term.toLowerCase()) || item.FullName.toLowerCase().includes(term.toLowerCase());
 }
 
 @Injectable({ providedIn: 'root'})
@@ -77,7 +77,7 @@ export class UserService {
       this.$search.pipe(
         tap(() => this.$loading.next(true)),
         debounceTime(200),
-        switchMap(() => this.search(response.data)),
+        switchMap(() => this.search(response)),
         delay(200),
         tap(() => this.$loading.next(false))
       ).subscribe(result => {
@@ -90,27 +90,38 @@ export class UserService {
   }
 
   public getList = () => {
-    return this.repositoryHelper.get('api/user/getList');
+    return this.repositoryHelper.get('api/user/All');
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/user/getById?id=' + id);
+    return this.repositoryHelper.get('api/user/ByUserId/' + id);
   }
 
+ 
+  public getByCode = (code: string) => {
+    return this.repositoryHelper.get('api/user/getByCode?code=' + code);
+  }
+
+  
+
   public create = (body: any) => {
-    return this.repositoryHelper.post('api/user/create', body);
+    return this.repositoryHelper.post('api/user/CreateUser', body);
   }
 
   public update = (body: any) => {
-    return this.repositoryHelper.put('api/user/update', body);
+    return this.repositoryHelper.put('api/user/UpdateUser', body);
   }
 
   public delete = (id: number) => {
     return this.repositoryHelper.delete('api/user/delete?id=' + id);
   }
 
-  public toggle = (id: number) => {
-    return this.repositoryHelper.put('api/user/toggle?id=' + id, null);
+  public toggle = (id: number , enable : boolean) => {
+    return this.repositoryHelper.put('api/user/EnableUser/' + id+"/"+enable, null);
+  }
+
+  public default = (id: number,enable : boolean) => {
+    return this.repositoryHelper.put('api/user/DefaultUser/' + id+"/"+enable, null);
   }
 
 }

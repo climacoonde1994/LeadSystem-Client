@@ -27,7 +27,7 @@ export class UserToggleComponent implements OnInit {
 
   onSubmit() {
 
-    this.userService.toggle(this.item.id)
+    this.userService.toggle(this.item.id , !this.item.Enabled)
       .pipe(first())
       .subscribe({
         next: response => {

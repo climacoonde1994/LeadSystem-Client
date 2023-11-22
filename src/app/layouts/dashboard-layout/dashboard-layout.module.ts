@@ -90,7 +90,8 @@ import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.
     SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
     SystemTypeListComponent ,SystemTypeModalComponent, SystemTypeDetailComponent,
     PermissionListComponent, LeadNoteModalComponent ,LeadProposalModalComponent,
-    EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent
+    EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent,
+   UserListComponent, UserModalComponent, UserDetailComponent,
  
 
   ]

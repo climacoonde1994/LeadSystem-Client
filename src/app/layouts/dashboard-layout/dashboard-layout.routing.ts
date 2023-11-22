@@ -63,6 +63,7 @@ const routes: Routes = [
   { path: 'client-detail/:id', component: ClientDetailComponent },
   { path: 'employee-list', component: EmployeeListComponent },
   { path: 'employee-detail/:id', component: EmployeeDetailComponent },
+  { path: 'user-list', component: UserListComponent },
 ];
 
 export const DashboardLayoutRoutes = RouterModule.forChild(routes);

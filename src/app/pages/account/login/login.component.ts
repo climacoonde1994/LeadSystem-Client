@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginFormGroup = this.formBuilder.group({
-      // businessType: new FormControl('', [Validators.required]),
-      emailAddress: new FormControl('root@cornestech.co', [Validators.required, Validators.email]),
-      password: new FormControl('P@ssw0rd', [Validators.required]),
+     
+      username: new FormControl('admin', [Validators.required ]),
+      password: new FormControl('onde1994', [Validators.required]),
     })
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
@@ -36,19 +36,21 @@ export class LoginComponent implements OnInit {
   onLogin() {
 
     const request: any = {
-      // businessType: this.loginForm.businessType.value,
-      emailAddress: this.loginForm.emailAddress.value,
+    
+      username: this.loginForm.username.value,
       password: this.loginForm.password.value
     };
 
     this.authenticationService.login(request)
         .pipe(first())
         .subscribe({
-          next: () => {
+          next: response => {
+            console.log()
             this.router.navigate([this.returnUrl]);
           },
           error: error => {
-            this.errorMessage = error.error;
+          
+            this.errorMessage = error.message
             this.showError = true;
           }
         });

@@ -41,8 +41,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.name = this.authenticationService.getName();
-  
+     
     
 
     this.countryService.getList()
@@ -113,12 +112,15 @@ export class DashboardComponent implements OnInit {
     this.leadNeedAction = this.leadList.filter(x => x.ActionNeeded.toLowerCase() == 'true'  )
     for(var i = 0 ; i < this.leadList.length ; i++)
       {
-        console.log(this.leadList[i])
-     
       
-       const client = this.clients.filter(x => x.ClientId == this.leadToday[i].ClientId)[0]
-       const country = this.countries.filter(x => x.CountryId == client.CountryId)[0]
-        this.leadToday[i]["Country"] = country.Code
+       const client = this.clients.filter(x => x.ClientId == this.leadToday[i]?.ClientId)[0]
+       const country = this.countries.filter(x => x.CountryId == client?.CountryId)[0]
+      //  console.log(this.leadToday[i]["Country"])
+      //  if(this.leadToday[i]["Country"] != null)
+      //  {
+      //   this.leadToday[i]["Country"] = country?.Code
+      //  }
+      
       }
   }
 

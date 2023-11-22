@@ -112,7 +112,7 @@ export class SourceService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/source/delete?id=' + id);
+    return this.repositoryHelper.delete('api/source/DeleteSource/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

@@ -30,37 +30,35 @@ export class UserModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-
-    this.roleService.getList()
-    .pipe(first())
-    .subscribe({
-      next: response => {
-        this.roles = response.data;
-      },
-      error: error => {
-        this.toastHelper.showError(error.error.message);
-      }
-    });
-
+ 
     this.modalFormGroup = this.formBuilder.group({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      emailAddress: new FormControl('', [Validators.required, Validators.email]),
-      mobileNumber: new FormControl('', [Validators.required]),
-      roleId: new FormControl('', [Validators.required]),
-    }, { validator: WhiteSpace(['firstName', 'lastName', 'emailAddress']) });
+      UserName: new FormControl('', [Validators.required]),
+      Password : new FormControl('', [Validators.required]),
+      FirstName: new FormControl('', [Validators.required]),
+      LastName: new FormControl('', [Validators.required]),
+      MiddleName: new FormControl(''),
+      Email: new FormControl('', [Validators.required, Validators.email]),
+      Mobile: new FormControl('', [Validators.required]),
+      UserType: new FormControl('', [Validators.required]),
+      Status: new FormControl('Active', [Validators.required]),
+    } );
 
     this.modalFormGroup.patchValue(this.item);
   }
 
   onSubmit() {
-
+ 
     const request: any = {
-      firstName: this.modalForm.firstName.value,
-      lastName: this.modalForm.lastName.value,
-      emailAddress: this.modalForm.emailAddress.value,
-      mobileNumber: this.modalForm.mobileNumber.value,
-      roleId: this.modalForm.roleId.value
+    
+      UserName: this.modalForm.UserName.value,
+      Password: this.modalForm.Password.value,
+      FirstName: this.modalForm.FirstName.value,
+      LastName: this.modalForm.LastName.value,
+      MiddleName: this.modalForm.MiddleName.value,
+      Email: this.modalForm.Email.value,
+      Mobile: this.modalForm.Mobile.value,
+      UserType: this.modalForm.UserType.value,
+      Status: this.modalForm.Status.value,
     };
 
     if (this.item == null){
@@ -69,7 +67,7 @@ export class UserModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.data.fullName + ".");
+          this.toastHelper.showSuccess("You have successfully created " + response.FullName + ".");
           this.activeModal.close();
         },
         error: response => {
@@ -79,14 +77,14 @@ export class UserModalComponent implements OnInit {
     }
     else {
 
-      request.id = this.item.id;
+      request.Id = this.item._id;
 
-      console.log(this.item);
+     
       this.userService.update(request)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.data.fullName + ".");
+          this.toastHelper.showSuccess("You have successfully updated " + response.FullName + ".");
           this.activeModal.close();
         },
         error: response => {

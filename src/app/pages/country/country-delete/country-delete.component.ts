@@ -28,11 +28,11 @@ export class CountryDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.countryService.delete(this.item.id)
+    this.countryService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " country.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.Name + " country.");
           this.activeModal.close();
         },
         error: response => {
