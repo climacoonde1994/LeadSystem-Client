@@ -112,7 +112,7 @@ export class EmployeeService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/employee/delete?id=' + id);
+    return this.repositoryHelper.delete('api/employee/DeleteEmployee/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

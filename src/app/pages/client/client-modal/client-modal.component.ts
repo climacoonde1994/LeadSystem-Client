@@ -41,8 +41,8 @@ export class ClientModalComponent implements OnInit {
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
       Description:  new FormControl('', [Validators.required]),
-      Adress1:  new FormControl('', [Validators.required]),
-      Adress2:  new FormControl(''),
+      Address1:  new FormControl('', [Validators.required]),
+      Address2:  new FormControl(''),
       CountryId:  new FormControl(0,[Validators.required] ),
       CityId:  new FormControl( ),
       Phone:  new FormControl('',[Validators.required]),
@@ -52,15 +52,13 @@ export class ClientModalComponent implements OnInit {
     }, { validator: WhiteSpace(['Code','Name']) }
     );
 
-    this.modalFormGroup.patchValue(this.item);
 
-    
     this.countryService.getList()
     .pipe(first())
     .subscribe({
       next: response => {
       this.countries = response
-     
+        this.getCityList();
       },
       error: response => {
         
@@ -69,19 +67,12 @@ export class ClientModalComponent implements OnInit {
    
     );
 
-    this.cityService.getList()
-    .pipe(first())
-    .subscribe({
-      next: response => {
-      this.cities = response
-     
-      },
-      error: response => {
-        
-      }
-    }
    
-    );
+    console.log(this.item)
+
+    this.modalFormGroup.patchValue(this.item);
+
+    
 
   }
  
@@ -92,8 +83,8 @@ export class ClientModalComponent implements OnInit {
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
       Description: this.modalForm.Description.value,
-      Adress1: this.modalForm.Adress1.value,
-      Adress2: this.modalForm.Adress2.value,
+      Address1: this.modalForm.Address1.value,
+      Address2: this.modalForm.Address2.value,
       CountryId: this.modalForm.CountryId.value,
       CityId: this.modalForm.CityId.value,
       Phone: this.modalForm.Phone.value,
@@ -145,6 +136,21 @@ export class ClientModalComponent implements OnInit {
 
     this.filteredcities = this.cities.filter(x => x.CountryId == this.modalForm.CountryId.value);
  
+  }
+
+  getCityList(){
+
+    this.cityService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+        this.cities = response
+        this.onChange()
+        },  
+        error: response => {
+        }
+      }
+    );
   }
 
 

@@ -28,11 +28,11 @@ export class ClientDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.clientService.delete(this.item.id)
+    this.clientService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " client.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.Name + " client.");
           this.activeModal.close();
         },
         error: response => {

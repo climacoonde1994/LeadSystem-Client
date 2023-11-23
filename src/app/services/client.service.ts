@@ -22,7 +22,10 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.Code.toLowerCase().includes(term.toLowerCase()) || item.Name.toLowerCase().includes(term.toLowerCase() ) || item.Description.toLowerCase().includes(term.toLowerCase() );
+  return item.Code.toLowerCase().includes(term.toLowerCase()) || 
+  item.Name.toLowerCase().includes(term.toLowerCase() ) || 
+  item.Address.toLowerCase().includes(term.toLowerCase() ) || 
+  item.Description.toLowerCase().includes(term.toLowerCase() );
 }
 
 @Injectable({ providedIn: 'root'})
@@ -118,7 +121,7 @@ export class ClientService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/client/delete?id=' + id);
+    return this.repositoryHelper.delete('api/client/DeleteClient/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

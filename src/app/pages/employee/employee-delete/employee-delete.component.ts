@@ -28,11 +28,11 @@ export class EmployeeDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.employeeService.delete(this.item.id)
+    this.employeeService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.name + " employee.");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.FullName + " employee.");
           this.activeModal.close();
         },
         error: response => {

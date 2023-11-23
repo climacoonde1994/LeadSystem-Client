@@ -26,7 +26,7 @@ export class EmployeeModalComponent implements OnInit {
   public departments : any[];
   public filteredcities : any[];
 
-  public suffixes : any[];
+  public suffixes : any[] = [];
 
 
 
@@ -65,7 +65,7 @@ export class EmployeeModalComponent implements OnInit {
     }
     );
 
-    this.modalFormGroup.patchValue(this.item);
+    
 
   
     this.departmentService.getList()
@@ -87,7 +87,7 @@ export class EmployeeModalComponent implements OnInit {
     .subscribe({
       next: response => {
       this.countries = response
-     
+      this.getCityList()
       },
       error: response => {
         
@@ -95,28 +95,15 @@ export class EmployeeModalComponent implements OnInit {
     }
    
     );
-
-    this.cityService.getList()
-    .pipe(first())
-    .subscribe({
-      next: response => {
-      this.cities = response
-     
-      },
-      error: response => {
-        
-      }
-    }
-   
-    );
-
+ 
     this.suffixes.push({Suffix : 'Sr.'})
-      this.suffixes.push({Suffix : 'Jr.'})
-      this.suffixes.push({Suffix : 'III'})
-      this.suffixes.push({Suffix : 'IV'})
-      this.suffixes.push({Suffix : 'V'})
+    this.suffixes.push({Suffix : 'Jr.'})
+    this.suffixes.push({Suffix : 'III'})
+    this.suffixes.push({Suffix : 'IV'})
+    this.suffixes.push({Suffix : 'V'})
 
-      console.log(this.suffixes)
+      console.log(this.item)
+    this.modalFormGroup.patchValue(this.item);
 
   }
  
@@ -185,6 +172,22 @@ export class EmployeeModalComponent implements OnInit {
     this.filteredcities = this.cities.filter(x => x.CountryId == this.modalForm.CountryId.value);
  
   }
+
+  getCityList(){
+
+    this.cityService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+        this.cities = response
+        this.onChange()
+        },  
+        error: response => {
+        }
+      }
+    );
+  }
+
 
    
   getsuffix(){
