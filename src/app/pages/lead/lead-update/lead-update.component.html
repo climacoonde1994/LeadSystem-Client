@@ -34,9 +34,7 @@
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Highlight</span>
                       <div   >
-                        <button class="btn btn-primary  mr-1  " (click)="setStatus('Sold')">Set as Sold </button>
-                        <button class="btn btn-danger mr-1  " (click)="setStatus('Dead')">Set as Dead</button>
-                        <button class="btn btn-info mr-1" (click)="setStatus('Close')">Close Lead</button>
+                       
                         <button class="btn btn-warning  mr-1  " routerLink="/lead-system-list">Cancel</button>
                         <button class="btn btn-success  mr-1  " (click)="saveLeadheader()">Save</button>
                       </div>
@@ -115,7 +113,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id"> Sales Person 2 </label>
-                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId2" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
                             <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
                           </ng-select>
                         </div>
@@ -127,9 +125,7 @@
                         </div>
                       </div>  
                       
-
-                     
-                                         
+                                 
                     </div>
                     <div class="form-row">
                       <div class="col-md-6">
@@ -252,12 +248,9 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="id"> Sales Person </label>
-                          <select class="form-control" name="status" >
-                            <option  >Climaco Onde Jr</option>
-                            <option  >Kenny Rogers</option>
-                            <option  >Whiteny Houston</option>
-                            <option  >Asking Alexandria</option>
-                         </select>
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId"   placeholder="Select Sales Person">
+                            <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
+                          </ng-select>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -272,12 +265,9 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="id"> Sales Person 2 </label>
-                          <select class="form-control" name="status" >
-                            <option>Climaco Onde Jr</option>
-                            <option>Kenny Rogers</option>
-                            <option>Whiteny Houston</option>
-                            <option>Asking Alexandria</option>
-                         </select>
+                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId2" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
+                            <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
+                          </ng-select>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -335,7 +325,6 @@
                         <div class="form-group">
                           <label for="revNo"> Time </label>
                           <input type="time" class="form-control" formControlName="BestTimeCall" placeholder="Revision Number" />
-                         
                         </div>
                       </div>  
                       <div class="col-md-4">
@@ -350,10 +339,8 @@
                         <div class="form-group">
                           <label for="id"> Remarks </label>
                           <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
-                           
                         </div>
-                      </div>
-                                         
+                      </div>                  
                     </div>
                   </div>
                   <div class="card-body border-top card-header">
@@ -364,162 +351,54 @@
                   <div class="card-body">
                     <div class="form-row">
                       <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" [checked]="webchecked"class="mr-2"   >
                         <label for="myCheckbox">WEB</label>
+                        <div class="row">
+                          <div class="column">
+                            <div *ngFor="let webs of webspecialties ; index as i" class="checkbox-container col-md-12 ml-2">
+                              <input type="checkbox" id="myCheckbox"  [checked]="webs.Select" (change)="fieldsChange($event,webs)" name="myCheckbox" class="mr-2"   >
+                              <label for="myCheckbox">{{webs.Name}}</label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" [checked]="mobilechecked" class="mr-2">
                         <label for="myCheckbox">MOBILE</label>
+                        <div class="row">
+                          <div class="column">
+                            <div *ngFor="let webs of mobilespecialties ; index as i" class="checkbox-container col-md-12 ml-2">
+                              <input type="checkbox" id="myCheckbox"  [checked]="webs.Select" (change)="fieldsChange($event,webs)" name="myCheckbox" class="mr-2"   >
+                              <label for="myCheckbox">{{webs.Name}}</label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox"  [checked]="desktopchecked"  class="mr-2">
                         <label for="myCheckbox">DESKTOP</label>
+                        <div class="row">
+                          <div class="column">
+                            <div *ngFor="let webs of desktopspecialties ; index as i" class="checkbox-container col-md-12 ml-2">
+                              <input type="checkbox" id="myCheckbox"  [checked]="webs.Select" (change)="fieldsChange($event,webs)" name="myCheckbox" class="mr-2"   >
+                              <label for="myCheckbox">{{webs.Name}}</label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div class="checkbox-container col-md-2">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" (change)="setCategoryCheck" [checked]="otherchecked" class="mr-2">
                         <label for="myCheckbox">OTHER</label>
+                        <div class="row">
+                          <div class="column">
+                            <div *ngFor="let webs of otherspecialties ; index as i" (change)="fieldsChange($event,webs)" class="checkbox-container col-md-12 ml-2">
+                              <input type="checkbox" id="myCheckbox"  [checked]="webs.Select" name="myCheckbox" class="mr-2"   >
+                              <label for="myCheckbox">{{webs.Name}}</label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Classic</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">IOs</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Access</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Telehelp</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Android</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">C/C++</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Design</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.PHP</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Xamarin</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Delphi</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">CRM</label>
-                      </div>
-                    </div>
-                    
-                  
-                  
-                  
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Perl</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Objective C</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">FoxPro</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Store</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Cold Fsn</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Swift</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">JAVA</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Time</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-3 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET MVC</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">XCode</label>
-                      </div>
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">VB6</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">Account</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-6 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET CORE</label>
-                      </div>
-                     
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">.NET</label>
-                      </div>
-                      <div class="checkbox-container col-md-2 ">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">PRTNR</label>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="checkbox-container col-md-6 ml-4">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">LAMP</label>
-                      </div>
-                      
-                      <div class="checkbox-container col-md-3">
-                        <input type="checkbox" id="myCheckbox" name="myCheckbox" class="mr-2">
-                        <label for="myCheckbox">WPF</label>
-                      </div>
-                      
-                    </div>
-                    
                   </div>
                 </ng-template>
               </li>

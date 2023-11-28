@@ -23,6 +23,7 @@ import { DocumentService } from 'src/app/services/document.service';
 import { ClientService } from 'src/app/services/client.service';
 import { SpecialtyService } from 'src/app/services/specialty.service';
 import { SourceService } from 'src/app/services/source.service';
+import { Specialty } from 'src/app/interfaces/specialty';
 
 
 
@@ -35,6 +36,10 @@ export class LeadUpdateComponent implements OnInit {
 
   @Input() item: any;
 
+  public webchecked : boolean = false
+  public mobilechecked : boolean = false
+  public desktopchecked : boolean = false
+  public otherchecked : boolean = false 
   public mode : boolean = true;
   public LeadId : string = '';
 
@@ -45,6 +50,8 @@ export class LeadUpdateComponent implements OnInit {
   public employees: any[] = [];
   public specialties: any[] = [];
   public sources: any[] = [];
+
+  public selectedspecialties: any[] = [];
 
   public webspecialties: any[] = [];
   public mobilespecialties: any[] = [];
@@ -115,6 +122,7 @@ export class LeadUpdateComponent implements OnInit {
       Quality : new FormControl(''),
       Likelihood : new FormControl(''),
       Comments : new FormControl(''),
+      Specialty : new FormControl(),
       ActionNeeded : new FormControl(''),
       MeetDate : new FormControl(''),
       BestTimeCall : new FormControl(''),
@@ -140,19 +148,7 @@ export class LeadUpdateComponent implements OnInit {
     }
     );
 
-    this.specialtyService.getList()
-    .pipe(first())
-    .subscribe({
-      next: response => {
-      this.specialties = response
-      this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
-      
-      },
-      error: response => {
-        
-      }
-    }
-    );
+  
 
     this.sourceService.getList()
     .pipe(first())
@@ -160,7 +156,7 @@ export class LeadUpdateComponent implements OnInit {
       next: response => {
 
       this.sources = response
-        console.log(this.sources)
+     
       
       },
       error: response => {
@@ -213,6 +209,7 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('Quality').setValue(data.Quality);
           this.modalFormGroup.get('Likelihood').setValue(data.Likelihood);
           this.modalFormGroup.get('Comments').setValue(data.Comments);
+ 
           this.modalFormGroup.get('ActionNeeded').setValue(data.ActionNeeded);
           this.modalFormGroup.get('MeetDate').setValue(data.MeetDate);
           this.modalFormGroup.get('BestTimeCall').setValue(data.BestTimeCall);
@@ -220,8 +217,7 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('InternetContactList').setValue(data.InternetContactList);
           this.modalFormGroup.get('ActionNeededNotes').setValue(data.ActionNeededNotes);
           this.modalFormGroup.get('InternetNotes').setValue(data.InternetNotes);
-
-        
+          this.selectedspecialties = data.Specialty      
         },
         error: response => {
           this.errors = response.errors;
@@ -237,8 +233,8 @@ export class LeadUpdateComponent implements OnInit {
           this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
           this.modalFormGroup.get('ClientName').setValue(data.Name);
           this.modalFormGroup.get('Description').setValue(data.Description);
-          this.modalFormGroup.get('Address1').setValue(data.Adress1);
-          this.modalFormGroup.get('Address2').setValue(data.Adress2);
+          this.modalFormGroup.get('Address1').setValue(data.Address1);
+          this.modalFormGroup.get('Address2').setValue(data.Address2);
           this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
           this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
           this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
@@ -270,7 +266,6 @@ export class LeadUpdateComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-        console.log(this.notes)
         this.notes = response
         },
         error: response => {
@@ -318,6 +313,25 @@ export class LeadUpdateComponent implements OnInit {
       }
       );
 
+      this.specialtyService.getList()
+      .pipe(first())
+      .subscribe({
+        next: response => {
+   
+        this.specialties = this.mapSpecialty(response)
+        
+        this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
+        this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
+        this.desktopspecialties = this.specialties.filter(x => x.Category == 'DESKTOP')
+        this.otherspecialties = this.specialties.filter(x => x.Category == 'OTHER')
+        this.setCategoryCheck()
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
   }
 
  
@@ -343,13 +357,13 @@ export class LeadUpdateComponent implements OnInit {
       InternetContactList :this.modalForm.InternetContactList.value,
       ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
       InternetNotes :this.modalForm.InternetNotes.value,
+      Specialty :this.selectedspecialties,
     };
 
     this.leadService.update(request)
     .pipe(first())
     .subscribe({
       next: response => {
-          console.log(response)
         this.toastHelper.showSuccess("You have successfully updated " + response.LeadId + " Lead.");
       },
       error: response => {
@@ -469,8 +483,8 @@ saveLeadDocuments(leadId : any){
         this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
         this.modalFormGroup.get('ClientName').setValue(data.Name);
         this.modalFormGroup.get('Description').setValue(data.Description);
-        this.modalFormGroup.get('Address1').setValue(data.Adress1);
-        this.modalFormGroup.get('Address2').setValue(data.Adress2);
+        this.modalFormGroup.get('Address1').setValue(data.Address1);
+        this.modalFormGroup.get('Address2').setValue(data.Address2);
         this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
         this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
         this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
@@ -737,10 +751,48 @@ saveLeadDocuments(leadId : any){
     return this.modalFormGroup.controls;
   }
 
- 
-
-
+  mapSpecialty(list : any ){
 
  
+    var specialties: any[] = [];
+    for(var i = 0 ;i < list.length ; i++)
+    {
+        var specialty = { Name: list[i].Name,
+        Select: this.selectedspecialties.includes(list[i].SpecialtyId),  
+        SpecialtyId: list[i].SpecialtyId,
+        Category: list[i].Category}
+        specialties.push(specialty)
+    }
+    
+    return specialties;
+  }
+
+  fieldsChange(values:any, item : any):void {
+    item.Select = values.target.checked
+    if(values.target.checked)
+    {
+      this.selectedspecialties.push(item.SpecialtyId)
+    }
+    else
+    {
+      const index = this.selectedspecialties.indexOf(item.SpecialtyId);
+      if (index > -1) 
+      {
+        this.selectedspecialties.splice(index, 1);
+      }
+    }
+
+    this.setCategoryCheck();
+  }
+
  
+  setCategoryCheck(){
+     
+    this.webchecked = this.webspecialties.filter(x => x.Select == true).length > 0;
+    this.mobilechecked = this.mobilespecialties.filter(x => x.Select == true).length > 0;
+    this.desktopchecked = this.desktopspecialties.filter(x => x.Select == true).length > 0;
+    this.otherchecked = this.otherspecialties.filter(x => x.Select == true).length > 0;
+ 
+    
+  }
 }

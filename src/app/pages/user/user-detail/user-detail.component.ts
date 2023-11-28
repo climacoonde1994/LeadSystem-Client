@@ -31,7 +31,9 @@ export class UserDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.userService.getById(params['id'])
         .subscribe(response => {
-          this.item = response.data;
+       
+          this.item = response;
+          console.log( this.item)
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })

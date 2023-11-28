@@ -34,6 +34,11 @@ export class LeadCreateComponent implements OnInit {
 
   @Input() item: any;
 
+
+  public webchecked : boolean = false
+  public mobilechecked : boolean = false
+  public desktopchecked : boolean = false
+  public otherchecked : boolean = false 
   public mode : boolean = true
 
   public selectedCity : any;
@@ -43,6 +48,14 @@ export class LeadCreateComponent implements OnInit {
   public employees: any[] = [];
   public specialties: any[] = [];
   public sources: any[] = [];
+
+  public selectedspecialties: any[] = [];
+  
+ 
+  public webspecialties: any[] = [];
+  public mobilespecialties: any[] = [];
+  public desktopspecialties: any[] = [];
+  public otherspecialties: any[] = [];
 
   public notes: any[] = [];
   public leadcontacts: any[] = [];
@@ -99,15 +112,16 @@ export class LeadCreateComponent implements OnInit {
       LeadId : new FormControl(''),
       LeadNo : new FormControl(''),
       LeadDate : new FormControl(''),
-      Status : new FormControl(''),
-      StatusComment : new FormControl(''),
+      Status : new FormControl('Active'),
+      StatusComment : new FormControl('Active Lead'),
       SalesPersonId : new FormControl(''),
       FollowUpDate : new FormControl(''),
       SalesPersonId2 : new FormControl(''),
       FollowUpDate2 : new FormControl(''),
       SourceId : new FormControl(''),
-      Quality : new FormControl(''),
-      Likelihood : new FormControl(''),
+      Specialty : new FormControl(),
+      Quality : new FormControl('Unknown'),
+      Likelihood : new FormControl('Normal'),
       Comments : new FormControl(''),
       ActionNeeded : new FormControl(''),
       MeetDate : new FormControl(''),
@@ -117,6 +131,8 @@ export class LeadCreateComponent implements OnInit {
       InternetNotes : new FormControl(''),
     });
 
+    this.modalFormGroup.get('LeadDate').setValue((new Date()).toISOString().substring(0,10));
+    this.modalFormGroup.get('FollowUpDate').setValue((new Date()).toISOString().substring(0,10));
 
     
     this.employeeService.getList()
@@ -161,8 +177,30 @@ export class LeadCreateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.sources = response
+      var defaultsource = this.sources.filter(x => x.Default == true)[0]
+      if(defaultsource != null && defaultsource != null)
+      {
+        this.modalFormGroup.get('SourceId').setValue( defaultsource.SourceId);
+      }
+     
       },
       error: response => {
+      }
+    }
+    );
+
+    this.specialtyService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.specialties = this.mapSpecialty(response)
+      this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
+      this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
+      this.desktopspecialties = this.specialties.filter(x => x.Category == 'DESKTOP')
+      this.otherspecialties = this.specialties.filter(x => x.Category == 'OTHER')
+      },
+      error: response => {
+        
       }
     }
     );
@@ -211,6 +249,7 @@ export class LeadCreateComponent implements OnInit {
       InternetContactList :this.modalForm.InternetContactList.value,
       ActionNeededNotes :this.modalForm.ActionNeededNotes.value,
       InternetNotes :this.modalForm.InternetNotes.value,
+      Specialty :this.selectedspecialties,
     
     };
 
@@ -526,6 +565,49 @@ saveLeadDocuments(leadId : any){
     
     }
     return false;
+  }
+
+  mapSpecialty(list : any ){
+
+ 
+    var specialties: any[] = [];
+    for(var i = 0 ;i < list.length ; i++)
+    {
+        var specialty = { Name: list[i].Name,
+        Select: this.selectedspecialties.includes(list[i].SpecialtyId),  
+        SpecialtyId: list[i].SpecialtyId,
+        Category: list[i].Category}
+        specialties.push(specialty)
+    }
+    
+    return specialties;
+  }
+
+  fieldsChange(values:any, item : any):void {
+    item.Select = values.target.checked
+    if(values.target.checked)
+    {
+      this.selectedspecialties.push(item.SpecialtyId)
+    }
+    else
+    {
+      const index = this.selectedspecialties.indexOf(item.SpecialtyId);
+      if (index > -1) 
+      {
+        this.selectedspecialties.splice(index, 1);
+      }
+    }
+
+    this.setCategoryCheck();
+  }
+
+ 
+  setCategoryCheck(){
+     
+    this.webchecked = this.webspecialties.filter(x => x.Select == true).length > 0;
+    this.mobilechecked = this.mobilespecialties.filter(x => x.Select == true).length > 0;
+    this.desktopchecked = this.desktopspecialties.filter(x => x.Select == true).length > 0;
+    this.otherchecked = this.otherspecialties.filter(x => x.Select == true).length > 0;
   }
 
  

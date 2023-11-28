@@ -50,19 +50,13 @@
                             </div>
                             <div class="card-body">
                                 <dl class="row">
+                                    <dt class="col-sm-2">Full Name</dt>
+                                    <dd class="col-sm-10">{{ item?.FullName }}</dd>
                                     <dt class="col-sm-2">First Name</dt>
-                                    <dd class="col-sm-10">{{ item?.firstName }}</dd>
+                                    <dd class="col-sm-10">{{ item?.FirstName }}</dd>
                                     <dt class="col-sm-2">Last Name</dt>
-                                    <dd class="col-sm-10">{{ item?.lastName }}</dd>
-                                    <dt class="col-sm-2">Email Address</dt>
-                                    <dd class="col-sm-10">{{ item?.emailAddress }}</dd>
-                                    <dt class="col-sm-2">Mobile Number</dt>
-                                    <dd class="col-sm-10">{{ item?.mobileNumber }}</dd>
-                                    <dt class="col-sm-2">Status</dt>
-                                    <dd class="col-sm-10">
-                                      <span *ngIf="item?.isEnabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
-                                      <span *ngIf="!item?.isEnabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
-                                    </dd>
+                                    <dd class="col-sm-10">{{ item?.LastName }}</dd>
+                                    
                                     <dt class="col-sm-2">Date Created</dt>
                                     <dd class="col-sm-10">{{ item?.dateCreated | dateAgo }}</dd>
                                     <dt class="col-sm-2">Created By</dt>
