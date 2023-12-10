@@ -22,12 +22,14 @@
     ],
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
+ 
    
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "enableIvy": false
   }
 }
