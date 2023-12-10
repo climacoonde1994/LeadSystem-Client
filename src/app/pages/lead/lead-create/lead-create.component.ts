@@ -23,6 +23,8 @@ import { DocumentService } from 'src/app/services/document.service';
 import { SpecialtyService } from 'src/app/services/specialty.service';
 import { SourceService } from 'src/app/services/source.service';
 
+ 
+
 
 
 @Component({
@@ -33,7 +35,12 @@ import { SourceService } from 'src/app/services/source.service';
 export class LeadCreateComponent implements OnInit {
 
   @Input() item: any;
-
+  
+  private user : any = {};
+  private employee : any = {};
+  public actionNeeded : boolean = false
+  public clientName : string = "";
+  public clientDescription : string = "";
 
   public webchecked : boolean = false
   public mobilechecked : boolean = false
@@ -123,7 +130,7 @@ export class LeadCreateComponent implements OnInit {
       Quality : new FormControl('Unknown'),
       Likelihood : new FormControl('Normal'),
       Comments : new FormControl(''),
-      ActionNeeded : new FormControl(''),
+      ActionNeeded : new FormControl(false),
       MeetDate : new FormControl(''),
       Remarks : new FormControl(''),
       InternetContactList : new FormControl(''),
@@ -133,7 +140,8 @@ export class LeadCreateComponent implements OnInit {
 
     this.modalFormGroup.get('LeadDate').setValue((new Date()).toISOString().substring(0,10));
     this.modalFormGroup.get('FollowUpDate').setValue((new Date()).toISOString().substring(0,10));
-
+    this.user = JSON.parse(localStorage.getItem('user').toString())
+    this.employee = JSON.parse(localStorage.getItem('employee').toString())
     
     this.employeeService.getList()
     .pipe(first())
@@ -214,7 +222,6 @@ export class LeadCreateComponent implements OnInit {
 
     if(this.validateLeadForm())
     {
-      
       return ;
     }
     const request: any = {
@@ -255,18 +262,22 @@ export class LeadCreateComponent implements OnInit {
 
    
    
+   
   
     this.leadService.create(request)
     .pipe(first())
     .subscribe({
       next: response => {
-          this.saveLeadContact(response.LeadId);
-          this.saveLeadNotes(response.LeadId);
+        this.saveLeadContact(response.LeadId);
+        this.saveLeadNotes(response.LeadId);
         this.saveLeadProposals(response.LeadId);
         this.saveLeadCutPastes(response.LeadId);
         this.saveLeadDocuments(response.LeadId);
         this.toastHelper.showSuccess("You have successfully created " + response.LeadId + " Lead.");
-        this.router.navigate(['/lead-update/'+response.LeadId]);
+        
+        setTimeout(()=>{this.router.navigate(['/lead-update/'+response.LeadId]) }, 500)
+        
+  
         
       },
       error: response => {
@@ -378,15 +389,11 @@ saveLeadDocuments(leadId : any){
     this.selectedFile = <File>this.documents[i].File
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
-    
-       
-
+  
      this.documentService.create(formData,this.selectedFile.name,this.selectedFile.type.split('/')[1] , this.selectedFile.type.split('/')[0] , leadId)
      .pipe(first())
      .subscribe( );
    }
- 
- 
   }
 }
 
@@ -401,8 +408,8 @@ saveLeadDocuments(leadId : any){
         this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
         this.modalFormGroup.get('ClientName').setValue(data.Name);
         this.modalFormGroup.get('Description').setValue(data.Description);
-        this.modalFormGroup.get('Address1').setValue(data.Adress1);
-        this.modalFormGroup.get('Address2').setValue(data.Adress2);
+        this.modalFormGroup.get('Address1').setValue(data.Address1);
+        this.modalFormGroup.get('Address2').setValue(data.Address2);
         this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
         this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
         this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
@@ -410,6 +417,8 @@ saveLeadDocuments(leadId : any){
         this.modalFormGroup.get('FAX').setValue(data.FAX);
         this.modalFormGroup.get('URL').setValue(data.URL);
         this.modalFormGroup.get('ClientId').setValue(data.ClientId);
+        this.clientName = data.Name
+        this.clientDescription = data.Description
       }, (reason) => { }
     );
      
@@ -439,7 +448,7 @@ saveLeadDocuments(leadId : any){
     const modalRef = this.modalService.open(LeadNoteModalComponent ,{size: 'lg' });
     modalRef.result.then(
       (data: any) => {
-        
+        data.Author = this.user.FullName;
         if(data.Description && data.Description.length > 0  )
         {
           this.notes.push(data)
@@ -610,5 +619,10 @@ saveLeadDocuments(leadId : any){
     this.otherchecked = this.otherspecialties.filter(x => x.Select == true).length > 0;
   }
 
+  actionNeededChange(values:any ):void {
+    this.modalFormGroup.get('ActionNeeded').setValue(values.target.checked);
+  }
+
+ 
  
 }

@@ -24,7 +24,7 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 function matches(item: any, term: string, pipe: PipeTransform) {
   return item.Code.toLowerCase().includes(term.toLowerCase()) || 
   item.Name.toLowerCase().includes(term.toLowerCase() ) || 
-  item.Address.toLowerCase().includes(term.toLowerCase() ) || 
+  item.Address1.toLowerCase().includes(term.toLowerCase() ) || 
   item.Description.toLowerCase().includes(term.toLowerCase() );
 }
 

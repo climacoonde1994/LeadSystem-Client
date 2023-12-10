@@ -36,6 +36,12 @@ export class LeadUpdateComponent implements OnInit {
 
   @Input() item: any;
 
+
+  private user : any = {};
+  public clientName : string = "";
+  public clientDescription : string = "";
+
+  public actionNeeded : boolean = false
   public webchecked : boolean = false
   public mobilechecked : boolean = false
   public desktopchecked : boolean = false
@@ -128,22 +134,21 @@ export class LeadUpdateComponent implements OnInit {
       BestTimeCall : new FormControl(''),
       Remarks : new FormControl(''),
       InternetContactList : new FormControl(''),
-      ActionNeededNotes : new FormControl(''),
+      ActionNeededNotes : new FormControl( ),
       InternetNotes : new FormControl(''),
     });
 
     this.LeadId = this.activatedRoute.snapshot.paramMap.get('id');
-
-        
+  
+    
+    this.user = JSON.parse(localStorage.getItem('user').toString())
+ 
+ 
     this.employeeService.getList()
     .pipe(first())
     .subscribe({
       next: response => {
       this.employees = response
-     
-      },
-      error: response => {
-        
       }
     }
     );
@@ -154,13 +159,7 @@ export class LeadUpdateComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next: response => {
-
       this.sources = response
-     
-      
-      },
-      error: response => {
-        
       }
     }
     );
@@ -170,18 +169,31 @@ export class LeadUpdateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.countries = response
-     
-      },
-      error: response => {
-        
+        }
       }
-    }
     );
+
     this.cityService.getList()
     .pipe(first())
     .subscribe({
       next: response => {
       this.cities = response
+        } 
+      }
+    );
+
+    this.specialtyService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+ 
+      this.specialties = this.mapSpecialty(response)
+      
+      this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
+      this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
+      this.desktopspecialties = this.specialties.filter(x => x.Category == 'DESKTOP')
+      this.otherspecialties = this.specialties.filter(x => x.Category == 'OTHER')
+      this.setCategoryCheck()
       },
       error: response => {
         
@@ -218,119 +230,17 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('ActionNeededNotes').setValue(data.ActionNeededNotes);
           this.modalFormGroup.get('InternetNotes').setValue(data.InternetNotes);
           this.selectedspecialties = data.Specialty      
+          this.getLeaderDetails()
         },
         error: response => {
           this.errors = response.errors;
         }
       });
 
-      this.clientService.getByLeadId(this.LeadId)
-      .pipe(first())
-      .subscribe({
-        next: data => {
-
-          this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
-          this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
-          this.modalFormGroup.get('ClientName').setValue(data.Name);
-          this.modalFormGroup.get('Description').setValue(data.Description);
-          this.modalFormGroup.get('Address1').setValue(data.Address1);
-          this.modalFormGroup.get('Address2').setValue(data.Address2);
-          this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
-          this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
-          this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
-          this.modalFormGroup.get('Phone').setValue(data.Phone);
-          this.modalFormGroup.get('FAX').setValue(data.FAX);
-          this.modalFormGroup.get('URL').setValue(data.URL);
-          this.modalFormGroup.get('ClientId').setValue(data.ClientId);
-
+    
      
-        },
-        error: response => {
-          this.errors = response.errors;
-        }
-      });
 
-      this.leadContactService.getByLeadId(this.LeadId)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-        this.leadcontacts = response
-        },
-        error: response => {
-          
-        }
-      }
-      );
-
-      this.noteService.getByLeadId(this.LeadId)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-        this.notes = response
-        },
-        error: response => {
-          
-        }
-      }
-      );
-
-      this.proposalService.getByLeadId(this.LeadId)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-         
-        this.proposals = response
-        },
-        error: response => {
-          
-        }
-      }
-      );
-
-      this.documentService.getByLeadId(this.LeadId)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-         
-        this.documents = response
-        },
-        error: response => {
-          
-        }
-      }
-      );
-
-      this.cutPasteService.getByLeadId(this.LeadId)
-      .pipe(first())
-      .subscribe({
-        next: response => {
-         
-        this.cutpastes = response
-        },
-        error: response => {
-          
-        }
-      }
-      );
-
-      this.specialtyService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-   
-        this.specialties = this.mapSpecialty(response)
-        
-        this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
-        this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
-        this.desktopspecialties = this.specialties.filter(x => x.Category == 'DESKTOP')
-        this.otherspecialties = this.specialties.filter(x => x.Category == 'OTHER')
-        this.setCategoryCheck()
-        },
-        error: response => {
-          
-        }
-      }
-      );
+    
 
   }
 
@@ -370,10 +280,6 @@ export class LeadUpdateComponent implements OnInit {
         this.errors = response.errors;
       }
     });
-   
-    
- 
-  
   }
 
   saveLeadContact(leadId : any){
@@ -536,6 +442,7 @@ saveLeadDocuments(leadId : any){
         if(data.Description && data.Description.length > 0  )
         { 
           data.LeadId = this.LeadId;
+          data.Author = this.user.FullName;
           var notes : any[] = []
           notes.push(data)
           this.noteService.create(notes)
@@ -784,7 +691,10 @@ saveLeadDocuments(leadId : any){
 
     this.setCategoryCheck();
   }
-
+  actionNeededChange(values:any ):void {
+    this.modalFormGroup.get('ActionNeeded').setValue(values.target.checked);
+  }
+  
  
   setCategoryCheck(){
      
@@ -794,5 +704,98 @@ saveLeadDocuments(leadId : any){
     this.otherchecked = this.otherspecialties.filter(x => x.Select == true).length > 0;
  
     
+  }
+
+  getLeaderDetails(){
+    this.leadContactService.getByLeadId(this.LeadId)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.leadcontacts = response
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+    this.noteService.getByLeadId(this.LeadId)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.notes = response
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+    this.proposalService.getByLeadId(this.LeadId)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+       
+      this.proposals = response
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+    this.documentService.getByLeadId(this.LeadId)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+       
+      this.documents = response
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+    this.cutPasteService.getByLeadId(this.LeadId)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+       
+      this.cutpastes = response
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+    this.clientService.getByLeadId(this.LeadId)
+    .pipe(first())
+    .subscribe({
+      next: data => {
+
+        this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
+        this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
+        this.modalFormGroup.get('ClientName').setValue(data.Name);
+        this.modalFormGroup.get('Description').setValue(data.Description);
+        this.modalFormGroup.get('Address1').setValue(data.Address1);
+        this.modalFormGroup.get('Address2').setValue(data.Address2);
+        this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
+        this.modalFormGroup.get('ZIP').setValue(this.selectedCity.ZIP);
+        this.modalFormGroup.get('Country').setValue(this.selectedCountry.Name);
+        this.modalFormGroup.get('Phone').setValue(data.Phone);
+        this.modalFormGroup.get('FAX').setValue(data.FAX);
+        this.modalFormGroup.get('URL').setValue(data.URL);
+        this.modalFormGroup.get('ClientId').setValue(data.ClientId);
+        this.clientName = data.Name
+        this.clientDescription = data.Description
+   
+      },
+      error: response => {
+        this.errors = response.errors;
+      }
+    });
+
   }
 }

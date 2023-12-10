@@ -18,17 +18,14 @@ export class DashboardLayoutComponent implements OnInit {
 
   ngOnInit() {
 
+    this.user = JSON.parse(localStorage.getItem('user').toString())
+
     this.authenticationService.authenticationChanged.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
     });
 
-    this.authenticationService.loggedUser.subscribe(user => {
-    
-      this.user = user;
-      this.Name = this.user.FullName
-    
-    });
- 
+  
+    this.Name = this.user.FullName
  
   }
 

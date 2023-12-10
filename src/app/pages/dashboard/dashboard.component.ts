@@ -3,11 +3,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LeadService, } from 'src/app/services/lead.service';
 import { ClientService } from 'src/app/services/client.service';
-import { CityService } from 'src/app/services/city.service';
 import { CountryService } from 'src/app/services/country.service';
-import { EmployeeService } from 'src/app/services/employee.service';
-import { LeadContactService } from 'src/app/services/lead-contact.service';
-import { NoteService } from 'src/app/services/notes.service';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 
 @Component({
@@ -17,6 +13,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 })
 export class DashboardComponent implements OnInit {
 
+  public employee : any = {};
   public name: string;
   public leadList : any [] = [];
 
@@ -25,7 +22,7 @@ export class DashboardComponent implements OnInit {
   public leadOverDue2: any [] = [];
   public leadCallTom: any [] = [];
   public leadNeedAction: any [] = [];
-  public employeeId : string = "1";
+ 
 
   public cities: any[] = [];
   public countries: any[] = [];
@@ -33,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,
             public leadService: LeadService,
-            public cityService: CityService,
+ 
             public toastHelper: ToastHelper,
             public countryService: CountryService,
             public clientService : ClientService
@@ -42,38 +39,26 @@ export class DashboardComponent implements OnInit {
   ngOnInit() 
   {
      
-    
-
     this.countryService.getList()
-  .pipe(first())
-  .subscribe({
-    next: response => {
-    this.countries = response
-   
-    },
-    error: response => {
-      
-    }
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.countries = response
+      this.getLeadList();
+      },
+      error: response => {
+        
+      }
   }
   );
-  
-  this.cityService.getList()
-  .pipe(first())
-  .subscribe({
-    next: response => {
-    this.cities = response
-    },
-    error: response => {
-      
-    }
-  }
-  );
+ 
 
   this.clientService.getList()
   .pipe(first())
   .subscribe({
     next: response => {
     this.clients = response
+    this.getLeadList();
     },
     error: response => {
       
@@ -81,7 +66,42 @@ export class DashboardComponent implements OnInit {
   }
   );
 
-  this.leadService.getList()
+  this.employee = JSON.parse(localStorage.getItem('employee').toString())
+  console.log(this.employee)
+
+  }
+
+  
+
+
+  initializeLeads( ){
+    var currentDate = new Date().setHours(0,0,0,0);
+    var cdate = new Date()
+    var tomorrowDate =  currentDate +86400000 ;
+    console.log(currentDate,tomorrowDate)
+ 
+   for(var i = 0 ; i < this.leadList.length ; i++)
+   {
+   
+    const client = this.clients.filter(x => x.ClientId == this.leadList[i]?.ClientId)[0]
+    const country = this.countries.filter(x => x.CountryId == client?.CountryId)[0]
+ 
+    this.leadList[i]["Country"] = country?.Code
+    this.leadList[i]["Client"] = client?.Name
+    this.leadList[i]["ActionNeeded"] = this.leadList[i].hasOwnProperty('ActionNeeded')  ?  this.leadList[i].ActionNeeded  : false
+   
+   }
+    this.leadToday = this.leadList.filter(x => new Date(x.LeadDate).setHours(0,0,0,0) == currentDate && x.SalesPersonId == this.employee.EmployeeId )
+    this.leadOverDue = this.leadList.filter(x => new Date(x.LeadDate).setHours(0,0,0,0) < currentDate && x.SalesPersonId == this.employee.EmployeeId  )
+    this.leadOverDue2 = this.leadList.filter(x => new Date(x.LeadDate).setHours(0,0,0,0) < currentDate && x.SalesPersonId2 == this.employee.EmployeeId)
+    this.leadCallTom = this.leadList.filter(x => new Date(x.FollowUpDate).setHours(0,0,0,0) == tomorrowDate && x.SalesPersonId == this.employee.EmployeeId)
+    this.leadNeedAction = this.leadList.filter(x => x.ActionNeeded  == true && x.SalesPersonId == this.employee.EmployeeId )
+    console.log(this.leadToday)
+ 
+  }
+
+  getLeadList(){
+    this.leadService.getList()
     .pipe(first())
     .subscribe({
       next: response => {
@@ -95,53 +115,4 @@ export class DashboardComponent implements OnInit {
     }
     );
   }
-
-  
-
-
-  initializeLeads( ){
-    var currentDate = new Date().setHours(0,0,0,0);
-    var cdate = new Date()
-   var tomorrowDate = cdate.setDate(cdate.getDate() + 1);
- 
-  
-    this.leadToday = this.leadList.filter(x => new Date(x.MeetDate).setHours(0,0,0,0) == currentDate && x.SalesPersonId == this.employeeId)
-    this.leadOverDue = this.leadList.filter(x => new Date(x.FollowUpDate).setHours(0,0,0,0) < currentDate && x.SalesPersonId == this.employeeId)
-    this.leadOverDue2 = this.leadList.filter(x => new Date(x.FollowUpDate2).setHours(0,0,0,0) < currentDate && x.SalesPersonId2 == this.employeeId)
-    this.leadCallTom = this.leadList.filter(x => new Date(x.FollowUpDate).setHours(0,0,0,0) == currentDate && x.SalesPersonId == this.employeeId)
-    this.leadNeedAction = this.leadList.filter(x => x.ActionNeeded.toLowerCase() == 'true'  )
-    for(var i = 0 ; i < this.leadList.length ; i++)
-      {
-      
-       const client = this.clients.filter(x => x.ClientId == this.leadToday[i]?.ClientId)[0]
-       const country = this.countries.filter(x => x.CountryId == client?.CountryId)[0]
-      //  console.log(this.leadToday[i]["Country"])
-      //  if(this.leadToday[i]["Country"] != null)
-      //  {
-      //   this.leadToday[i]["Country"] = country?.Code
-      //  }
-      
-      }
-  }
-
-  async getAllCountries(){
-    this.countryService.getList()
-      .pipe(first())
-      .subscribe({
-        next: response => {
-          this.countries = response;
-
-        },
-        error: response => {
-        }
-      }
-      );
-  }
-
-  
-
-
-
-  
-
 }

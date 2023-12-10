@@ -42,17 +42,22 @@
                   </div>
                   <div class="card-body">
                     <div class="form-row">
-                      
                       <div class="col-md-4">
+                        <label for="id"> Client Name </label>
                         <div class="form-group">
-                          <label for="id"> Client Name </label>
-                          <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
+                        <div class="input-container">
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientName}} </label>
                         </div>
                       </div>
+                      </div>
+                                         
+                    </div>
+                    <div class="form-row">
+                      
                       <div class="col-md-8">
+                        <label for="Description"> Description </label>
                         <div class="form-group">
-                          <label for="revNo"> Description </label>
-                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" readonly/>
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientDescription}} </label>
                         </div>
                       </div>                        
                     </div>
@@ -329,10 +334,13 @@
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Action Needed </label>
-                          <input type="checkbox" class="form-control"   placeholder="Revision Number" formControlName="ActionNeeded"/>
+                          <label for="myCheckbox"> </label>
+                          <div class="checkbox-container col-md-12 mt-3">
+                            <input type="checkbox" id="myCheckbox" (change)="actionNeededChange($event)" [checked]="actionNeeded"  formControlName="ActionNeeded" class="mr-2"   >
+                            <label for="myCheckbox">Action Needed</label>
+                          </div> 
                         </div>
-                      </div>                        
+                      </div>                             
                     </div>
                     <div class="form-row">
                       <div class="col-md-12">
@@ -414,17 +422,22 @@
                   </div>
                   <div class="card-body">
                     <div class="form-row">
-                      
                       <div class="col-md-4">
+                        <label for="id"> Client Name </label>
                         <div class="form-group">
-                          <label for="id"> Client Name </label>
-                          <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
+                        <div class="input-container">
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientName}} </label>
                         </div>
                       </div>
+                      </div>
+                                         
+                    </div>
+                    <div class="form-row">
+                      
                       <div class="col-md-8">
+                        <label for="Description"> Description </label>
                         <div class="form-group">
-                          <label for="revNo"> Description  </label>
-                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" readonly />
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientDescription}} </label>
                         </div>
                       </div>                        
                     </div>
@@ -552,15 +565,17 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"  >Date</th>
-                              <th class="align-middle" style="width: 70%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
-                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
+                              <th class="align-middle" style="width: 10%" scope="col" sortable="code"  >Date</th>
+                              <th class="align-middle" style="width: 65%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
+                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"  >Author  </th>
+                              <th class="align-middle" style="width: 10%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let note of notes">
                               <td class="align-middle">{{note.Date  | date}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle" class="max-lines">{{note.Description}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle" class="max-lines">{{note.Author}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle"><ngb-highlight></ngb-highlight></td>
                             </tr>
                           </tbody>

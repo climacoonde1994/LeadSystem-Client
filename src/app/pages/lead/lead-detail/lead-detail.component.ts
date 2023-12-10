@@ -126,15 +126,16 @@ export class LeadDetailComponent implements OnInit {
       this.leadService.getById(params['id'])
         .subscribe(response => {
           this.item = response;
+           
           this.loadClient();
           if(this.item.SalesPersonId)
           {
             this.loadSalesPerson(1 , this.item.SalesPersonId);
           }
-          if(this.item.SalesPersonId2)
-          {
-            this.loadSalesPerson(2 , this.item.SalesPersonId2);
-          }
+          // if(this.item.SalesPersonId2)
+          // {
+          //   this.loadSalesPerson(2 , this.item.SalesPersonId2);
+          // }
          
          
           this.loadLeadNotes();
@@ -179,12 +180,11 @@ export class LeadDetailComponent implements OnInit {
   }
 
   loadCountry(){
-    this.cityService.getById(this.client.CountryId)
+    this.countryService.getById(this.client.CountryId)
     .pipe(first())
     .subscribe({
       next: response => {
       this.country = response
-    
       },
       error: response => { 
       }
@@ -194,7 +194,7 @@ export class LeadDetailComponent implements OnInit {
 
   loadSalesPerson(salesperson : number , id : any){
 
-    this.employeeService.getById(id)
+    this.employeeService.getByEmployeeId(id)
     .pipe(first())
     .subscribe({
       next: response => {

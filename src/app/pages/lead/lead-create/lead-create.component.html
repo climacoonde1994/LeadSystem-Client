@@ -58,22 +58,24 @@
                   </div>
                   <div class="card-body">
                     <div class="form-row">
-                      
                       <div class="col-md-4">
                         <label for="id"> Client Name </label>
                         <div class="form-group">
                         <div class="input-container">
-                       
-                          <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
-                          <i class="fa fa-users icon "  (click)="openClientModal()"></i>
+                          <i class="fa fa-user icon "  (click)="openClientModal()"></i>
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientName}} </label>
                         </div>
                       </div>
-                       
                       </div>
+                                         
+                    </div>
+                    <div class="form-row">
+                      
+                      
                       <div class="col-md-8">
+                        <label for="Description"> Description </label>
                         <div class="form-group">
-                          <label for="revNo"> Description </label>
-                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientDescription}} </label>
                         </div>
                       </div>                        
                     </div>
@@ -226,13 +228,7 @@
                           <input type="date" class="form-control" formControlName="LeadDate"   />
                         </div>
                       </div>  
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="revNo"> Private </label>
-                          <input type="checkbox" class="form-control"    />
-                           
-                        </div>
-                      </div>                        
+                                            
                     </div>
                     <div class="form-row">
                       <div class="col-md-4">
@@ -261,7 +257,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> Makati TIme </label>
-                          <input type="datetime" class="form-control" />
+                          <input type="text" class="form-control" />
                         </div>
                       </div>  
                                          
@@ -352,9 +348,11 @@
                       </div>  
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="revNo"> Action Needed </label>
-                          <input type="checkbox" class="form-control"   placeholder="Revision Number"  formControlName="ActionNeeded" />
-                           
+                          <label for="myCheckbox"> </label>
+                          <div class="checkbox-container col-md-12 mt-3">
+                            <input type="checkbox" id="myCheckbox"  (change)="actionNeededChange($event)" [checked]="actionNeeded"  formControlName="ActionNeeded" class="mr-2"   >
+                            <label for="myCheckbox">Action Needed</label>
+                          </div> 
                         </div>
                       </div>                        
                     </div>
@@ -445,17 +443,20 @@
                         <label for="id"> Client Name </label>
                         <div class="form-group">
                         <div class="input-container">
-                       
-                          <input type="text" class="form-control" formControlName="ClientName" placeholder="System Generated" readonly />
-                          <i class="fa fa-users icon "  (click)="openClientModal()"></i>
+                          <i class="fa fa-user icon "  (click)="openClientModal()"></i>
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientName}} </label>
                         </div>
                       </div>
-                       
                       </div>
+                                         
+                    </div>
+                    <div class="form-row">
+                      
+                      
                       <div class="col-md-8">
+                        <label for="Description"> Description </label>
                         <div class="form-group">
-                          <label for="revNo"> Description  </label>
-                          <input type="textarea" class="form-control" formControlName="Description" placeholder="Description" />
+                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientDescription}} </label>
                         </div>
                       </div>                        
                     </div>
@@ -583,8 +584,9 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="align-middle" style="width: 25%" scope="col" sortable="code"  >Date</th>
+                              <th class="align-middle" style="width: 10%" scope="col" sortable="code"  >Date</th>
                               <th class="align-middle" style="width: 65%" scope="col" sortable="code"  >Running Commentary on what is going on in this lead  </th>
+                              <th class="align-middle" style="width: 15%" scope="col" sortable="code"  >Author  </th>
                               <th class="align-middle" style="width: 10%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openNotesModal()"><i class="fas fa-plus"></i></button></th>
                             </tr>
                           </thead>
@@ -592,6 +594,7 @@
                             <tr *ngFor="let note of notes">
                               <td class="align-middle">{{note.Date  | date}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">{{note.Description}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{note.Author}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle"><ngb-highlight></ngb-highlight></td>
                             </tr>
                           </tbody>

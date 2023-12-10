@@ -33,7 +33,7 @@ export class UserDetailComponent implements OnInit {
         .subscribe(response => {
        
           this.item = response;
-          console.log( this.item)
+       
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })

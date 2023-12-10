@@ -27,6 +27,9 @@ export class AuthenticationService {
         if (response.succeeded){
          this.FullName = response.data.User.FullName
           localStorage.setItem('token', response.token);
+  
+          localStorage.setItem('user', JSON.stringify( response.data.User));
+          localStorage.setItem('employee', JSON.stringify( response.data.Employee));
           this.setAuthenticationState(true);
           this.setALoggedUser(response.data.User);
         }
