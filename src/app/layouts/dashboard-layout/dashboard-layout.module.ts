@@ -58,6 +58,9 @@ import { LeadContactModalComponent } from 'src/app/pages/lead/lead-contact-modal
 import { LeadDocumentModalComponent } from 'src/app/pages/lead/lead-document-modal/lead-document-modal.component';
 import { LeadCutPasteModalComponent } from 'src/app/pages/lead/lead-cutpaste-modal/lead-cutpaste-modal.component';
 import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.component';
+import { ContactDetailComponent } from 'src/app/pages/contact/contact-detail/contact-detail.component';
+import { ContactModalComponent } from 'src/app/pages/contact/contact-modal/contact-modal.component';
+import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact-list.component';
 
 
 @NgModule({
@@ -92,6 +95,8 @@ import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.
     PermissionListComponent, LeadNoteModalComponent ,LeadProposalModalComponent,
     EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent,
    UserListComponent, UserModalComponent, UserDetailComponent,
+   ContactListComponent, ContactModalComponent, ContactDetailComponent,
+ 
  
 
   ]

@@ -1,0 +1,106 @@
+<div class="wrapper">
+  <div class="page">
+    <div class="page-inner">
+      <header class="page-title-bar">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                    <a routerLink="/dashboard"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Dashboard </a>
+                </li>
+            </ol>
+        </nav>
+        <div class="row text-center text-sm-left h-100 mt-3">
+            <div class="col-sm-auto col-12">
+                <span class="tile tile-lg bg-info">
+                  <i class="fas fa-contacts"></i>
+                </span>
+            </div>
+            <div class="col pl-1 justify-content-center align-self-center">
+                <span class="text-muted m-0"> Contact Management </span>
+                <h4 class="m-0"> Contact List </h4>
+            </div>
+        </div>
+      </header>
+      <form>
+        <header class="page-title-bar">
+          <div class="row">
+            <div class="col-auto d-none d-sm-flex">
+              <button id="add-new-Contact-button" class="btn btn-info ml-auto" (click)="openModal()">Create New Contact</button>
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group has-spinner">
+                        <span class="spinner-border spinner-border-sm text-info show" *ngIf="contactService.loading | async"></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="fas fa-search"></span></span>
+                        </div>
+                        <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="contactService.searchTerm">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="page-section">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="align-middle" style="width: 10%" scope="col" sortable="ContactName" (sort)="onSort($event)">Contact Name </th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="Email" (sort)="onSort($event)">Email Address</th>
+                <th class="align-middle" style="width: 10%" scope="col" sortable="FullName" (sort)="onSort($event)">Name </th>
+                <th class="align-middle" style="width: 10%" scope="col" sortable="ContactType" (sort)="onSort($event)">Type </th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Password </th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="dateModified" (sort)="onSort($event)">Date Last Modified</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="status" (sort)="onSort($event)">Status</th>
+                <th class="align-middle" style="width: 5%"></th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of items | async">
+              <td class="align-middle"><a class="text-success" routerLink="/contact-detail/{{ item._id }}"><ngb-highlight [result]="item.ContactName" [term]="contactService.searchTerm"></ngb-highlight></a></td>
+              <td class="align-middle"><ngb-highlight [result]="item.Email" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.FullName" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.ContactType" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.Password" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle">{{ item.Ludatetime | dateAgo }}</td>
+              <td class="align-middle">
+                <span *ngIf="item.Status == 'Active'"><i class="fas fa-circle text-success mr-1"></i> Active</span>
+                <span *ngIf="!(item.Status == 'Active')"><i class="fas fa-circle text-danger mr-1"></i> Inactive</span>
+              </td>
+              <td class="align-middle text-right">
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div>
+                      <a class="dropdown-item" (click)="openModal(item)"><span class="menu-icon fas fa-pen mr-1"></span>Update </a>
+                      <div class="dropdown-item" (click)="openDeleteModal(item)"><span class="menu-icon fa-solid fa-arrows-rotate mr-1"></span> Reset Password </div>
+                      <div class="dropdown-item" (click)="openToggleModal(item)">
+                        <span *ngIf="item.Status == 'Active'" class="menu-icon  fa-solid fa-toggle-on mr-1"></span>
+                        <span *ngIf="!(item.Status == 'Active')" class="menu-icon  fa-solid fa-toggle-off mr-1"></span>
+                         {{ item?.Status == 'Active' ? "Set as Inactive" : "Set as Active" }} 
+                        </div>
+                      <div class="dropdown-divider"></div>
+                      <div class="dropdown-item" (click)="openDeleteModal(item)">
+                        <span  class="menu-icon fa-solid fa-contact-xmark mr-1"></span>
+                         Delete </div>
+                  </div>
+              </div>
+              </td>
+            </tr>
+            <tr *ngIf="(total | async) === 0">
+              <td class="text-center" colspan="7"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-center p-2" *ngIf="total | async">
+            <ngb-pagination
+              [collectionSize]="(total | async)!" [(page)]="contactService.page" [pageSize]="contactService.pageSize">
+            </ngb-pagination>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

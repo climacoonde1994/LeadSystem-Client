@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'https://camria-lead-system.onrender.com'
-  //url: 'http://localhost:3000'
+  
+  url: 'http://localhost:3000'
   // url: 'http://localhost:8080'
 };
 
