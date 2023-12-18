@@ -9,6 +9,7 @@ import { DepartmentToggleComponent } from '../department-toggle/department-toggl
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { DepartmentDefaultComponent } from '../department-default/department-default.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-department-list',
@@ -23,9 +24,13 @@ export class DepartmentListComponent implements OnInit {
   public total: Observable<number>;
   public closeResult: string;
 
+ 
+
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public departmentService: DepartmentService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public departmentService: DepartmentService, 
+
+    private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -89,6 +94,5 @@ export class DepartmentListComponent implements OnInit {
       }, (reason) => { }
     );
   }
-   
 
 }

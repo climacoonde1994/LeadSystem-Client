@@ -9,6 +9,8 @@ import { SourceToggleComponent } from '../source-toggle/source-toggle.component'
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SourceDefaultComponent } from '../source-default/source-default.component';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-source-detail',
@@ -18,17 +20,23 @@ import { SourceDefaultComponent } from '../source-default/source-default.compone
 export class SourceDetailComponent implements OnInit {
 
   public item: any;
-
+  public employeeList : any[] = []
+  public userList : any[] = []
   constructor(
     private router: Router,
     public activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private toastHelper: ToastHelper,
     private sourceService: SourceService,
+    private employeeService: EmployeeService,
+    private userService : UserService,
     private location: Location) { }
 
   ngOnInit() {
+    
     this.loadItem();
+
+  
   }
 
   loadItem() {
@@ -36,11 +44,13 @@ export class SourceDetailComponent implements OnInit {
       this.sourceService.getById(params['id'])
         .subscribe(response => {
           this.item = response;
-          console.log(this.item)
+          this.loadAdditionalDetails()
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })
     });
+
+   
   }
 
   openModal(item?: any) {
@@ -87,5 +97,31 @@ export class SourceDetailComponent implements OnInit {
     );
   }
 
+  loadAdditionalDetails(){
+    this.userService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.userList = response
+      console.log(this.item)
+      for(var i = 0 ; i < this.userList.length ; i++)
+      {
+       console.log( this.userList[i]._id , this.item.CreatedById)
+        if(this.userList[i]._id == this.item.CreatedById)
+        {
+          this.item.CreatedBy = this.userList[i].FullName;
+        }
+        if(this.userList[i]._id == this.item.UpdatedById)
+        {
+          this.item.UpdatedBy = this.userList[i].FullName;
+        }
+      }
+      },
+      error: response => {
+        
+      }
+      }
+    );
+  }
 
 }

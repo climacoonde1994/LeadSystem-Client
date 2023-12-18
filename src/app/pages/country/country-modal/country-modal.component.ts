@@ -19,6 +19,9 @@ export class CountryModalComponent implements OnInit {
   public modalFormGroup: FormGroup;
   public regionList: any[];
 
+
+  public user: any = {};
+
   constructor(
     private formBuilder: FormBuilder,
     private countryService: CountryService,
@@ -26,7 +29,7 @@ export class CountryModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-
+    this.user = JSON.parse(localStorage.getItem('user').toString())
     this.modalFormGroup = this.formBuilder.group({
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
@@ -43,11 +46,16 @@ export class CountryModalComponent implements OnInit {
       CountryId : 0,
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
-      Description: this.modalForm.Description.value
+      Description: this.modalForm.Description.value,
+      CreatedById  : "",
+      UpdatedById  : ""
+
+
     };
 
     if (this.item == null){
-
+      request.CreatedById = this.user._id
+  
       this.countryService.create(request)
       .pipe(first())
       .subscribe({
@@ -61,7 +69,7 @@ export class CountryModalComponent implements OnInit {
       });
     }
     else {
-
+      request.UpdatedById = this.user._id
       request.Id = this.item._id;
       request.CountryId = this.item.CountryId;
  

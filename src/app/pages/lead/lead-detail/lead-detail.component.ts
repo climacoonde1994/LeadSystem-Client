@@ -132,10 +132,7 @@ export class LeadDetailComponent implements OnInit {
           {
             this.loadSalesPerson(1 , this.item.SalesPersonId);
           }
-          // if(this.item.SalesPersonId2)
-          // {
-          //   this.loadSalesPerson(2 , this.item.SalesPersonId2);
-          // }
+        
          
          
           this.loadLeadNotes();

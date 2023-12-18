@@ -28,6 +28,8 @@ export class EmployeeModalComponent implements OnInit {
 
   public suffixes : any[] = [];
 
+  public user: any = {};
+
 
 
   constructor(
@@ -47,7 +49,7 @@ export class EmployeeModalComponent implements OnInit {
   ngOnInit() {
 
 
-    
+    this.user = JSON.parse(localStorage.getItem('user').toString())
     this.modalFormGroup = this.formBuilder.group({
       EmployeeId: new FormControl(0),
       FirstName: new FormControl('', [Validators.required]),
@@ -124,11 +126,16 @@ export class EmployeeModalComponent implements OnInit {
       CityId: this.modalForm.CityId.value,
       Phone: this.modalForm.Phone.value,
       Email: this.modalForm.Email.value,
- 
+      CreatedById  : "",
+      UpdatedById  : ""
+
+   
     };
 
     if (this.item == null){
-
+      request.CreatedById = this.user._id
+ 
+ 
       this.employeeService.create(request)
       .pipe(first())
       .subscribe({
@@ -145,7 +152,7 @@ export class EmployeeModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.EmployeeId = this.item.EmployeeId;
- 
+      request.UpdatedById = this.user._id
       this.employeeService.update(request)
       .pipe(first())
       .subscribe({

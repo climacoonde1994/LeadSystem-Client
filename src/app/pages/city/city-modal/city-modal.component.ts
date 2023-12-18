@@ -20,6 +20,7 @@ export class CityModalComponent implements OnInit {
   public modalFormGroup: FormGroup;
   public regionList: any[];
   public countries : any[];
+  public user: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,7 +30,7 @@ export class CityModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-
+    this.user = JSON.parse(localStorage.getItem('user').toString())
     this.modalFormGroup = this.formBuilder.group({
       CityId: new FormControl(0),
       Code: new FormControl('', [Validators.required]),
@@ -66,11 +67,14 @@ export class CityModalComponent implements OnInit {
       Name: this.modalForm.Name.value,
       ZIP: this.modalForm.ZIP.value,
       Description: this.modalForm.Description.value,
-      CountryId: this.modalForm.CountryId.value
+      CountryId: this.modalForm.CountryId.value,
+      CreatedById  : "",
+      UpdatedById  : ""
+      
     };
 
     if (this.item == null){
-
+      request.CreatedById = this.user._id
       this.cityService.create(request)
       .pipe(first())
       .subscribe({
@@ -87,7 +91,7 @@ export class CityModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.CityId = this.item.CityId;
- 
+      request.UpdatedById = this.user._id
       this.cityService.update(request)
       .pipe(first())
       .subscribe({

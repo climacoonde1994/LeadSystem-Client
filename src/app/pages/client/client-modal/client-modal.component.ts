@@ -23,7 +23,7 @@ export class ClientModalComponent implements OnInit {
   public countries : any[];
   public cities : any[];
   public filteredcities : any[];
-
+  public user: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,10 +33,9 @@ export class ClientModalComponent implements OnInit {
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
-
-
   ngOnInit() {
-
+    
+    this.user = JSON.parse(localStorage.getItem('user').toString())
     this.modalFormGroup = this.formBuilder.group({
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
@@ -66,17 +65,13 @@ export class ClientModalComponent implements OnInit {
     }
    
     );
-
-   
-    console.log(this.item)
+  
 
     this.modalFormGroup.patchValue(this.item);
-
-    
-
   }
  
   onSubmit() {
+ 
 
     const request: any = {
       ClientId : 0,
@@ -90,10 +85,13 @@ export class ClientModalComponent implements OnInit {
       Phone: this.modalForm.Phone.value,
       FAX: this.modalForm.FAX.value,
       URL: this.modalForm.URL.value,
+      CreatedById  : "",
+      UpdatedById  : ""
     };
 
     if (this.item == null){
-
+      request.CreatedById = this.user._id
+   
       this.clientService.create(request)
       .pipe(first())
       .subscribe({
@@ -110,7 +108,7 @@ export class ClientModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.ClientId = this.item.ClientId;
- 
+      request.UpdatedById = this.user._id
       this.clientService.update(request)
       .pipe(first())
       .subscribe({

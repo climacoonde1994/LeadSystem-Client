@@ -18,6 +18,8 @@ export class SystemTypeModalComponent implements OnInit {
   public errors: any[];
   public modalFormGroup: FormGroup;
   public regionList: any[];
+  public user: any = {};
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +28,7 @@ export class SystemTypeModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-
+    this.user = JSON.parse(localStorage.getItem('user').toString())
     this.modalFormGroup = this.formBuilder.group({
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
@@ -43,11 +45,15 @@ export class SystemTypeModalComponent implements OnInit {
       SystemTypeId : 0,
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
-      Description: this.modalForm.Description.value
+      Description: this.modalForm.Description.value,
+      CreatedById  : "",
+      UpdatedById  : ""
     };
 
     if (this.item == null){
 
+      request.CreatedById = this.user._id
+  
       this.systemtypeService.create(request)
       .pipe(first())
       .subscribe({
@@ -64,7 +70,7 @@ export class SystemTypeModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.SystemTypeId = this.item.SystemTypeId;
- 
+      request.UpdatedById = this.user._id
       this.systemtypeService.update(request)
       .pipe(first())
       .subscribe({

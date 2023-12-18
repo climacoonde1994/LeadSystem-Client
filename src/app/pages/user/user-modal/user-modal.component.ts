@@ -21,6 +21,10 @@ export class UserModalComponent implements OnInit {
   public roles: any[];
   public errors: any[];
   public modalFormGroup: FormGroup;
+  
+
+  public user: any = {};
+ 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +34,8 @@ export class UserModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
- 
+    this.user = JSON.parse(localStorage.getItem('user').toString())
+	
     this.modalFormGroup = this.formBuilder.group({
       UserName: new FormControl('', [Validators.required]),
       Password : new FormControl('', [Validators.required]),
@@ -59,9 +64,15 @@ export class UserModalComponent implements OnInit {
       Mobile: this.modalForm.Mobile.value,
       UserType: this.modalForm.UserType.value,
       Status: this.modalForm.Status.value,
+      CreatedById  : "",
+      UpdatedById  : ""
+
     };
 
     if (this.item == null){
+
+      request.CreatedById = this.user._id
+  
 
       this.userService.create(request)
       .pipe(first())
@@ -76,10 +87,8 @@ export class UserModalComponent implements OnInit {
       });
     }
     else {
-
       request.Id = this.item._id;
-
-     
+      request.UpdatedById = this.user._id
       this.userService.update(request)
       .pipe(first())
       .subscribe({

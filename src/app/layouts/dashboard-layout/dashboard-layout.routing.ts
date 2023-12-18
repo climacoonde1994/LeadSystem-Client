@@ -29,6 +29,7 @@ import { EmployeeDetailComponent } from 'src/app/pages/employee/employee-detail/
 import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.component';
 import { LeadDetailComponent } from 'src/app/pages/lead/lead-detail/lead-detail.component';
 import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact-list.component';
+import { ContactDetailComponent } from 'src/app/pages/contact/contact-detail/contact-detail.component';
  
 
 
@@ -66,6 +67,8 @@ const routes: Routes = [
   { path: 'employee-detail/:id', component: EmployeeDetailComponent },
   { path: 'user-list', component: UserListComponent },
   { path: 'contact-list', component: ContactListComponent },
+  { path: 'contact-detail/:id', component: ContactDetailComponent },
+ 
 ];
 
 export const DashboardLayoutRoutes = RouterModule.forChild(routes);

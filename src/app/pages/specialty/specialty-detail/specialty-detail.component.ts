@@ -9,6 +9,7 @@ import { SpecialtyToggleComponent } from '../specialty-toggle/specialty-toggle.c
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SpecialtyDefaultComponent } from '../specialty-default/specialty-default.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-specialty-detail',
@@ -18,12 +19,13 @@ import { SpecialtyDefaultComponent } from '../specialty-default/specialty-defaul
 export class SpecialtyDetailComponent implements OnInit {
 
   public item: any;
-
+  public userList : any[] = []
   constructor(
     private router: Router,
     public activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private toastHelper: ToastHelper,
+    private userService : UserService,
     private specialtyService: SpecialtyService,
     private location: Location) { }
 
@@ -85,6 +87,35 @@ export class SpecialtyDetailComponent implements OnInit {
       }, (reason) => { }
     );
   }
+
+  loadAdditionalDetails(){
+    this.userService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.userList = response
+      console.log(this.item)
+      for(var i = 0 ; i < this.userList.length ; i++)
+      {
+       console.log( this.userList[i]._id , this.item.CreatedById)
+        if(this.userList[i]._id == this.item.CreatedById)
+        {
+          this.item.CreatedBy = this.userList[i].FullName;
+        }
+        if(this.userList[i]._id == this.item.UpdatedById)
+        {
+          this.item.UpdatedBy = this.userList[i].FullName;
+        }
+      }
+      },
+      error: response => {
+        
+      }
+      }
+    );
+  }
+
+
 
 
 }

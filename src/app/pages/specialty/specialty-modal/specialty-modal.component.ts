@@ -12,6 +12,10 @@ import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
   styleUrls: ['./specialty-modal.component.css']
 })
 
+
+
+
+
 export class SpecialtyModalComponent implements OnInit {
 
   @Input() item: any;
@@ -19,7 +23,7 @@ export class SpecialtyModalComponent implements OnInit {
   public modalFormGroup: FormGroup;
   public regionList: any[];
   public categories : any[] = ["WEB" , "MOBILE" ,"DESKTOP" ,"OTHER" ];
-
+  public user: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +32,7 @@ export class SpecialtyModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user').toString())
 
     this.modalFormGroup = this.formBuilder.group({
       Code: new FormControl('', [Validators.required]),
@@ -47,11 +52,15 @@ export class SpecialtyModalComponent implements OnInit {
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
       Category: this.modalForm.Category.value,
-      Description: this.modalForm.Description.value
+      Description: this.modalForm.Description.value,
+      CreatedById  : "",
+      UpdatedById  : ""
+ 
     };
 
     if (this.item == null){
-
+      request.CreatedById = this.user._id
+    
       this.specialtyService.create(request)
       .pipe(first())
       .subscribe({
@@ -68,7 +77,7 @@ export class SpecialtyModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.SpecialtyId = this.item.SpecialtyId;
- 
+      request.UpdatedById = this.user._id
       this.specialtyService.update(request)
       .pipe(first())
       .subscribe({

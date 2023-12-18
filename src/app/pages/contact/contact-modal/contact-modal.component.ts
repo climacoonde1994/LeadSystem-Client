@@ -31,6 +31,7 @@ export class ContactModalComponent implements OnInit {
 
   public salutations : any[] = [];
   public systemtypes : any[] = [];
+  public user: any = {};
 
   constructor(
  
@@ -46,7 +47,7 @@ export class ContactModalComponent implements OnInit {
 
   ngOnInit() {
  
-   
+    this.user = JSON.parse(localStorage.getItem('user').toString())
     this.modalFormGroup = this.formBuilder.group({
       LeadContactId: new FormControl(0),
       Salutation:  new FormControl(),
@@ -117,11 +118,16 @@ export class ContactModalComponent implements OnInit {
       SystemTypeId: this.modalForm.SystemTypeId.value,
       Email: this.modalForm.Email.value,
       Remarks: this.modalForm.Remarks.value,
- 
+      CreatedById  : "",
+      UpdatedById  : ""
     };
-console.log( this.modalForm.SystemType.value,)
+ 
     if (this.item == null)
     {
+      
+      request.CreatedById = this.user._id
+
+
       this.item = request;
       this.contactService.create(request)
       .pipe(first())
@@ -137,6 +143,7 @@ console.log( this.modalForm.SystemType.value,)
     }
     else {
       request.Id = this.item._id;
+      request.UpdatedById = this.user._id
       this.contactService.update(request)
       .pipe(first())
       .subscribe({

@@ -30,7 +30,7 @@ export class LeadListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public leadService: LeadService, private modalService: NgbModal, private toastHelper: ToastHelper , private employeeService: EmployeeService,) { }
+  constructor(public leadService: LeadService, private modalService: NgbModal, private toastHelper: ToastHelper , private employeeService: EmployeeService) { }
 
   ngOnInit() {
     this.loadList();
@@ -40,8 +40,6 @@ export class LeadListComponent implements OnInit {
     .subscribe({
       next: response => {
       this.employeeList = response
-     
-     
       },
       error: response => {
         

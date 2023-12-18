@@ -21,18 +21,22 @@
                     <h4 class="m-0"> Create Lead </h4>
                   </div>
               </div>
-              
           </header>
-
-          
           <div class="page-section">
             <form [formGroup]="modalFormGroup" autocomplete="off" novalidate  >
             <ul ngbNav #nav="ngbNav" [activeId]="activatedRoute.fragment | async" class="nav-tabs">
-                
-            
               <li ngbNavItem="lead">
                 <a ngbNavLink routerLink="." fragment="lead">Lead</a>
                 <ng-template ngbNavContent>
+                  <div class="form-row">
+                    <div class="col-md-12" *ngIf="errors">
+                      <div class="alert alert-danger" role="alert">
+                        <ul class="list-unstyled m-0">
+                          <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div class="card-body border-top card-header">
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Highlight</span>

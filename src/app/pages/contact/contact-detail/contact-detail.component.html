@@ -57,13 +57,13 @@
                                     <dt class="col-sm-2">Last Name</dt>
                                     <dd class="col-sm-10">{{ item?.LastName }}</dd>
                                     <dt class="col-sm-2">Date Created</dt>
-                                    <dd class="col-sm-10">{{ item?.dateCreated | dateAgo }}</dd>
+                                    <dd class="col-sm-10">{{ item?.CreatedDate | dateAgo }}</dd>
                                     <dt class="col-sm-2">Created By</dt>
-                                    <dd class="col-sm-10">{{ item?.createdBy }}</dd>
+                                    <dd class="col-sm-10">{{ item?.CreatedBy }}</dd>
                                     <dt class="col-sm-2">Date Last Modified</dt>
-                                    <dd class="col-sm-10">{{ item?.dateModified | dateAgo }}</dd>
+                                    <dd class="col-sm-10">{{ item?.UpdatedDate | dateAgo}}</dd>
                                     <dt class="col-sm-2">Modified By</dt>
-                                    <dd class="col-sm-10">{{ item?.modifiedBy }}</dd>
+                                    <dd class="col-sm-10">{{ item?.UpdatedBy }}</dd>
                                 </dl>
                             </div>
                         </div>

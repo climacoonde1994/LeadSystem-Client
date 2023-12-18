@@ -18,7 +18,8 @@ export class DepartmentModalComponent implements OnInit {
   public errors: any[];
   public modalFormGroup: FormGroup;
   public regionList: any[];
-
+  public user: any = {};
+  
   constructor(
     private formBuilder: FormBuilder,
     private departmentService: DepartmentService,
@@ -26,6 +27,7 @@ export class DepartmentModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user').toString())
 
     this.modalFormGroup = this.formBuilder.group({
       Code: new FormControl('', [Validators.required]),
@@ -43,11 +45,16 @@ export class DepartmentModalComponent implements OnInit {
       DepartmentId : 0,
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
-      Description: this.modalForm.Description.value
+      Description: this.modalForm.Description.value,
+      CreatedById  : "",
+      UpdatedById  : ""
+
     };
 
     if (this.item == null){
 
+      request.CreatedById = this.user._id
+ 
       this.departmentService.create(request)
       .pipe(first())
       .subscribe({
@@ -64,7 +71,8 @@ export class DepartmentModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.DepartmentId = this.item.DepartmentId;
- 
+      request.UpdatedById = this.user._id
+      
       this.departmentService.update(request)
       .pipe(first())
       .subscribe({
