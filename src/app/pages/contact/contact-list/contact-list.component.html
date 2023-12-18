@@ -46,11 +46,11 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 10%" scope="col" sortable="ContactName" (sort)="onSort($event)">Contact Name </th>
-                <th class="align-middle" style="width: 15%" scope="col" sortable="Email" (sort)="onSort($event)">Email Address</th>
                 <th class="align-middle" style="width: 10%" scope="col" sortable="FullName" (sort)="onSort($event)">Name </th>
-                <th class="align-middle" style="width: 10%" scope="col" sortable="ContactType" (sort)="onSort($event)">Type </th>
-                <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Password </th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="Email" (sort)="onSort($event)">Email Address</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Department </th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Type </th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Remarks </th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="dateModified" (sort)="onSort($event)">Date Last Modified</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="status" (sort)="onSort($event)">Status</th>
                 <th class="align-middle" style="width: 5%"></th>
@@ -58,11 +58,13 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of items | async">
-              <td class="align-middle"><a class="text-success" routerLink="/contact-detail/{{ item._id }}"><ngb-highlight [result]="item.ContactName" [term]="contactService.searchTerm"></ngb-highlight></a></td>
+              <td class="align-middle"><a class="text-success" routerLink="/contact-detail/{{ item._id }}">
+                <ngb-highlight [result]="item.FullName" [term]="contactService.searchTerm"></ngb-highlight></a>
+              </td>
               <td class="align-middle"><ngb-highlight [result]="item.Email" [term]="contactService.searchTerm"></ngb-highlight></td>
-              <td class="align-middle"><ngb-highlight [result]="item.FullName" [term]="contactService.searchTerm"></ngb-highlight></td>
-              <td class="align-middle"><ngb-highlight [result]="item.ContactType" [term]="contactService.searchTerm"></ngb-highlight></td>
-              <td class="align-middle"><ngb-highlight [result]="item.Password" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.Department" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.SystemType" [term]="contactService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.Remarks" [term]="contactService.searchTerm"></ngb-highlight></td>
               <td class="align-middle">{{ item.Ludatetime | dateAgo }}</td>
               <td class="align-middle">
                 <span *ngIf="item.Status == 'Active'"><i class="fas fa-circle text-success mr-1"></i> Active</span>

@@ -45,6 +45,7 @@ export class LeadClientModalComponent implements OnInit {
     this.items = this.clientService.items;
     this.total = this.clientService.total;
   }
+  
   onSort({column, direction}: SortEvent) {
 
     this.headers.forEach(header => {
@@ -61,7 +62,6 @@ export class LeadClientModalComponent implements OnInit {
   rowSelect(data :any){
     this.item = data;
     this.activeModal.close(this.item);
- 
   }
 
 

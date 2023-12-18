@@ -40,6 +40,7 @@ export class LeadUpdateComponent implements OnInit {
   private user : any = {};
   public clientName : string = "";
   public clientDescription : string = "";
+  public leadNumber : string = "";
 
   public actionNeeded : boolean = false
   public webchecked : boolean = false
@@ -206,10 +207,11 @@ export class LeadUpdateComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: data => {
-
+          this.leadNumber = data.LeadNo
           this.modalFormGroup.get('LeadId').setValue(data.LeadId);
           this.modalFormGroup.get('ClientId').setValue(data.ClientId);
           this.modalFormGroup.get('LeadNo').setValue(data.LeadNo);
+          this.modalFormGroup.get('Description').setValue(data.Description);
           this.modalFormGroup.get('LeadDate').setValue(data.LeadDate);
           this.modalFormGroup.get('Status').setValue(data.Status);
           this.modalFormGroup.get('StatusComment').setValue(data.StatusComment);
@@ -221,7 +223,6 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('Quality').setValue(data.Quality);
           this.modalFormGroup.get('Likelihood').setValue(data.Likelihood);
           this.modalFormGroup.get('Comments').setValue(data.Comments);
- 
           this.modalFormGroup.get('ActionNeeded').setValue(data.ActionNeeded);
           this.modalFormGroup.get('MeetDate').setValue(data.MeetDate);
           this.modalFormGroup.get('BestTimeCall').setValue(data.BestTimeCall);
@@ -251,6 +252,7 @@ export class LeadUpdateComponent implements OnInit {
       LeadId :this.modalForm.LeadId.value,
       LeadDate :this.modalForm.LeadDate.value,
       Status :this.modalForm.Status.value,
+      Description:this.modalForm.Description.value,
       StatusComment :this.modalForm.StatusComment.value,
       SalesPersonId :this.modalForm.SalesPersonId.value,
       FollowUpDate :this.modalForm.FollowUpDate.value,
@@ -388,7 +390,7 @@ saveLeadDocuments(leadId : any){
         this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
         this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
         this.modalFormGroup.get('ClientName').setValue(data.Name);
-        this.modalFormGroup.get('Description').setValue(data.Description);
+        
         this.modalFormGroup.get('Address1').setValue(data.Address1);
         this.modalFormGroup.get('Address2').setValue(data.Address2);
         this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
@@ -405,7 +407,7 @@ saveLeadDocuments(leadId : any){
 
 
   openLeadContactModal(item?: any) {
-    const modalRef = this.modalService.open(LeadContactModalComponent);
+    const modalRef = this.modalService.open(LeadContactModalComponent,{size: 'xl' });
     modalRef.result.then(
       (data: any) => {
         if(data.LastName.length > 0 && data.FirstName.length > 0 && data.LastName && data.FirstName )
@@ -778,7 +780,7 @@ saveLeadDocuments(leadId : any){
         this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
         this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
         this.modalFormGroup.get('ClientName').setValue(data.Name);
-        this.modalFormGroup.get('Description').setValue(data.Description);
+   
         this.modalFormGroup.get('Address1').setValue(data.Address1);
         this.modalFormGroup.get('Address2').setValue(data.Address2);
         this.modalFormGroup.get('City').setValue(this.selectedCity.Name);

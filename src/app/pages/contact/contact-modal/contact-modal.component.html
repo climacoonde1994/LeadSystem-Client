@@ -61,7 +61,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="DepartmentId"> Type </label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="SystemTypeId" formControlName="DepartmentId"   placeholder="Select Department" (change)="onSystemTypehange($event)"  >
+          <ng-select appearance="outline" [searchable]="true"  labelForId="SystemTypeId" formControlName="SystemTypeId"   placeholder="Select Department" (change)="onSystemTypechange($event)"  >
             <ng-option *ngFor="let systemtype of systemtypes" [value]="systemtype.SystemTypeId">{{ systemtype.Name }}</ng-option>
           </ng-select>
           

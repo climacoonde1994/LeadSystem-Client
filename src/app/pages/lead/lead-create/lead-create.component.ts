@@ -407,7 +407,7 @@ saveLeadDocuments(leadId : any){
         this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
         this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
         this.modalFormGroup.get('ClientName').setValue(data.Name);
-        this.modalFormGroup.get('Description').setValue(data.Description);
+      
         this.modalFormGroup.get('Address1').setValue(data.Address1);
         this.modalFormGroup.get('Address2').setValue(data.Address2);
         this.modalFormGroup.get('City').setValue(this.selectedCity.Name);
@@ -418,7 +418,6 @@ saveLeadDocuments(leadId : any){
         this.modalFormGroup.get('URL').setValue(data.URL);
         this.modalFormGroup.get('ClientId').setValue(data.ClientId);
         this.clientName = data.Name
-        this.clientDescription = data.Description
       }, (reason) => { }
     );
      
@@ -426,7 +425,7 @@ saveLeadDocuments(leadId : any){
 
 
   openLeadContactModal(item?: any) {
-    const modalRef = this.modalService.open(LeadContactModalComponent);
+    const modalRef = this.modalService.open(LeadContactModalComponent,{size: 'xl' });
     modalRef.result.then(
       (data: any) => {
         if(data.LastName && data.LastName.length > 0 && data.FirstName && data.FirstName.length > 0 )

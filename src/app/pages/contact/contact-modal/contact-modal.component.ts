@@ -62,12 +62,51 @@ export class ContactModalComponent implements OnInit {
     }
     );
     this.modalFormGroup.patchValue(this.item);
+
+    this.systemTypeService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.systemtypes = response
+     
+      },
+      error: response => {
+        
+      }
+    }
+   
+    );
+
+    
+    this.departmentService.getList()
+    .pipe(first())
+    .subscribe({
+        next: response => {
+        this.departments = response
+      
+        },
+        error: response => {
+          
+        }
+      }
+    );
+
+    this.salutations.push({Suffix : 'Mr.'})
+    this.salutations.push({Salutations : 'Mrs.'})
+    this.salutations.push({Salutations : 'Ms.'})
+    this.salutations.push({Salutations : 'Engr.'})
+    this.salutations.push({Salutations : 'Dr.'})
+    this.salutations.push({Salutations : 'Gen.'})
+    this.salutations.push({Salutations : 'Sen.'})
+    this.salutations.push({Salutations : 'Mayor'})
+    this.salutations.push({Salutations : 'Sir'})
+    this.salutations.push({Salutations : 'Maam'})
   }
 
   onSubmit() {
  
     const request: any = {
-      LeadContactId : 0,
+      ContactId : 0,
       Salutation: this.modalForm.Salutation.value,
       FirstName: this.modalForm.FirstName.value,
       LastName: this.modalForm.LastName.value,
@@ -80,12 +119,10 @@ export class ContactModalComponent implements OnInit {
       Remarks: this.modalForm.Remarks.value,
  
     };
-
-     this.item = request;
-    this.activeModal.close(this.item);
-
-    if (this.item == null){
-
+console.log( this.modalForm.SystemType.value,)
+    if (this.item == null)
+    {
+      this.item = request;
       this.contactService.create(request)
       .pipe(first())
       .subscribe({
@@ -99,10 +136,7 @@ export class ContactModalComponent implements OnInit {
       });
     }
     else {
-
       request.Id = this.item._id;
-
-     
       this.contactService.update(request)
       .pipe(first())
       .subscribe({
@@ -116,6 +150,8 @@ export class ContactModalComponent implements OnInit {
       });
     }
 
+    this.activeModal.close(this.item);
+
   }
 
   get modalForm() {
@@ -127,10 +163,9 @@ export class ContactModalComponent implements OnInit {
     this.modalFormGroup.get('Department').setValue(department.Name);
   }
 
-  onSystemTypehange(event : any){
+  onSystemTypechange(event : any){
     var systemtype = this.systemtypes.filter(x => x.SystemTypeId == event)[0];
+    console.log(systemtype.Name)
     this.modalFormGroup.get('SystemType').setValue(systemtype.Name);
-
   }
-
 }

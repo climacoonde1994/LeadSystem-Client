@@ -18,6 +18,7 @@ export class SourceModalComponent implements OnInit {
   public errors: any[];
   public modalFormGroup: FormGroup;
   public regionList: any[];
+  public user: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +27,8 @@ export class SourceModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-
+    this.user = JSON.parse(localStorage.getItem('user').toString())
+   
     this.modalFormGroup = this.formBuilder.group({
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
@@ -43,11 +45,14 @@ export class SourceModalComponent implements OnInit {
       SourceId : 0,
       Code: this.modalForm.Code.value,
       Name: this.modalForm.Name.value,
-      Description: this.modalForm.Description.value
+      Description: this.modalForm.Description.value,
+      CreatedById  : "",
+      UpdatedById  : ""
+      
     };
 
     if (this.item == null){
-
+      request.CreatedById = this.user._id
       this.sourceService.create(request)
       .pipe(first())
       .subscribe({
@@ -64,7 +69,7 @@ export class SourceModalComponent implements OnInit {
 
       request.Id = this.item._id;
       request.SourceId = this.item.SourceId;
- 
+      request.UpdatedById = this.user._id
       this.sourceService.update(request)
       .pipe(first())
       .subscribe({

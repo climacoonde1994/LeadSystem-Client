@@ -1,91 +1,74 @@
-<div class="modal-header">
-  <h5 class="modal-title" *ngIf="item != null">Update Contact</h5>
-  <h5 class="modal-title" *ngIf="item == null"> Create New Contact </h5>
-</div>
-<form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
-  <div class="modal-body">
-    <div class="form-row">
-      <div class="col-md-12" *ngIf="errors">
-        <div class="alert alert-danger" role="alert">
-          <ul class="list-unstyled m-0">
-            <li *ngFor="let error of errors">{{ error }}</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="code"> Salutation   </label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="Suffix" formControlName="Salutation"   placeholder="Select Suffix"  >
-            <ng-option *ngFor="let salutation of salutations" [value]="salutation.Salutations">{{ salutation.Salutations }}</ng-option>
-          </ng-select>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="code"> FirstName  <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="FirstName" placeholder="FirstName" />
-          <span class="text-danger small" *ngIf="!modalForm.FirstName.valid && modalForm.FirstName.touched">
-            <span *ngIf="modalForm.FirstName.hasError('required')  || modalForm.FirstName?.errors ">FirstName is required.</span>
-          </span>
-        </div>
-      </div>
-     
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="Name"> Last Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="LastName" placeholder="LastName" />
-          <span class="text-danger small" *ngIf="!modalForm.LastName.valid && modalForm.LastName.touched   ">
-            <span *ngIf="modalForm.LastName.hasError('required') || modalForm.LastName?.errors">Last Name is required.</span>
-          </span>
-        </div>
-      </div>
-      
-      <div class="col-md-12">
-        <div class="form-group">
-            <label for="id"> Status <span class="text-danger">*</span></label>
-            <select class="form-control" name="status" formControlName="Status" >
-              <option  >Active</option>
-              <option  >Inactive</option>
-           </select>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="DepartmentId"> Department <span class="text-danger">*</span></label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="DepartmentId" formControlName="DepartmentId"   placeholder="Select Department" (change)="onDepartmentChange($event)"  >
-            <ng-option *ngFor="let department of departments" [value]="department.DepartmentId">{{ department.Name }}</ng-option>
-          </ng-select>
+<div class="wrapper">
+  <div class="page">
+    <div class="page-inner">
+      <header class="page-title-bar">
          
+        <div class="row text-center text-sm-left h-100 mt-3">
+            <div class="col-sm-auto col-12">
+                <span class="tile tile-lg bg-info">
+                  <i class="fas fa-address-book"></i>
+                </span>
+            </div>
+            <div class="col pl-1 justify-content-center align-self-center">
+           
+                <h4 class="m-0"> Client List </h4>
+            </div>
+        </div>
+      </header>
+    
+<form>
+  <header class="page-title-bar">
+    <div class="row">
+     
+      <div class="col">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="input-group has-spinner">
+                  <span class="spinner-border spinner-border-sm text-info show" *ngIf="contactService.loading | async"></span>
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><span class="fas fa-search"></span></span>
+                  </div>
+                  <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="contactService.searchTerm">
+              </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="DepartmentId"> Type </label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="SystemTypeId" formControlName="DepartmentId"   placeholder="Select Department" (change)="onSystemTypehange($event)"  >
-            <ng-option *ngFor="let systemtype of systemtypes" [value]="systemtype.SystemTypeId">{{ systemtype.Name }}</ng-option>
-          </ng-select>
-          
-        </div>
-      </div>
-      
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="FAX"> Email </label>
-          <input type="text" class="form-control" formControlName="Email" placeholder="Email" />
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="FAX"> Remarks </label>
-          <input type="text" class="form-control" formControlName="Remarks" placeholder="Remarks" />
-        </div>
-      </div>
-      
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
-    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </header>
+  <div class="page-section">
+    <table class="table  ">
+      <thead>
+        <tr>
+          <th class="align-middle" style="width: 10%" scope="col" sortable="FullName" (sort)="onSort($event)">Name </th>
+          <th class="align-middle" style="width: 15%" scope="col" sortable="Email" (sort)="onSort($event)">Email Address</th>
+          <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Department </th>
+          <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Type </th>
+          <th class="align-middle" style="width: 15%" scope="col" sortable="ContactName" (sort)="onSort($event)">Remarks </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items | async" (click)="rowSelect(item)">
+          <td class="align-middle"><ngb-highlight [result]="item.FullName" [term]="contactService.searchTerm"></ngb-highlight></td>
+          <td class="align-middle"><ngb-highlight [result]="item.Email" [term]="contactService.searchTerm"></ngb-highlight></td>
+          <td class="align-middle"><ngb-highlight [result]="item.Department" [term]="contactService.searchTerm"></ngb-highlight></td>
+          <td class="align-middle"><ngb-highlight [result]="item.SystemType" [term]="contactService.searchTerm"></ngb-highlight></td>
+          <td class="align-middle"><ngb-highlight [result]="item.Remarks" [term]="contactService.searchTerm"></ngb-highlight></td>
+        </tr>
+      <tr *ngIf="(total | async) === 0">
+        <td class="text-center" colspan="6"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center p-2" *ngIf="total | async">
+      <ngb-pagination
+        [collectionSize]="(total | async)!" [(page)]="contactService.page" [pageSize]="contactService.pageSize">
+      </ngb-pagination>
+    </div>
   </div>
 </form>
 
+
+    </div>
+  </div>
+</div>

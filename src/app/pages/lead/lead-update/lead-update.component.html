@@ -27,170 +27,7 @@
           <div class="page-section">
             <form [formGroup]="modalFormGroup" autocomplete="off" novalidate  >
             <ul ngbNav #nav="ngbNav" [activeId]="activatedRoute.fragment | async" class="nav-tabs">
-              <li ngbNavItem="information">
-                <a ngbNavLink routerLink="." fragment="information">Information</a>
-                <ng-template ngbNavContent>
-                  <div class="card-body border-top card-header">
-                    <div class="d-flex align-items-center">
-                      <span class="mr-auto">Highlight</span>
-                      <div   >
-                       
-                        <button class="btn btn-warning  mr-1  " routerLink="/lead-system-list">Cancel</button>
-                        <button class="btn btn-success  mr-1  " (click)="saveLeadheader()">Save</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="form-row">
-                      <div class="col-md-4">
-                        <label for="id"> Client Name </label>
-                        <div class="form-group">
-                        <div class="input-container">
-                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientName}} </label>
-                        </div>
-                      </div>
-                      </div>
-                                         
-                    </div>
-                    <div class="form-row">
-                      
-                      <div class="col-md-8">
-                        <label for="Description"> Description </label>
-                        <div class="form-group">
-                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientDescription}} </label>
-                        </div>
-                      </div>                        
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="id"> Lead Number </label>
-                          <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="LeadDate"> Lead Date </label>
-                          <input type="date" class="form-control" formControlName="LeadDate"   />
-                        </div>
-                      </div>  
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="id"> Sales Person </label>
-                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId" formControlName="SalesPersonId"   placeholder="Select Sales Person">
-                            <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
-                          </ng-select>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label for="revNo"> Follow Up Date </label>
-                          <input type="date" class="form-control" formControlName="FollowUpDate"   />
-                        </div>
-                      </div>  
-                     
-                                     
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="id"> Status </label>
-                          <select class="form-control" name="status" formControlName="Status" >
-                            <option  >Active</option>
-                            <option  >Dead</option>
-                            <option  >Sold</option>
-                            <option  >Close</option>
-                         </select>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="revNo"> Status Comment </label>
-                          <select class="form-control" name="StatusComment"   formControlName="StatusComment">
-                            <option  >Active Lead</option>
-                            <option  >Long Term</option>
-                            <option  >Email Only</option>
-                            <option  >Old Client</option>
-                         </select>
-                        </div>
-                      </div>  
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="id"> Sales Person 2 </label>
-                          <ng-select appearance="outline" [searchable]="true"  labelForId="SalesPersonId2" formControlName="SalesPersonId2"   placeholder="Select Sales Person">
-                            <ng-option *ngFor="let employee of employees" [value]="employee.EmployeeId">{{ employee.FullName }}</ng-option>
-                          </ng-select>
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label for="revNo"> Follow Up Date 2 </label>
-                          <input type="date" class="form-control" formControlName="FollowUpDate2"  />
-                        </div>
-                      </div>  
-                      
-                                 
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="id"> Remarks </label>
-                          <textarea class="form-control" name="" formControlName="Remarks"  cols="10" rows="5"></textarea>
-                           
-                        </div>
-                      </div>
-                                     
-                                           
-                    </div>
-                
-                  </div>
-                  <div class="card-body border-top card-header">
-                    <div class="d-flex align-items-center">
-                      <span class="mr-auto">Contact List</span>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="page-section">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th class="align-middle" style="width: 5%" scope="col" sortable="code">Salutation</th>
-                            <th class="align-middle" style="width: 15%" scope="col" sortable="code">First Name</th>
-                            <th class="align-middle" style="width: 15%" scope="col" sortable="code">Last Name</th>
-                            <th class="align-middle" style="width: 5%" scope="col" sortable="code">Status</th>
-                            <th class="align-middle" style="width: 10%" scope="col" sortable="code">Department</th>
-                            <th class="align-middle" style="width: 10%" scope="col" sortable="code">Type</th>
-                            <th class="align-middle" style="width: 20%" scope="col" sortable="code">Email</th>
-                            <th class="align-middle" style="width: 20%" scope="col" sortable="code">Remarks</th>
-                            <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openLeadContactModal()"><i class="fas fa-plus"></i></button></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let leadcontact of leadcontacts; index as i">
-                            <td class="align-middle">{{leadcontact.Salutation}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.FirstName}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.LastName}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.Status}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.Department}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.Type}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.Email}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">{{leadcontact.Remarks}}<ngb-highlight></ngb-highlight></td>
-                            <td class="align-middle">  
-                              <button class="btn btn-info ml-auto mr-1" (click)="deleteContact(i,leadcontact._id)"><i class="fas fa-trash"></i></button> 
-                              <ngb-highlight></ngb-highlight>
-                            </td>
-                          </tr>
-                         
-                        </tbody>
-                      </table>
-            
-                     
-                    </div>              
-                  </div>
-              
-                </ng-template>
-              </li>
+           
               <li ngbNavItem="lead">
                 <a ngbNavLink routerLink="." fragment="lead">Lead</a>
                 <ng-template ngbNavContent>
@@ -206,7 +43,9 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="id"> Lead Number </label>
-                          <input type="text" class="form-control" formControlName="LeadNo" placeholder="System Generated" readonly />
+                          <div class="form-group">
+                            <label for="id" class="ml-2 mt-2 font-weight-bold">{{leadNumber}}</label>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -433,11 +272,10 @@
                                          
                     </div>
                     <div class="form-row">
-                      
-                      <div class="col-md-8">
+                      <div class="col-md-12">
                         <label for="Description"> Description </label>
                         <div class="form-group">
-                          <label for="id" class="ml-2 mt-2 font-weight-bold"  > {{clientDescription}} </label>
+                          <input type="text" class="form-control" formControlName="Description" placeholder="Description"   />
                         </div>
                       </div>                        
                     </div>
@@ -521,7 +359,6 @@
                               <th class="align-middle" style="width: 20%" scope="col" sortable="code">Email</th>
                               <th class="align-middle" style="width: 20%" scope="col" sortable="code">Remarks</th>
                               <th class="align-middle" style="width: 5%" scope="col" sortable="code"><button class="btn btn-info ml-auto" (click)="openLeadContactModal()"><i class="fas fa-plus"></i></button></th>
-                          
                             </tr>
                           </thead>
                           <tbody>
@@ -531,7 +368,7 @@
                               <td class="align-middle">{{leadcontact.LastName}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">{{leadcontact.Status}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">{{leadcontact.Department}}<ngb-highlight></ngb-highlight></td>
-                              <td class="align-middle">{{leadcontact.Type}}<ngb-highlight></ngb-highlight></td>
+                              <td class="align-middle">{{leadcontact.SystemType}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">{{leadcontact.Email}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">{{leadcontact.Remarks}}<ngb-highlight></ngb-highlight></td>
                               <td class="align-middle">  

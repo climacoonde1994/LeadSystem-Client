@@ -29,6 +29,7 @@ function matches(item: any, term: string, excludeTerm : any[],employeeTerm : any
          (
           item.ClientName?.toLowerCase().includes(term.toLowerCase()) || 
           item.LeadNo?.toLowerCase().includes(term.toLowerCase())|| 
+          item.Description?.toLowerCase().includes(term.toLowerCase())|| 
           item.Status?.toLowerCase().includes(term.toLowerCase())
          );
  }
