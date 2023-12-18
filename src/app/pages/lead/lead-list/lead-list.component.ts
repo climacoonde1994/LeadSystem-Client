@@ -25,8 +25,8 @@ export class LeadListComponent implements OnInit {
   public statusList : any[] = ['Active' ,'Dead' , 'Sold','Future FUDs' ]
   public statusArray : any[] = [] 
 
-  public emplyeeList : any[] = []
-  public emplyeArray : any[] = [] 
+  public employeeList : any[] = []
+  public employeeArray : any[] = [] 
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
@@ -39,7 +39,7 @@ export class LeadListComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next: response => {
-      this.emplyeeList = response
+      this.employeeList = response
      
      
       },
