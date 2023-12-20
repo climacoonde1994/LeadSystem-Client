@@ -481,28 +481,28 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.Proposal && data.Proposal.length > 0  )
         {
-            if(this.isProporalExist(data.Proposal))
+            if(!this.isProporalExist(data.Proposal))
             {
-              return;
+               
+              data.LeadId = this.LeadId;
+              var proposals : any[] = []
+              proposals.push(data)
+              this.proposalService.create(proposals)
+              .pipe(first())
+              .subscribe({
+                next: response => {
+                
+                  this.proposals.push(data)
+                 
+                },
+                error: response => {
+                  this.errors = response.errors;
+                }
+              });
             }
 
+            this.loadingService.isLoading = false;
 
-
-          data.LeadId = this.LeadId;
-          var proposals : any[] = []
-          proposals.push(data)
-          this.proposalService.create(proposals)
-          .pipe(first())
-          .subscribe({
-            next: response => {
-            
-              this.proposals.push(data)
-              this.loadingService.isLoading = false;
-            },
-            error: response => {
-              this.errors = response.errors;
-            }
-          });
         }
       }, (reason) => { }
     );
