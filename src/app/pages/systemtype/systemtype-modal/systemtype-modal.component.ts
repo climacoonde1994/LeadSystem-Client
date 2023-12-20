@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { SystemTypeService } from 'src/app/services/systemtype.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-systemtype-modal',
@@ -25,6 +26,7 @@ export class SystemTypeModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private systemtypeService: SystemTypeService,
     private toastHelper: ToastHelper,
+    private loadingService : LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class SystemTypeModalComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.loadingService.isLoading = true
     const request: any = {
       SystemTypeId : 0,
       Code: this.modalForm.Code.value,

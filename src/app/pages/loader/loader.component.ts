@@ -1,17 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-loader',
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.css']
 })
-export class AppComponent {
-  isLoading = true;
-
-  // Simulate an asynchronous operation
-  ngOnInit() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
-  }
+export class LoaderComponent {
+  
+  constructor(public loadingService: LoadingService) { }
+  @Input() isLoading: boolean = false; 
 }

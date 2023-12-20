@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { SpecialtyService } from 'src/app/services/specialty.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-specialty-modal',
@@ -29,6 +31,7 @@ export class SpecialtyModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private specialtyService: SpecialtyService,
     private toastHelper: ToastHelper,
+    private loadingService : LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -47,6 +50,7 @@ export class SpecialtyModalComponent implements OnInit {
 
   onSubmit() {
 
+    this.loadingService.isLoading = true
     const request: any = {
       SpecialtyId : 0,
       Code: this.modalForm.Code.value,

@@ -19,6 +19,7 @@ import { JwtInterceptorHelper } from './helpers/jwt-interceptor.helper';
 import { ErrorInterceptorHelper } from './helpers/error-interceptor.helper';
 import { ToastComponent } from './components/toast/toast.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { LoaderComponent } from './pages/loader/loader.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: true,
@@ -34,6 +35,7 @@ const maskConfig: Partial<IConfig> = {
     ForbiddenComponent,
     NotFoundComponent,
     InternalServerComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,

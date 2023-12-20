@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { DepartmentService } from 'src/app/services/department.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-department-modal',
@@ -24,6 +26,7 @@ export class DepartmentModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private departmentService: DepartmentService,
     private toastHelper: ToastHelper,
+    private loadingService : LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -40,7 +43,7 @@ export class DepartmentModalComponent implements OnInit {
   }
 
   onSubmit() {
-
+   this.loadingService.isLoading = true
     const request: any = {
       DepartmentId : 0,
       Code: this.modalForm.Code.value,

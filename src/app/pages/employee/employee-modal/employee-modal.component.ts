@@ -8,6 +8,8 @@ import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
 import { CountryService } from 'src/app/services/country.service';
 import { CityService } from 'src/app/services/city.service';
 import { DepartmentService } from 'src/app/services/department.service';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-employee-modal',
@@ -36,6 +38,7 @@ export class EmployeeModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private employeeService: EmployeeService,
     private countryService: CountryService,
+    private loadingService : LoadingService,
     private cityService: CityService,
     private toastHelper: ToastHelper,
     private departmentService : DepartmentService,
@@ -111,7 +114,7 @@ export class EmployeeModalComponent implements OnInit {
  
   onSubmit() {
  
-
+    this.loadingService.isLoading = true
     const request: any = {
       EmployeeId : 0,
       FirstName: this.modalForm.FirstName.value,

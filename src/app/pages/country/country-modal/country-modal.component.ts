@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { CountryService } from 'src/app/services/country.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-country-modal',
@@ -20,12 +21,14 @@ export class CountryModalComponent implements OnInit {
   public regionList: any[];
 
 
+
   public user: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
     private countryService: CountryService,
     private toastHelper: ToastHelper,
+    private loadingService: LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -41,7 +44,7 @@ export class CountryModalComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.loadingService.isLoading = true;
     const request: any = {
       CountryId : 0,
       Code: this.modalForm.Code.value,
@@ -61,7 +64,7 @@ export class CountryModalComponent implements OnInit {
       .subscribe({
         next: response => {
           this.toastHelper.showSuccess("You have successfully created " + request.Name + " country.");
-          this.activeModal.close();
+         // this.activeModal.close();
         },
         error: response => {
           this.errors = response.errors;

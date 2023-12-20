@@ -6,6 +6,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { CityService } from 'src/app/services/city.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
 import { CountryService } from 'src/app/services/country.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-city-modal',
@@ -25,6 +26,7 @@ export class CityModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private cityService: CityService,
+    private loadingService : LoadingService,
     private toastHelper: ToastHelper,
     private countryService: CountryService,
     public activeModal: NgbActiveModal) { }
@@ -60,7 +62,7 @@ export class CityModalComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.loadingService.isLoading = true
     const request: any = {
       CityId : 0,
       Code: this.modalForm.Code.value,

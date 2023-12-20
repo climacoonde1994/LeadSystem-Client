@@ -9,6 +9,8 @@ import { SystemTypeToggleComponent } from '../systemtype-toggle/systemtype-toggl
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SystemTypeDefaultComponent } from '../systemtype-default/systemtype-default.component';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-systemtype-list',
@@ -25,7 +27,11 @@ export class SystemTypeListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public systemtypeService: SystemTypeService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public systemtypeService: SystemTypeService, 
+    private modalService: NgbModal, 
+    private loadingService : LoadingService,
+
+    private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -56,6 +62,7 @@ export class SystemTypeListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false
       }, (reason) => { }
     );
   }

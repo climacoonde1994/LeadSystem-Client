@@ -6,10 +6,8 @@ import { ClientService, } from 'src/app/services/client.service';
 import { ClientDeleteComponent } from '../client-delete/client-delete.component';
 import { ClientModalComponent } from '../client-modal/client-modal.component';
 import { ClientToggleComponent } from '../client-toggle/client-toggle.component';
- 
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { first } from 'rxjs/operators';
-import { ClientDefaultComponent } from '../client-default/client-default.component';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-client-list',
@@ -21,12 +19,14 @@ export class ClientListComponent implements OnInit {
 
   public items: Observable<any[]>;
   public name: string;
+
+
   public total: Observable<number>;
   public closeResult: string;
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public clientService: ClientService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public clientService: ClientService,  private loadingService : LoadingService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -57,6 +57,7 @@ export class ClientListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false
       }, (reason) => { }
     );
   }

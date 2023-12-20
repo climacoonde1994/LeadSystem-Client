@@ -9,6 +9,7 @@ import { SourceToggleComponent } from '../source-toggle/source-toggle.component'
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SourceDefaultComponent } from '../source-default/source-default.component';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-source-list',
@@ -25,7 +26,10 @@ export class SourceListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public sourceService: SourceService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public sourceService: SourceService,
+     private modalService: NgbModal, 
+     private loadingService : LoadingService,
+     private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -56,6 +60,7 @@ export class SourceListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false
       }, (reason) => { }
     );
   }

@@ -7,6 +7,7 @@ import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 import { WhiteSpace } from '../../../helpers/whitespace.validator';
 
+import { LoadingService } from 'src/app/services/loader.service';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class UserModalComponent implements OnInit {
     private userService: UserService,
     private roleService: RoleService,
     private toastHelper: ToastHelper,
+    private loadingService : LoadingService,
+
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -52,9 +55,8 @@ export class UserModalComponent implements OnInit {
   }
 
   onSubmit() {
- 
-    const request: any = {
-    
+    this.loadingService.isLoading = true
+    const request: any = { 
       UserName: this.modalForm.UserName.value,
       Password: this.modalForm.Password.value,
       FirstName: this.modalForm.FirstName.value,
@@ -66,14 +68,10 @@ export class UserModalComponent implements OnInit {
       Status: this.modalForm.Status.value,
       CreatedById  : "",
       UpdatedById  : ""
-
     };
 
     if (this.item == null){
-
       request.CreatedById = this.user._id
-  
-
       this.userService.create(request)
       .pipe(first())
       .subscribe({

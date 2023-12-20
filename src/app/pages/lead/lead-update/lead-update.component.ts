@@ -24,6 +24,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { SpecialtyService } from 'src/app/services/specialty.service';
 import { SourceService } from 'src/app/services/source.service';
 import { Specialty } from 'src/app/interfaces/specialty';
+import { LoadingService } from 'src/app/services/loader.service';
 
 
 
@@ -98,11 +99,13 @@ export class LeadUpdateComponent implements OnInit {
     public documentService : DocumentService,
     public clientService : ClientService,
     public specialtyService : SpecialtyService,
-    public sourceService : SourceService
-    
+    public sourceService : SourceService,
+    private loadingService : LoadingService,
+
    ) { }
 
   ngOnInit() { 
+    this.loadingService.isLoading = true;
     this.modalFormGroup = this.formBuilder.group({
       LeadHeaderId :   new FormControl(''),
       ClientId: new FormControl(''),
@@ -240,8 +243,7 @@ export class LeadUpdateComponent implements OnInit {
 
     
      
-
-    
+ 
 
   }
 
@@ -412,19 +414,23 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.LastName.length > 0 && data.FirstName.length > 0 && data.LastName && data.FirstName )
         {
-          data.LeadId = this.LeadId;
-          var leadcontacts : any[] = []
-          leadcontacts.push(data)
-          this.leadContactService.create(leadcontacts)
-          .pipe(first())
-          .subscribe({
-            next: response => {
-              this.leadcontacts.push(data)
-            },
-            error: response => {
-              this.errors = response.errors;
-            }
-          });
+          if(!this.isContactExist(data._id))
+          {
+            data.LeadId = this.LeadId;
+            var leadcontacts : any[] = []
+            leadcontacts.push(data)
+            this.leadContactService.create(leadcontacts)
+            .pipe(first())
+            .subscribe({
+              next: response => {
+                this.leadcontacts.push(data)
+              },
+              error: response => {
+                this.errors = response.errors;
+              }
+            });
+          }
+         
         }
   
       }, (reason) => { }
@@ -451,7 +457,8 @@ saveLeadDocuments(leadId : any){
           .pipe(first())
           .subscribe({
             next: response => {
-              this.notes.push(data)
+              this.notes.push(data);
+              this.loadingService.isLoading = false;
             },
             error: response => {
               this.errors = response.errors;
@@ -490,6 +497,7 @@ saveLeadDocuments(leadId : any){
             next: response => {
             
               this.proposals.push(data)
+              this.loadingService.isLoading = false;
             },
             error: response => {
               this.errors = response.errors;
@@ -520,6 +528,7 @@ saveLeadDocuments(leadId : any){
           next:response => {
            data._id = response._id
             this.documents.push(data)
+            this.loadingService.isLoading = false;
           }
 
         } );
@@ -548,6 +557,7 @@ saveLeadDocuments(leadId : any){
           .subscribe({
             next: response => {
               this.cutpastes.push(data)
+              this.loadingService.isLoading = false;
             },
             error: response => {
               this.errors = response.errors;
@@ -583,7 +593,7 @@ saveLeadDocuments(leadId : any){
 
    
    downloadDocument(file : any) {
- 
+    this.loadingService.isLoading = false;
     this.documentService.downloadById(file._id).subscribe(data => {
       const blob = new Blob([data], { type: file.Prefix +'/'+ file.FileType});
       const url = window.URL.createObjectURL(blob);
@@ -593,6 +603,7 @@ saveLeadDocuments(leadId : any){
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      this.loadingService.isLoading = false;
     });
    
   }
@@ -652,6 +663,17 @@ saveLeadDocuments(leadId : any){
   }
 
 
+  isContactExist(data: any)
+  {
+    for(var i = 0 ; i < this.leadcontacts.length ; i++)
+    {
+      console.log(this.leadcontacts[i]._id ,data)
+      if(this.leadcontacts[i]._id == data){
+        return true;
+      }
+    }
+    return false;
+  }
 
  
 
@@ -799,5 +821,7 @@ saveLeadDocuments(leadId : any){
       }
     });
 
+    this.loadingService.isLoading = false;
+    
   }
 }

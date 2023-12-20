@@ -10,6 +10,8 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { DepartmentDefaultComponent } from '../department-default/department-default.component';
 import { UserService } from 'src/app/services/user.service';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-department-list',
@@ -30,7 +32,7 @@ export class DepartmentListComponent implements OnInit {
 
   constructor(public departmentService: DepartmentService, 
 
-    private modalService: NgbModal, private toastHelper: ToastHelper) { }
+    private modalService: NgbModal, private loadingService : LoadingService,private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -61,6 +63,7 @@ export class DepartmentListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false;
       }, (reason) => { }
     );
   }

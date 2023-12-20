@@ -12,7 +12,7 @@
         <div class="row text-center text-sm-left h-100 mt-3">
             <div class="col-sm-auto col-12">
                 <span class="tile tile-lg bg-info">
-                  <i class="fas fa-contacts"></i>
+                  <i class="fas fa-users"></i>
                 </span>
             </div>
             <div class="col pl-1 justify-content-center align-self-center">
@@ -65,7 +65,7 @@
               <td class="align-middle"><ngb-highlight [result]="item.Department" [term]="contactService.searchTerm"></ngb-highlight></td>
               <td class="align-middle"><ngb-highlight [result]="item.SystemType" [term]="contactService.searchTerm"></ngb-highlight></td>
               <td class="align-middle"><ngb-highlight [result]="item.Remarks" [term]="contactService.searchTerm"></ngb-highlight></td>
-              <td class="align-middle">{{ item.Ludatetime | dateAgo }}</td>
+              <td class="align-middle">{{ item.UpdatedDate | dateAgo }}</td>
               <td class="align-middle">
                 <span *ngIf="item.Status == 'Active'"><i class="fas fa-circle text-success mr-1"></i> Active</span>
                 <span *ngIf="!(item.Status == 'Active')"><i class="fas fa-circle text-danger mr-1"></i> Inactive</span>

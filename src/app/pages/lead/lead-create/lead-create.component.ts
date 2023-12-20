@@ -22,6 +22,7 @@ import { ProposalService } from 'src/app/services/proposal.service';
 import { DocumentService } from 'src/app/services/document.service';
 import { SpecialtyService } from 'src/app/services/specialty.service';
 import { SourceService } from 'src/app/services/source.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
  
 
@@ -86,6 +87,7 @@ export class LeadCreateComponent implements OnInit {
     private modalService: NgbModal,
     private cityService: CityService,
     private datepipe: DatePipe,
+    private loadingService : LoadingService,
     private toastHelper: ToastHelper,
     private countryService: CountryService,
     private employeeService: EmployeeService,
@@ -102,7 +104,7 @@ export class LeadCreateComponent implements OnInit {
    ) { }
 
   ngOnInit() { 
-
+    this.loadingService.isLoading = true;
     this.modalFormGroup = this.formBuilder.group({
       LeadHeaderId :   new FormControl(''),
       ClientId: new FormControl(''),
@@ -213,7 +215,7 @@ export class LeadCreateComponent implements OnInit {
     }
     );
 
- 
+    this.loadingService.isLoading = false;
   }
 
   
@@ -432,7 +434,7 @@ saveLeadDocuments(leadId : any){
         {
           this.leadcontacts.push(data)
         }
-  
+ 
       }, (reason) => { }
     );
     
@@ -451,8 +453,9 @@ saveLeadDocuments(leadId : any){
         if(data.Description && data.Description.length > 0  )
         {
           this.notes.push(data)
-        }
       
+        }
+        this.loadingService.isLoading = false;
     
       }, (reason) => { }
     );
@@ -472,7 +475,9 @@ saveLeadDocuments(leadId : any){
               return;
             }
             this.proposals.push(data)
+          
         }
+        this.loadingService.isLoading = false;
       }, (reason) => { }
     );
      
@@ -487,7 +492,9 @@ saveLeadDocuments(leadId : any){
         if(data.FileName && data.FileName.length > 0  )
         {
           this.documents.push(data)
+        
         }
+        this.loadingService.isLoading = false;
       }, (reason) => { }
     );
      
@@ -503,7 +510,9 @@ saveLeadDocuments(leadId : any){
         if(data.Description && data.Description.length > 0  )
         {
           this.cutpastes.push(data)
+       
         }
+        this.loadingService.isLoading = false;
       }, (reason) => { }
     );
      

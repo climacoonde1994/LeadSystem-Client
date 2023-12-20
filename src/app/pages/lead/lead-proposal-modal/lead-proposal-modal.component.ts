@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadingService } from 'src/app/services/loader.service';
 
-import { ToastHelper } from 'src/app/helpers/toast.helper';
  
  
 @Component({
@@ -20,6 +20,7 @@ export class LeadProposalModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private loadingService : LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -39,6 +40,7 @@ export class LeadProposalModalComponent implements OnInit {
 
   onSubmit() {
 
+    this.loadingService.isLoading = true
     const request: any = {
       LeadId : 0,
       ProposalId: 0,

@@ -6,6 +6,7 @@ import { ContactService, } from 'src/app/services/contact.service';
 import { ContactDeleteComponent } from '../contact-delete/contact-delete.component';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { ContactToggleComponent } from '../contact-toggle/contact-toggle.component';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -21,7 +22,10 @@ export class ContactListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public contactService: ContactService, private modalService: NgbModal) { }
+  constructor(public contactService: ContactService,
+    private loadingService : LoadingService,
+   
+     private modalService: NgbModal) { }
 
   ngOnInit() {
     this.loadList();
@@ -52,6 +56,7 @@ export class ContactListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false
       }, (reason) => { }
     );
   }

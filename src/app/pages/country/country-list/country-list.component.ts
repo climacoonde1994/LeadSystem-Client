@@ -9,6 +9,7 @@ import { CountryToggleComponent } from '../country-toggle/country-toggle.compone
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { CountryDefaultComponent } from '../country-default/country-default.component';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-country-list',
@@ -22,12 +23,15 @@ export class CountryListComponent implements OnInit {
   public name: string;
   public total: Observable<number>;
   public closeResult: string;
-
+ 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public countryService: CountryService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public countryService: CountryService, 
+    private loadingService: LoadingService,
+    private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
+    
     this.loadList();
   }
 
@@ -55,6 +59,7 @@ export class CountryListComponent implements OnInit {
     modalRef.componentInstance.item = item;
     modalRef.result.then(
       (data: any) => {
+        this.loadingService.isLoading = false;
         this.loadList();
       }, (reason) => { }
     );

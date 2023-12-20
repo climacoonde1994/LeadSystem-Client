@@ -61,6 +61,7 @@ import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.
 import { ContactDetailComponent } from 'src/app/pages/contact/contact-detail/contact-detail.component';
 import { ContactModalComponent } from 'src/app/pages/contact/contact-modal/contact-modal.component';
 import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact-list.component';
+import { LoaderComponent } from 'src/app/pages/loader/loader.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact
     EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent,
    UserListComponent, UserModalComponent, UserDetailComponent,
    ContactListComponent, ContactModalComponent, ContactDetailComponent,
+
  
  
 

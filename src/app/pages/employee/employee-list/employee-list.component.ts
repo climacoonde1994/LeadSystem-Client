@@ -6,10 +6,10 @@ import { EmployeeService, } from 'src/app/services/employee.service';
 import { EmployeeDeleteComponent } from '../employee-delete/employee-delete.component';
 import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { EmployeeToggleComponent } from '../employee-toggle/employee-toggle.component';
- 
+import { LoadingService } from 'src/app/services/loader.service';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
-import { EmployeeDefaultComponent } from '../employee-default/employee-default.component';
+ 
 
 @Component({
   selector: 'app-employee-list',
@@ -24,9 +24,13 @@ export class EmployeeListComponent implements OnInit {
   public total: Observable<number>;
   public closeResult: string;
 
+
+
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public employeeService: EmployeeService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public employeeService: EmployeeService,
+    
+private loadingService : LoadingService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -57,6 +61,7 @@ export class EmployeeListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false
       }, (reason) => { }
     );
   }

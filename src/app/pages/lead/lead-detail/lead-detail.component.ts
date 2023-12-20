@@ -21,6 +21,7 @@ import { SpecialtyService } from 'src/app/services/specialty.service';
 import { SourceService } from 'src/app/services/source.service';
 import { CityService } from 'src/app/services/city.service';
 import { CountryService } from 'src/app/services/country.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-lead-detail',
@@ -58,6 +59,7 @@ export class LeadDetailComponent implements OnInit {
     public clientService : ClientService,
     public specialtyService : SpecialtyService,
     public sourceService : SourceService,
+    private loadingService : LoadingService,
     private location: Location) { }
 
   ngOnInit() {
@@ -122,21 +124,18 @@ export class LeadDetailComponent implements OnInit {
   }
 
   loadItem() {
+    this.loadingService.isLoading = true;
     this.activatedRoute.params.subscribe(params => {
       this.leadService.getById(params['id'])
         .subscribe(response => {
           this.item = response;
-           
           this.loadClient();
           if(this.item.SalesPersonId)
           {
             this.loadSalesPerson(1 , this.item.SalesPersonId);
           }
-        
-         
-         
           this.loadLeadNotes();
-         
+          this.loadingService.isLoading = false;
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })

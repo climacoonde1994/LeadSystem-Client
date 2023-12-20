@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { SourceService } from 'src/app/services/source.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-source-modal',
@@ -24,6 +26,7 @@ export class SourceModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private sourceService: SourceService,
     private toastHelper: ToastHelper,
+    private loadingService : LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class SourceModalComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.loadingService.isLoading = true
     const request: any = {
       SourceId : 0,
       Code: this.modalForm.Code.value,

@@ -9,6 +9,7 @@ import { CityToggleComponent } from '../city-toggle/city-toggle.component';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { CityDefaultComponent } from '../city-default/city-default.component';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-city-list',
@@ -25,7 +26,7 @@ export class CityListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public cityService: CityService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public cityService: CityService, private loadingService : LoadingService,private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -66,6 +67,7 @@ export class CityListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false
       }, (reason) => { }
     );
   }

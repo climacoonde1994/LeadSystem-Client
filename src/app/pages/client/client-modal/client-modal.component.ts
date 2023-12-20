@@ -7,6 +7,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
 import { CountryService } from 'src/app/services/country.service';
 import { CityService } from 'src/app/services/city.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-client-modal',
@@ -31,6 +32,7 @@ export class ClientModalComponent implements OnInit {
     private countryService: CountryService,
     private cityService: CityService,
     private toastHelper: ToastHelper,
+    private loadingService : LoadingService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
@@ -63,15 +65,12 @@ export class ClientModalComponent implements OnInit {
         
       }
     }
-   
     );
-  
-
     this.modalFormGroup.patchValue(this.item);
   }
  
   onSubmit() {
- 
+    this.loadingService.isLoading = true
 
     const request: any = {
       ClientId : 0,

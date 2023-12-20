@@ -9,6 +9,7 @@ import { SpecialtyToggleComponent } from '../specialty-toggle/specialty-toggle.c
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SpecialtyDefaultComponent } from '../specialty-default/specialty-default.component';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-specialty-list',
@@ -25,7 +26,10 @@ export class SpecialtyListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public specialtyService: SpecialtyService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public specialtyService: SpecialtyService, 
+    private modalService: NgbModal,
+    private loadingService : LoadingService,
+     private toastHelper: ToastHelper) { }
 
   ngOnInit() {
     this.loadList();
@@ -56,6 +60,7 @@ export class SpecialtyListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = false;
       }, (reason) => { }
     );
   }

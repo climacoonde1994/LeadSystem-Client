@@ -6,6 +6,8 @@ import { UserService, } from 'src/app/services/user.service';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import { UserToggleComponent } from '../user-toggle/user-toggle.component';
+import { LoadingService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +23,9 @@ export class UserListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public userService: UserService, private modalService: NgbModal) { }
+  constructor(public userService: UserService,
+    private loadingService : LoadingService,
+   private modalService: NgbModal) { }
 
   ngOnInit() {
     this.loadList();
@@ -52,6 +56,7 @@ export class UserListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
+        this.loadingService.isLoading = true
       }, (reason) => { }
     );
   }

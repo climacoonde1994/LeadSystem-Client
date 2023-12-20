@@ -10,6 +10,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { CityService } from 'src/app/services/city.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { SystemTypeService } from 'src/app/services/systemtype.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
 
 @Component({
@@ -28,15 +29,12 @@ export class ContactModalComponent implements OnInit {
   public cities : any[];
   public departments : any[];
   public filteredcities : any[];
-
   public salutations : any[] = [];
   public systemtypes : any[] = [];
   public user: any = {};
 
   constructor(
- 
-    private countryService: CountryService,
-    private cityService: CityService,
+    private loadingService : LoadingService,
     private departmentService : DepartmentService,
     private systemTypeService : SystemTypeService,
     private formBuilder: FormBuilder,
@@ -105,7 +103,7 @@ export class ContactModalComponent implements OnInit {
   }
 
   onSubmit() {
- 
+    this.loadingService.isLoading = true
     const request: any = {
       ContactId : 0,
       Salutation: this.modalForm.Salutation.value,
@@ -124,10 +122,7 @@ export class ContactModalComponent implements OnInit {
  
     if (this.item == null)
     {
-      
       request.CreatedById = this.user._id
-
-
       this.item = request;
       this.contactService.create(request)
       .pipe(first())
@@ -175,4 +170,6 @@ export class ContactModalComponent implements OnInit {
     console.log(systemtype.Name)
     this.modalFormGroup.get('SystemType').setValue(systemtype.Name);
   }
+
+
 }
