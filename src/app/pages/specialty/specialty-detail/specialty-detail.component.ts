@@ -38,6 +38,7 @@ export class SpecialtyDetailComponent implements OnInit {
       this.specialtyService.getById(params['id'])
         .subscribe(response => {
           this.item = response;
+          this.loadAdditionalDetails();
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })
@@ -94,7 +95,7 @@ export class SpecialtyDetailComponent implements OnInit {
     .subscribe({
       next: response => {
       this.userList = response
-      console.log(this.item)
+  
       for(var i = 0 ; i < this.userList.length ; i++)
       {
        console.log( this.userList[i]._id , this.item.CreatedById)

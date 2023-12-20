@@ -76,7 +76,6 @@
                   <div class="dropdown-menu dropdown-menu-right">
                       <div class="dropdown-arrow mr-n1"></div>
                       <a class="dropdown-item" (click)="openModal(item)"><span class="menu-icon fas fa-pen mr-1"></span>Update </a>
-                      <div class="dropdown-item" (click)="openDeleteModal(item)"><span class="menu-icon fa-solid fa-arrows-rotate mr-1"></span> Reset Password </div>
                       <div class="dropdown-item" (click)="openToggleModal(item)">
                         <span *ngIf="item.Status == 'Active'" class="menu-icon  fa-solid fa-toggle-on mr-1"></span>
                         <span *ngIf="!(item.Status == 'Active')" class="menu-icon  fa-solid fa-toggle-off mr-1"></span>
@@ -91,7 +90,7 @@
               </td>
             </tr>
             <tr *ngIf="(total | async) === 0">
-              <td class="text-center" colspan="7"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
+              <td class="text-center" colspan="8"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
             </tr>
             </tbody>
           </table>

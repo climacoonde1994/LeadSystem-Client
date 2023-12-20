@@ -78,7 +78,7 @@ export class UserModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.FullName + ".");
+          this.toastHelper.showSuccess("You have successfully created " + request.FirstName + " " +  request.LastName+ ".");
           this.activeModal.close();
         },
         error: response => {
@@ -93,7 +93,7 @@ export class UserModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.FullName + ".");
+          this.toastHelper.showSuccess("You have successfully updated " + request.FirstName + " " +  request.LastName+ ".");
           this.activeModal.close();
         },
         error: response => {

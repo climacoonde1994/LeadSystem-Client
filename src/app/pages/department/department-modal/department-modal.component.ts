@@ -59,7 +59,7 @@ export class DepartmentModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.Name + " department.");
+          this.toastHelper.showSuccess("You have successfully created " + request.Name + " department.");
           this.activeModal.close();
         },
         error: response => {
@@ -77,7 +77,7 @@ export class DepartmentModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " department.");
+          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " department.");
           this.activeModal.close();
         },
         error: response => {

@@ -58,7 +58,7 @@ export class SystemTypeModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.Name + " systemtype.");
+          this.toastHelper.showSuccess("You have successfully created " + request.Name + " systemtype.");
           this.activeModal.close();
         },
         error: response => {
@@ -75,7 +75,7 @@ export class SystemTypeModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " systemtype.");
+          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " systemtype.");
           this.activeModal.close();
         },
         error: response => {

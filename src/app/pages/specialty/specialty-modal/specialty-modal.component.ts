@@ -65,7 +65,7 @@ export class SpecialtyModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.Name + " specialty under "+ response.Category);
+          this.toastHelper.showSuccess("You have successfully created " + request.Name + " specialty under "+ response.Category);
           this.activeModal.close();
         },
         error: response => {
@@ -82,7 +82,7 @@ export class SpecialtyModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " specialty under "+ response.Category);
+          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " specialty under "+ response.Category);
           this.activeModal.close();
         },
         error: response => {

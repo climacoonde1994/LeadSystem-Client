@@ -79,7 +79,7 @@ export class CityModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.Name + " city.");
+          this.toastHelper.showSuccess("You have successfully created " + request.Name + " city.");
           this.activeModal.close();
         },
         error: response => {
@@ -96,7 +96,7 @@ export class CityModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + this.item.Name + " city.");
+          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " city.");
           this.activeModal.close();
         },
         error: response => {

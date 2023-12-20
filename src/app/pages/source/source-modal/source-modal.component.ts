@@ -56,7 +56,7 @@ export class SourceModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + response.Name + " source.");
+          this.toastHelper.showSuccess("You have successfully created " + request.Name + " source.");
           this.activeModal.close();
         },
         error: response => {
@@ -72,7 +72,7 @@ export class SourceModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + response.Name + " source.");
+          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " source.");
           this.activeModal.close();
         },
         error: response => {
