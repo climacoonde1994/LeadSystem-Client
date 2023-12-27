@@ -1,3 +1,140 @@
-<p>
-  profile works!
-</p>
+<div class="wrapper">
+  <div class="page">
+
+      <div class="page-inner">
+          <header class="page-title-bar mb-1">
+              <nav aria-label="breadcrumb">
+                 
+              </nav>
+              <div class="row text-center text-sm-left h-100 mt-3">
+                  <div class="col-sm-auto col-12">
+                      <span class="tile tile-lg bg-info">
+                        <i class="fas fa-address-book"></i>
+                      </span>
+                  </div>
+                  <div class="col pl-1 justify-content-center align-self-center">
+                    <span class="text-muted m-0"> Settings </span>
+                    <h4 class="m-0"> Profile </h4>
+                  </div>
+              </div>
+          </header>
+
+          
+          <div class="page-section">
+            <form [formGroup]="modalFormGroup" autocomplete="off" novalidate  >
+            <ul ngbNav #nav="ngbNav" [activeId]="activatedRoute.fragment | async" class="nav-tabs">
+           
+              <li ngbNavItem="personal">
+                <a ngbNavLink routerLink="." fragment="personal">Personal Information</a>
+                <ng-template ngbNavContent>
+                  <div class="form-row">
+                    <div class="col-md-6" *ngIf="errors">
+                      <div class="alert alert-danger" role="alert">
+                        <ul class="list-unstyled m-0">
+                          <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="UserName"> User Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="UserName" placeholder="User Name" />
+                        <span class="text-danger small" *ngIf="!modalForm.UserName.valid && modalForm.UserName.touched">
+                          <span *ngIf="modalForm.UserName.hasError('required') || modalForm.UserName?.errors">User name is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="Password"> Password <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="Password" placeholder="Password" />
+                        <span class="text-danger small" *ngIf="!modalForm.Password.valid && modalForm.Password.touched">
+                          <span *ngIf="modalForm.Password.hasError('required') || modalForm.Password?.errors">Password is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="FirstName"> First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="FirstName" placeholder="First Name" />
+                        <span class="text-danger small" *ngIf="!modalForm.FirstName.valid && modalForm.FirstName.touched">
+                          <span *ngIf="modalForm.FirstName.hasError('required') || modalForm.FirstName?.errors">First name is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="LastName"> Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="LastName" placeholder="Last Name" />
+                        <span class="text-danger small" *ngIf="!modalForm.LastName.valid && modalForm.LastName.touched">
+                          <span *ngIf="modalForm.LastName.hasError('required') || modalForm.LastName?.errors">Last name is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="Email"> Email Address <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="Email" placeholder="Email Address" />
+                        <span class="text-danger small" *ngIf="!modalForm.Email.valid && modalForm.Email.touched">
+                          <span *ngIf="modalForm.Email.hasError('required') || modalForm.Email?.errors">Email address is required.</span>
+                          <span *ngIf="modalForm.Email.hasError('email')">Email address is invalid.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="Mobile"> Mobile Number <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" formControlName="Mobile" placeholder="Mobile Number" />
+                        <span class="text-danger small" *ngIf="!modalForm.Mobile.valid && modalForm.Mobile.touched">
+                          <span *ngIf="modalForm.Mobile.hasError('required')">Mobile number is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="UserType"> User Type <span class="text-danger">*</span></label>
+                          <select class="form-control" name="UserType" formControlName="UserType" >
+                            <option >Active</option>
+                            <option >Inactive</option>
+                        </select>
+                        <span class="text-danger small" *ngIf="!modalForm.UserType.valid && modalForm.UserType.touched">
+                          <span *ngIf="modalForm.UserType.hasError('required')"> User Type is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="roleId"> Status <span class="text-danger">*</span></label>
+                          <select class="form-control" name="status" formControlName="Status" >
+                            <option >Active</option>
+                            <option >Inactive</option>
+                        </select>
+                       
+                      </div>
+                    </div>
+                  </div>
+                 
+              
+                </ng-template>
+              </li>
+              <li ngbNavItem="security">
+                <a ngbNavLink routerLink="." fragment="security">Security</a>
+                <ng-template ngbNavContent>
+                 
+                 
+              
+                </ng-template>
+              </li>
+             
+              
+            </ul>
+          </form>
+  
+            <div [ngbNavOutlet]="nav" class="mt-3"></div>
+          </div>
+       
+
+       
+    </div>
+  </div>
+</div>

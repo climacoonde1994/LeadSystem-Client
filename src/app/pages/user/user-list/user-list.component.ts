@@ -56,8 +56,8 @@ export class UserListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
-        this.loadingService.isLoading = true
-      }, (reason) => { }
+        this.loadingService.isLoading = false
+      }, (reason) => {  this.loadingService.isLoading = false}
     );
   }
 

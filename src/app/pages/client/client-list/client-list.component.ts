@@ -58,8 +58,9 @@ export class ClientListComponent implements OnInit {
       (data: any) => {
         this.loadList();
         this.loadingService.isLoading = false
-      }, (reason) => { }
+      }, (reason) => {    this.loadingService.isLoading = false }
     );
+
   }
 
   openToggleModal(item?: any) {

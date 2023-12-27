@@ -186,24 +186,6 @@ export class LeadUpdateComponent implements OnInit {
       }
     );
 
-    this.specialtyService.getList()
-    .pipe(first())
-    .subscribe({
-      next: response => {
- 
-      this.specialties = this.mapSpecialty(response)
-      
-      this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
-      this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
-      this.desktopspecialties = this.specialties.filter(x => x.Category == 'DESKTOP')
-      this.otherspecialties = this.specialties.filter(x => x.Category == 'OTHER')
-      this.setCategoryCheck()
-      },
-      error: response => {
-        
-      }
-    }
-    );
  
 
     this.leadService.getById(this.LeadId)
@@ -235,6 +217,7 @@ export class LeadUpdateComponent implements OnInit {
           this.modalFormGroup.get('InternetNotes').setValue(data.InternetNotes);
           this.selectedspecialties = data.Specialty      
           this.getLeaderDetails()
+          this.getMappedSpeciality();
         },
         error: response => {
           this.errors = response.errors;
@@ -823,5 +806,27 @@ saveLeadDocuments(leadId : any){
 
     this.loadingService.isLoading = false;
     
+  }
+
+  getMappedSpeciality(){
+    
+    this.specialtyService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+ 
+      this.specialties = this.mapSpecialty(response)
+      
+      this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
+      this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
+      this.desktopspecialties = this.specialties.filter(x => x.Category == 'DESKTOP')
+      this.otherspecialties = this.specialties.filter(x => x.Category == 'OTHER')
+      this.setCategoryCheck()
+      },
+      error: response => {
+        
+      }
+    }
+    );
   }
 }

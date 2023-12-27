@@ -71,7 +71,7 @@ export class SourceListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
-      }, (reason) => { }
+      }, (reason) => {     this.loadingService.isLoading = false}
     );
   }
 

@@ -62,7 +62,7 @@ private loadingService : LoadingService, private modalService: NgbModal, private
       (data: any) => {
         this.loadList();
         this.loadingService.isLoading = false
-      }, (reason) => { }
+      }, (reason) => {     this.loadingService.isLoading = false}
     );
   }
 

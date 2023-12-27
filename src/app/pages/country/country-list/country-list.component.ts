@@ -61,7 +61,7 @@ export class CountryListComponent implements OnInit {
       (data: any) => {
         this.loadingService.isLoading = false;
         this.loadList();
-      }, (reason) => { }
+      }, (reason) => {  this.loadingService.isLoading = false}
     );
   }
 
