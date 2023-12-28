@@ -28,11 +28,11 @@ export class UserDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.userService.delete(this.item.id)
+    this.userService.delete(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + response.data.fullName + ".");
+          this.toastHelper.showSuccess("You have successfully deleted " + this.item.FullName + ".");
           this.activeModal.close();
           this.router.navigate(['/user-list']);
         },

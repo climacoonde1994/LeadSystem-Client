@@ -48,7 +48,7 @@ export class LeadContactModalComponent implements OnInit {
   }
 
   loadList() {
-    this.contactService.loadList();
+    this.contactService.loadList('Active');
     this.items = this.contactService.items;
     this.total = this.contactService.total;
   }

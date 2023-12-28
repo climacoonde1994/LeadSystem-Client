@@ -23,7 +23,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="code"> FirstName  <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="FirstName" placeholder="FirstName" />
+          <input type="text" class="form-control" formControlName="FirstName" placeholder="First Name" />
           <span class="text-danger small" *ngIf="!modalForm.FirstName.valid && modalForm.FirstName.touched">
             <span *ngIf="modalForm.FirstName.hasError('required')  || modalForm.FirstName?.errors ">FirstName is required.</span>
           </span>
@@ -33,7 +33,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="Name"> Last Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="LastName" placeholder="LastName" />
+          <input type="text" class="form-control" formControlName="LastName" placeholder="Last Name" />
           <span class="text-danger small" *ngIf="!modalForm.LastName.valid && modalForm.LastName.touched   ">
             <span *ngIf="modalForm.LastName.hasError('required') || modalForm.LastName?.errors">Last Name is required.</span>
           </span>

@@ -72,8 +72,8 @@ export class ContactService {
     return of({items, total});
   }
 
-  public loadList = () => {
-    this.getList().subscribe(response => {
+  public loadList = (path : string) => {
+    this.getList(path).subscribe(response => {
       this.$search.pipe(
         tap(() => this.$loading.next(true)),
         debounceTime(200),
@@ -89,8 +89,8 @@ export class ContactService {
     });
   }
 
-  public getList = () => {
-    return this.repositoryHelper.get('api/contact/All');
+  public getList = (path : string) => {
+    return this.repositoryHelper.get('api/contact/'+path);
   }
 
   public getById = (id: number) => {
@@ -113,7 +113,7 @@ export class ContactService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/contact/delete?id=' + id);
+    return this.repositoryHelper.delete('api/contact/DeleteContact/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

@@ -113,7 +113,11 @@ export class UserService {
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/user/delete?id=' + id);
+    return this.repositoryHelper.delete('api/user/DeleteUser/' + id);
+  }
+
+  public reset = (id: number) => {
+    return this.repositoryHelper.delete('api/user/ResetUser/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {

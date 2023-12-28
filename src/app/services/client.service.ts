@@ -75,8 +75,8 @@ export class ClientService {
     return of({items, total});
   }
 
-  public loadList = () => {
-    this.getList().subscribe(response => {
+  public loadList = (path : string) => {
+    this.getList(path).subscribe(response => {
       this.$search.pipe(
         tap(() => this.$loading.next(true)),
         debounceTime(200),
@@ -92,8 +92,9 @@ export class ClientService {
     });
   }
 
-  public getList = () => {
-    return this.repositoryHelper.get('api/client/All');
+   
+  public getList = (path : string) => {
+    return this.repositoryHelper.get('api/client/'+path);
   }
 
   public getById = (id: number) => {

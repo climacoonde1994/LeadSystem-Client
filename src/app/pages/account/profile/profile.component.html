@@ -27,7 +27,7 @@
               <li ngbNavItem="personal">
                 <a ngbNavLink routerLink="." fragment="personal">Personal Information</a>
                 <ng-template ngbNavContent>
-                  <div class="form-row">
+                
                     <div class="col-md-6" *ngIf="errors">
                       <div class="alert alert-danger" role="alert">
                         <ul class="list-unstyled m-0">
@@ -35,24 +35,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="UserName"> User Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" formControlName="UserName" placeholder="User Name" />
-                        <span class="text-danger small" *ngIf="!modalForm.UserName.valid && modalForm.UserName.touched">
-                          <span *ngIf="modalForm.UserName.hasError('required') || modalForm.UserName?.errors">User name is required.</span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="Password"> Password <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" formControlName="Password" placeholder="Password" />
-                        <span class="text-danger small" *ngIf="!modalForm.Password.valid && modalForm.Password.touched">
-                          <span *ngIf="modalForm.Password.hasError('required') || modalForm.Password?.errors">Password is required.</span>
-                        </span>
-                      </div>
-                    </div>
+                 
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="FirstName"> First Name <span class="text-danger">*</span></label>
@@ -112,16 +95,43 @@
                        
                       </div>
                     </div>
-                  </div>
                  
-              
+                    <div class="col-md-6"> 
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+                        <button type="button" class="btn btn-light" routerLink="/dashboard">Cancel</button>
+                      </div>
+                    </div>
                 </ng-template>
               </li>
               <li ngbNavItem="security">
                 <a ngbNavLink routerLink="." fragment="security">Security</a>
                 <ng-template ngbNavContent>
                  
-                 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="UserName"> User Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" formControlName="UserName" placeholder="User Name" />
+                      <span class="text-danger small" *ngIf="!modalForm.UserName.valid && modalForm.UserName.touched">
+                        <span *ngIf="modalForm.UserName.hasError('required') || modalForm.UserName?.errors">User name is required.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="Password"> Password <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" formControlName="Password" placeholder="Password" />
+                      <span class="text-danger small" *ngIf="!modalForm.Password.valid && modalForm.Password.touched">
+                        <span *ngIf="modalForm.Password.hasError('required') || modalForm.Password?.errors">Password is required.</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6"> 
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-warning" [disabled]="!modalFormGroup.valid">Change Password</button>
+                      <button type="button" class="btn btn-light" routerLink="/dashboard">Cancel</button>
+                    </div>
+                  </div>
               
                 </ng-template>
               </li>

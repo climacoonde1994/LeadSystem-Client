@@ -65,8 +65,8 @@
               <td class="align-middle"><ngb-highlight [result]="item.Password" [term]="userService.searchTerm"></ngb-highlight></td>
               <td class="align-middle">{{ item.Ludatetime | dateAgo }}</td>
               <td class="align-middle">
-                <span *ngIf="item.Status == 'Active'"><i class="fas fa-circle text-success mr-1"></i> Active</span>
-                <span *ngIf="!(item.Status == 'Active')"><i class="fas fa-circle text-danger mr-1"></i> Inactive</span>
+                <span *ngIf="item.Enabled"><i class="fas fa-circle text-success mr-1"></i> Active</span>
+                <span *ngIf="!(item.Enabled)"><i class="fas fa-circle text-danger mr-1"></i> Inactive</span>
               </td>
               <td class="align-middle text-right">
                 <div class="dropdown">
@@ -74,11 +74,11 @@
                   <div class="dropdown-menu dropdown-menu-right">
                       <div class="dropdown-arrow mr-n1"></div>
                       <a class="dropdown-item" (click)="openModal(item)"><span class="menu-icon fas fa-pen mr-1"></span>Update </a>
-                      <div class="dropdown-item" (click)="openDeleteModal(item)"><span class="menu-icon fa-solid fa-arrows-rotate mr-1"></span> Reset Password </div>
+                      <div class="dropdown-item" (click)="openResetModal(item)"><span class="menu-icon fa-solid fa-arrows-rotate mr-1"></span> Reset Password </div>
                       <div class="dropdown-item" (click)="openToggleModal(item)">
                         <span *ngIf="item.Status == 'Active'" class="menu-icon  fa-solid fa-toggle-on mr-1"></span>
                         <span *ngIf="!(item.Status == 'Active')" class="menu-icon  fa-solid fa-toggle-off mr-1"></span>
-                         {{ item?.Status == 'Active' ? "Set as Inactive" : "Set as Active" }} 
+                        {{ item?.Enabled ? "Disable" : "Enable" }} 
                         </div>
                       <div class="dropdown-divider"></div>
                       <div class="dropdown-item" (click)="openDeleteModal(item)">

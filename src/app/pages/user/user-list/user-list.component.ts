@@ -7,6 +7,7 @@ import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import { UserToggleComponent } from '../user-toggle/user-toggle.component';
 import { LoadingService } from 'src/app/services/loader.service';
+import { UserResetComponent } from '../user-reset/user-reset.component';
 
 
 @Component({
@@ -82,4 +83,13 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  openResetModal(item?: any) {
+    const modalRef = this.modalService.open(UserResetComponent);
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(
+      () => {
+        this.loadList();
+      }
+    );
+  }
 }

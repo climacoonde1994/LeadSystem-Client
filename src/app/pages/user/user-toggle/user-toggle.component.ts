@@ -27,11 +27,12 @@ export class UserToggleComponent implements OnInit {
 
   onSubmit() {
 
-    this.userService.toggle(this.item.id , !this.item.Enabled)
+    this.userService.toggle(this.item._id , !this.item.Enabled)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully " + (response.data.isEnabled ? "enabled" : "disabled") + " " + this.item.fullName + " user.");
+          console.log(response)
+          this.toastHelper.showSuccess("You have successfully " + (!this.item.Enabled ? "enabled" : "disabled") + " " + this.item.FullName + " user.");
           this.activeModal.close();
         },
         error: response => {

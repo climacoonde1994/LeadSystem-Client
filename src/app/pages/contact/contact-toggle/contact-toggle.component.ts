@@ -27,11 +27,11 @@ export class ContactToggleComponent implements OnInit {
 
   onSubmit() {
 
-    this.contactService.toggle(this.item.id , !this.item.Enabled)
+    this.contactService.toggle(this.item._id , !this.item.Enabled)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully " + (response.data.isEnabled ? "enabled" : "disabled") + " " + this.item.fullName + " contact.");
+          this.toastHelper.showSuccess("You have successfully " + (this.item.Enabled ? "enabled" : "disabled") + " " + this.item.FullName + " contact.");
           this.activeModal.close();
         },
         error: response => {

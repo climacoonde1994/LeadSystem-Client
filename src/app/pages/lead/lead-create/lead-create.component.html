@@ -262,6 +262,15 @@
               <li ngbNavItem="client">
                 <a ngbNavLink routerLink="." fragment="client">Client</a>
                 <ng-template ngbNavContent>
+                  <div class="form-row">
+                    <div class="col-md-12" *ngIf="errors">
+                      <div class="alert alert-danger" role="alert">
+                        <ul class="list-unstyled m-0">
+                          <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div class="card-header">
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Client </span>
@@ -318,13 +327,13 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> Country </label>
-                          <input type="textarea" class="form-control" formControlName="Country" placeholder="Description" />
+                          <input type="textarea" class="form-control" formControlName="Country" placeholder="Country" />
                         </div>
                       </div> 
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> ZIP </label>
-                          <input type="textarea" class="form-control" formControlName="ZIP" placeholder="Description" />
+                          <input type="textarea" class="form-control" formControlName="ZIP" placeholder="ZIP" />
                         </div>
                       </div>                           
                     </div>
@@ -338,13 +347,13 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> FAX </label>
-                          <input type="textarea" class="form-control" formControlName="FAX" placeholder="Description" />
+                          <input type="textarea" class="form-control" formControlName="FAX" placeholder="FAX" />
                         </div>
                       </div> 
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="revNo"> URL </label>
-                          <input type="textarea" class="form-control" formControlName="URL" placeholder="Description" />
+                          <input type="textarea" class="form-control" formControlName="URL" placeholder="URL" />
                         </div>
                       </div>                           
                     </div>
@@ -401,6 +410,15 @@
               <li ngbNavItem="notes">
                 <a ngbNavLink routerLink="." fragment="notes">Notes</a>
                 <ng-template ngbNavContent>
+                  <div class="form-row">
+                    <div class="col-md-12" *ngIf="errors">
+                      <div class="alert alert-danger" role="alert">
+                        <ul class="list-unstyled m-0">
+                          <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div class="card-body border-top card-header">
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Notes</span>
@@ -439,7 +457,15 @@
               <li ngbNavItem="attachments">
                 <a ngbNavLink routerLink="." fragment="attachments">Attachments</a>
                 <ng-template ngbNavContent>
-                    
+                  <div class="form-row">
+                    <div class="col-md-12" *ngIf="errors">
+                      <div class="alert alert-danger" role="alert">
+                        <ul class="list-unstyled m-0">
+                          <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div class="card-body border-top card-header">
                     <div class="d-flex align-items-center">
                       <span class="mr-auto">Attachment</span>

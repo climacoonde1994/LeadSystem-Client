@@ -41,7 +41,7 @@ export class LeadClientModalComponent implements OnInit {
   }
 
   loadList() {
-    this.clientService.loadList();
+    this.clientService.loadList('Active');
     this.items = this.clientService.items;
     this.total = this.clientService.total;
   }

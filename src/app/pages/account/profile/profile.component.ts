@@ -9,21 +9,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   public modalFormGroup: FormGroup;
   public errors: any[];
+  public user: any = {};
   constructor(public activatedRoute: ActivatedRoute,private formBuilder: FormBuilder,) { }
 
   ngOnInit() {
 
-    
+    this.user = JSON.parse(localStorage.getItem('user').toString())
+    console.log( this.user)
     this.modalFormGroup = this.formBuilder.group({
-      UserName: new FormControl('', [Validators.required]),
-      Password : new FormControl('', [Validators.required]),
-      FirstName: new FormControl('', [Validators.required]),
-      LastName: new FormControl('', [Validators.required]),
-      MiddleName: new FormControl(''),
-      Email: new FormControl('', [Validators.required, Validators.email]),
-      Mobile: new FormControl('', [Validators.required]),
-      UserType: new FormControl('', [Validators.required]),
-      Status: new FormControl('Active', [Validators.required]),
+      Id :new FormControl(this.user._id),
+      UserName: new FormControl(this.user.UserName, [Validators.required]),
+      Password : new FormControl(this.user.Password, [Validators.required]),
+      FirstName: new FormControl(this.user.FirstName, [Validators.required]),
+      LastName: new FormControl(this.user.LastName, [Validators.required]),
+      MiddleName: new FormControl(this.user.MiddleName),
+      Email: new FormControl(this.user.Email, [Validators.required, Validators.email]),
+      Mobile: new FormControl(this.user.Mobile, [Validators.required]),
+      UserType: new FormControl(this.user.UserType, [Validators.required]),
+      Status: new FormControl(this.user.Status, [Validators.required]),
     } );
 
   }

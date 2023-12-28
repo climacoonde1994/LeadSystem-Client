@@ -33,7 +33,7 @@ export class ClientListComponent implements OnInit {
   }
 
   loadList() {
-    this.clientService.loadList();
+    this.clientService.loadList('All');
     this.items = this.clientService.items;
     this.total = this.clientService.total;
   }

@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
   );
  
 
-  this.clientService.getList()
+  this.clientService.getList('All')
   .pipe(first())
   .subscribe({
     next: response => {
@@ -66,9 +66,9 @@ export class DashboardComponent implements OnInit {
   }
   );
 
-  this.employee = JSON.parse(localStorage.getItem('employee').toString())
-  console.log(this.employee)
-
+  this.employee = JSON.parse(localStorage.getItem('user').toString())
+ 
+ console.log(this.employee)
   }
 
   

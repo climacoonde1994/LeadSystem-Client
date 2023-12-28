@@ -3,22 +3,22 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { ContactService } from 'src/app/services/contact.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-contact-delete',
-  templateUrl: './contact-delete.component.html',
-  styleUrls: ['./contact-delete.component.css']
+  selector: 'app-user-reset',
+  templateUrl: './user-reset.component.html',
+  styleUrls: ['./user-reset.component.css']
 })
 
-export class ContactDeleteComponent implements OnInit {
+export class UserResetComponent implements OnInit {
 
   @Input() item: any;
   public errors: any[];
 
   constructor(
     private router: Router,
-    private contactService: ContactService,
+    private userService: UserService,
     private toastHelper: ToastHelper,
     public activeModal: NgbActiveModal) { }
 
@@ -28,13 +28,13 @@ export class ContactDeleteComponent implements OnInit {
 
   onSubmit() {
 
-    this.contactService.delete(this.item._id)
+    this.userService.reset(this.item._id)
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully deleted " + this.item.FullName + ".");
+          this.toastHelper.showSuccess("You have successfully user " + this.item.FullName + ".");
           this.activeModal.close();
-          this.router.navigate(['/contact-list']);
+          this.router.navigate(['/user-list']);
         },
         error: response => {
           this.errors = response.errors;

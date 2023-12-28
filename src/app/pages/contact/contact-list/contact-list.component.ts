@@ -32,7 +32,7 @@ export class ContactListComponent implements OnInit {
   }
 
   loadList() {
-    this.contactService.loadList();
+    this.contactService.loadList('All');
     this.items = this.contactService.items;
     this.total = this.contactService.total;
   }

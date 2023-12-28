@@ -25,10 +25,11 @@ function matches(item: any, term: string, excludeTerm : any[],employeeTerm : any
  
  
    return (excludeTerm.length > 0 ? !excludeTerm.includes(item.Status) : true) &&
-          (employeeTerm.length > 0 ? employeeTerm.includes(item.SalesPersonId) : true) &&
+          (employeeTerm.length > 0 ? employeeTerm.includes(item.SalesPersonId) || employeeTerm.includes(item.SalesPersonId2) : true) &&
          (
           item.ClientName?.toLowerCase().includes(term.toLowerCase()) || 
           item.LeadNo?.toLowerCase().includes(term.toLowerCase())|| 
+          item.SalesPerson?.toLowerCase().includes(term.toLowerCase())|| 
           item.Description?.toLowerCase().includes(term.toLowerCase())|| 
           item.Status?.toLowerCase().includes(term.toLowerCase())
          );

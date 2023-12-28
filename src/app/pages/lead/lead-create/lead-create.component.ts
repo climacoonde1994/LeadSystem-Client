@@ -163,7 +163,7 @@ export class LeadCreateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.countries = response
-     
+      this.countries =this.countries.filter(x => x.Enabled)
       },
       error: response => {
         
@@ -175,6 +175,7 @@ export class LeadCreateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.cities = response
+      this.cities =this.cities.filter(x => x.Enabled)
       },
       error: response => {
         
@@ -187,6 +188,7 @@ export class LeadCreateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.sources = response
+      this.sources =this.sources.filter(x => x.Enabled)
       var defaultsource = this.sources.filter(x => x.Default == true)[0]
       if(defaultsource != null && defaultsource != null)
       {
@@ -203,6 +205,7 @@ export class LeadCreateComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next: response => {
+   
       this.specialties = this.mapSpecialty(response)
       this.webspecialties = this.specialties.filter(x => x.Category == 'WEB')
       this.mobilespecialties = this.specialties.filter(x => x.Category == 'MOBILE')
@@ -554,10 +557,13 @@ saveLeadDocuments(leadId : any){
       this.errors.push('Status Comment is required');
     }
     if(this.checkEmptyStringNull(this.modalForm.SalesPersonId.value)){
-      this.errors.push('SalesPerson is required');
+      this.errors.push('Sales Person is required');
     }
     if(this.checkEmptyStringNull(this.modalForm.FollowUpDate.value)){
       this.errors.push('FollowUp Date  is required');
+    }
+    if(this.checkEmptyStringNull(this.modalForm.Description.value)){
+      this.errors.push('Description  is required');
     }
 
     return this.errors.length > 0;
@@ -584,9 +590,9 @@ saveLeadDocuments(leadId : any){
     return false;
   }
 
-  mapSpecialty(list : any ){
+  mapSpecialty(list : any[] ){
 
- 
+    list = list.filter(x => x.Enabled)
     var specialties: any[] = [];
     for(var i = 0 ;i < list.length ; i++)
     {

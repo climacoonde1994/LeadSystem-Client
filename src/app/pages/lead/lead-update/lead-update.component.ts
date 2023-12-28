@@ -153,6 +153,7 @@ export class LeadUpdateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.employees = response
+      this.employees =this.employees.filter(x => x.Enabled)
       }
     }
     );
@@ -164,6 +165,7 @@ export class LeadUpdateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.sources = response
+      this.sources =this.sources.filter(x => x.Enabled)
       }
     }
     );
@@ -173,6 +175,7 @@ export class LeadUpdateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.countries = response
+      this.countries =this.countries.filter(x => x.Enabled)
         }
       }
     );
@@ -182,6 +185,7 @@ export class LeadUpdateComponent implements OnInit {
     .subscribe({
       next: response => {
       this.cities = response
+      this.cities =this.cities.filter(x => x.Enabled)
         } 
       }
     );
@@ -665,9 +669,9 @@ saveLeadDocuments(leadId : any){
     return this.modalFormGroup.controls;
   }
 
-  mapSpecialty(list : any ){
+  mapSpecialty(list : any[] ){
 
- 
+    list = list.filter(x => x.Enabled)
     var specialties: any[] = [];
     for(var i = 0 ;i < list.length ; i++)
     {
