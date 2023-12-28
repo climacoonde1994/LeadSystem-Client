@@ -70,10 +70,9 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="UserType"> User Type <span class="text-danger">*</span></label>
-            <select class="form-control" name="UserType" formControlName="UserType" >
-              <option >Active</option>
-              <option >Inactive</option>
-          </select>
+          <ng-select appearance="outline" [searchable]="true"  labelForId="UserType" formControlName="UserType" placeholder="Select User Type">
+            <ng-option *ngFor="let usertype of usertypes" [value]="usertype.Name">{{ usertype.Name }}</ng-option>
+          </ng-select>
           <span class="text-danger small" *ngIf="!modalForm.UserType.valid && modalForm.UserType.touched">
             <span *ngIf="modalForm.UserType.hasError('required')"> User Type is required.</span>
           </span>

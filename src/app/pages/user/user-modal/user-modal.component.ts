@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { WhiteSpace } from '../../../helpers/whitespace.validator';
 
 import { LoadingService } from 'src/app/services/loader.service';
+import { UserTypeService } from 'src/app/services/usertype.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class UserModalComponent implements OnInit {
   public roles: any[];
   public errors: any[];
   public modalFormGroup: FormGroup;
+  public usertypes : any[];
   
 
   public user: any = {};
@@ -30,7 +32,7 @@ export class UserModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private roleService: RoleService,
+    private userTypeService: UserTypeService,
     private toastHelper: ToastHelper,
     private loadingService : LoadingService,
 
@@ -38,6 +40,21 @@ export class UserModalComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user').toString())
+    this.userTypeService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.usertypes = response
+      this.usertypes =this.usertypes.filter(x => x.Enabled)
+      var defaultsource = this.usertypes.filter(x => x.Default == true)[0]
+        if(defaultsource != null && defaultsource != null && this.item == null)
+        {
+          this.modalFormGroup.get('UserType').setValue(defaultsource.Name);
+        }
+        }
+      }
+    );
+
 	
     this.modalFormGroup = this.formBuilder.group({
       UserName: new FormControl('', [Validators.required]),
@@ -52,6 +69,7 @@ export class UserModalComponent implements OnInit {
     } );
 
     this.modalFormGroup.patchValue(this.item);
+ 
   }
 
   onSubmit() {

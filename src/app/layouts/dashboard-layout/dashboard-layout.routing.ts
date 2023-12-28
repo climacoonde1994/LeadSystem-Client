@@ -30,6 +30,8 @@ import { LeadUpdateComponent } from 'src/app/pages/lead/lead-update/lead-update.
 import { LeadDetailComponent } from 'src/app/pages/lead/lead-detail/lead-detail.component';
 import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact-list.component';
 import { ContactDetailComponent } from 'src/app/pages/contact/contact-detail/contact-detail.component';
+import { UserTypeListComponent } from 'src/app/pages/usertype/usertype-list/usertype-list.component';
+import { UserTypeDetailComponent } from 'src/app/pages/usertype/usertype-detail/usertype-detail.component';
  
 
 
@@ -61,6 +63,8 @@ const routes: Routes = [
   { path: 'specialty-detail/:id', component: SpecialtyDetailComponent },
   { path: 'systemtype-list', component: SystemTypeListComponent },
   { path: 'systemtype-detail/:id', component: SystemTypeDetailComponent },
+  { path: 'usertype-list', component: UserTypeListComponent },
+  { path: 'usertype-detail/:id', component: UserTypeDetailComponent },
   { path: 'client-list', component: ClientListComponent },
   { path: 'client-detail/:id', component: ClientDetailComponent },
   { path: 'employee-list', component: EmployeeListComponent },

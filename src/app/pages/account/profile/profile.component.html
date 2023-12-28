@@ -76,10 +76,9 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="UserType"> User Type <span class="text-danger">*</span></label>
-                          <select class="form-control" name="UserType" formControlName="UserType" >
-                            <option >Active</option>
-                            <option >Inactive</option>
-                        </select>
+                        <ng-select appearance="outline" [searchable]="true"  labelForId="UserType" formControlName="UserType" placeholder="Select User Type">
+                          <ng-option *ngFor="let usertype of usertypes" [value]="usertype.Name">{{ usertype.Name }}</ng-option>
+                        </ng-select>
                         <span class="text-danger small" *ngIf="!modalForm.UserType.valid && modalForm.UserType.touched">
                           <span *ngIf="modalForm.UserType.hasError('required')"> User Type is required.</span>
                         </span>
@@ -98,7 +97,7 @@
                  
                     <div class="col-md-6"> 
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+                        <button type="button" class="btn btn-info"     (click)="onSubmitDetails()" [disabled]="!modalFormGroup.valid">Submit</button>
                         <button type="button" class="btn btn-light" routerLink="/dashboard">Cancel</button>
                       </div>
                     </div>
@@ -128,7 +127,7 @@
                   </div>
                   <div class="col-md-6"> 
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-warning" [disabled]="!modalFormGroup.valid">Change Password</button>
+                      <button type="submit" class="btn btn-warning" [disabled]="!modalFormGroup.valid"  (click)="onChangePassword()" >Update</button>
                       <button type="button" class="btn btn-light" routerLink="/dashboard">Cancel</button>
                     </div>
                   </div>

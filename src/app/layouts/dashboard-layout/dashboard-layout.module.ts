@@ -40,9 +40,9 @@ import { DepartmentDetailComponent } from 'src/app/pages/department/department-d
 import { SpecialtyListComponent } from 'src/app/pages/specialty/specialty-list/specialty-list.component';
 import { SpecialtyModalComponent } from 'src/app/pages/specialty/specialty-modal/specialty-modal.component';
 import { SpecialtyDetailComponent } from 'src/app/pages/specialty/specialty-detail/specialty-detail.component';
-import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-list/systemtype-list.component';
-import { SystemTypeModalComponent } from 'src/app/pages/systemtype/systemtype-modal/systemtype-modal.component';
-import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-detail/systemtype-detail.component';
+import { UserTypeListComponent } from 'src/app/pages/usertype/usertype-list/usertype-list.component';
+import { UserTypeModalComponent } from 'src/app/pages/usertype/usertype-modal/usertype-modal.component';
+import { UserTypeDetailComponent } from 'src/app/pages/usertype/usertype-detail/usertype-detail.component';
 import { SourceListComponent } from 'src/app/pages/source/source-list/source-list.component';
 import { SourceModalComponent } from 'src/app/pages/source/source-modal/source-modal.component';
 import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source-detail.component';
@@ -62,6 +62,9 @@ import { ContactDetailComponent } from 'src/app/pages/contact/contact-detail/con
 import { ContactModalComponent } from 'src/app/pages/contact/contact-modal/contact-modal.component';
 import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact-list.component';
 import { LoaderComponent } from 'src/app/pages/loader/loader.component';
+import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-list/systemtype-list.component';
+import { SystemTypeModalComponent } from 'src/app/pages/systemtype/systemtype-modal/systemtype-modal.component';
+import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-detail/systemtype-detail.component';
 
 
 @NgModule({
@@ -92,6 +95,7 @@ import { LoaderComponent } from 'src/app/pages/loader/loader.component';
     DepartmentListComponent, DepartmentModalComponent, DepartmentDetailComponent,
     CityListComponent, CityModalComponent, CityDetailComponent,
     SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
+    UserTypeListComponent ,UserTypeModalComponent, UserTypeDetailComponent,
     SystemTypeListComponent ,SystemTypeModalComponent, SystemTypeDetailComponent,
     PermissionListComponent, LeadNoteModalComponent ,LeadProposalModalComponent,
     EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent,

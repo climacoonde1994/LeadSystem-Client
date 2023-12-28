@@ -22,12 +22,12 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.Email.toLowerCase().includes(term.toLowerCase()) || item.FullName.toLowerCase().includes(term.toLowerCase());
+  return item.Code.toLowerCase().includes(term.toLowerCase()) || item.Name.toLowerCase().includes(term.toLowerCase() ) || item.Description.toLowerCase().includes(term.toLowerCase() );
 }
 
 @Injectable({ providedIn: 'root'})
 
-export class UserService {
+export class UserTypeService {
 
   private $loading = new BehaviorSubject<boolean>(true);
   private $search = new Subject<void>();
@@ -90,46 +90,37 @@ export class UserService {
   }
 
   public getList = () => {
-    return this.repositoryHelper.get('api/user/All');
+    return this.repositoryHelper.get('api/usertype/All');
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/user/ByUserId/' + id);
+    return this.repositoryHelper.get('api/usertype/ByUserTypeId/' + id);
   }
 
- 
   public getByCode = (code: string) => {
-    return this.repositoryHelper.get('api/user/getByCode?code=' + code);
+    return this.repositoryHelper.get('api/usertype/getByCode?code=' + code);
   }
 
   
 
   public create = (body: any) => {
-    return this.repositoryHelper.post('api/user/CreateUser', body);
+    return this.repositoryHelper.post('api/usertype/CreateUserType', body);
   }
 
   public update = (body: any) => {
-    return this.repositoryHelper.put('api/user/UpdateUser', body);
-  }
-
-  public changepassword = (body: any) => {
-    return this.repositoryHelper.put('api/user/ChangePassword', body);
+    return this.repositoryHelper.put('api/usertype/UpdateUserType', body);
   }
 
   public delete = (id: number) => {
-    return this.repositoryHelper.delete('api/user/DeleteUser/' + id);
-  }
-
-  public reset = (id: number) => {
-    return this.repositoryHelper.delete('api/user/ResetUser/' + id);
+    return this.repositoryHelper.delete('api/usertype/DeleteUserType/' + id);
   }
 
   public toggle = (id: number , enable : boolean) => {
-    return this.repositoryHelper.put('api/user/EnableUser/' + id+"/"+enable, null);
+    return this.repositoryHelper.put('api/usertype/EnableUserType/' + id+"/"+enable, null);
   }
 
   public default = (id: number,enable : boolean) => {
-    return this.repositoryHelper.put('api/user/DefaultUser/' + id+"/"+enable, null);
+    return this.repositoryHelper.put('api/usertype/DefaultUserType/' + id+"/"+enable, null);
   }
 
 }
