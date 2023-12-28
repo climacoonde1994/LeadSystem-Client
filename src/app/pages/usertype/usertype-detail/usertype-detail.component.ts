@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserTypeService } from 'src/app/services/usertype.service';
+ 
 import { UserTypeDeleteComponent } from '../usertype-delete/usertype-delete.component';
 import { UserTypeModalComponent } from '../usertype-modal/usertype-modal.component';
 import { UserTypeToggleComponent } from '../usertype-toggle/usertype-toggle.component';
@@ -10,6 +10,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { UserTypeDefaultComponent } from '../usertype-default/usertype-default.component';
 import { UserService } from 'src/app/services/user.service';
+import { UserTypeService } from 'src/app/services/usertype.service';
 
 @Component({
   selector: 'app-usertype-detail',

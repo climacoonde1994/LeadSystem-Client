@@ -9,6 +9,7 @@ import { LoadingService } from 'src/app/services/loader.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserTypeService } from 'src/app/services/usertype.service';
 import { LogoutConfirmComponent } from '../logout-confirm/logout-confirm.component';
+ 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -105,9 +106,6 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-
-  
- 
 
 
 }

@@ -3,9 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
-import { UserTypeService } from 'src/app/services/usertype.service';
+ 
 import { WhiteSpace } from 'src/app/helpers/whitespace.validator';
 import { LoadingService } from 'src/app/services/loader.service';
+import { UserTypeService } from 'src/app/services/usertype.service';
 
 @Component({
   selector: 'app-usertype-modal',

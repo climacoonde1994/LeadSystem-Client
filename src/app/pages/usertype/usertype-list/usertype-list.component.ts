@@ -2,7 +2,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { SortDirective, SortEvent } from 'src/app/directives/sort.directive';
-import { UserTypeService, } from 'src/app/services/usertype.service';
+ 
 import { UserTypeDeleteComponent } from '../usertype-delete/usertype-delete.component';
 import { UserTypeModalComponent } from '../usertype-modal/usertype-modal.component';
 import { UserTypeToggleComponent } from '../usertype-toggle/usertype-toggle.component';
@@ -10,6 +10,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { UserTypeDefaultComponent } from '../usertype-default/usertype-default.component';
 import { LoadingService } from 'src/app/services/loader.service';
+import { UserTypeService } from 'src/app/services/usertype.service';
 
 
 @Component({
