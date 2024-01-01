@@ -197,6 +197,7 @@ export class LeadUpdateComponent implements OnInit {
       .subscribe({
         next: data => {
           this.leadNumber = data.LeadNo
+       
           this.modalFormGroup.get('LeadId').setValue(data.LeadId);
           this.modalFormGroup.get('ClientId').setValue(data.ClientId);
           this.modalFormGroup.get('LeadNo').setValue(data.LeadNo);
@@ -785,6 +786,7 @@ saveLeadDocuments(leadId : any){
     .pipe(first())
     .subscribe({
       next: data => {
+        console.log(data)
 
         this.selectedCity = this.cities.filter(x => x.CityId == data.CityId)[0];
         this.selectedCountry = this.countries.filter(x => x.CountryId == data.CountryId)[0]
@@ -800,7 +802,7 @@ saveLeadDocuments(leadId : any){
         this.modalFormGroup.get('URL').setValue(data.URL);
         this.modalFormGroup.get('ClientId').setValue(data.ClientId);
         this.clientName = data.Name
-        this.clientDescription = data.Description
+
    
       },
       error: response => {

@@ -38,7 +38,7 @@ export class CityModalComponent implements OnInit {
       Code: new FormControl('', [Validators.required]),
       Name: new FormControl('', [Validators.required]),
       Description:  new FormControl(''),
-      CountryId:  new FormControl(0, [Validators.required]),
+      CountryId:  new FormControl('', [Validators.required]),
       ZIP: new FormControl('', [Validators.required]),
    
     }, { validator: WhiteSpace(['Code','Name']) }
@@ -51,6 +51,11 @@ export class CityModalComponent implements OnInit {
     .subscribe({
       next: response => {
       this.countries = response
+      var defaultCountry = this.countries.filter(x => x.Default == true)[0]
+      if(defaultCountry != null && defaultCountry != null)
+      {
+        this.modalFormGroup.get('CountryId').setValue( defaultCountry.CountryId);
+      }
      
       },
       error: response => {
@@ -81,8 +86,17 @@ export class CityModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + request.Name + " city.");
-          this.activeModal.close();
+          
+          if(response.success)
+          {
+            this.toastHelper.showSuccess("You have successfully created " + request.Name + " city.");
+            this.activeModal.close();
+          }
+          else{
+            this.errors = response.message
+            this.loadingService.isLoading = false;
+          }
+ 
         },
         error: response => {
           this.errors = response.errors;
@@ -98,8 +112,16 @@ export class CityModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " city.");
-          this.activeModal.close();
+          if(response.success)
+          {
+            this.toastHelper.showSuccess("You have successfully updated " + request.Name + " city.");
+            this.activeModal.close();
+          }
+          else{
+            this.errors = response.message
+            this.loadingService.isLoading = false;
+          }
+        
         },
         error: response => {
           this.errors = response.errors;

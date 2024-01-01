@@ -10,7 +10,7 @@
 <form [formGroup]="loginFormGroup" autocomplete="off" novalidate (ngSubmit)="onLogin()">
  
   <div class="form-group mb-3 text-left">
-    <label for="username"> Email Address <span class="text-danger">*</span></label>
+    <label for="username"> User Name <span class="text-danger">*</span></label>
     <input type="text" class="form-control" formControlName="username" placeholder="Email Address" />
     <span class="text-danger small" *ngIf="!loginForm.username.valid && loginForm.username.touched">
       <span *ngIf="loginForm.username.hasError('required')">Email address is required.</span>

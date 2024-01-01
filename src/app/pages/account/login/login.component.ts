@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private loadingService : LoadingService,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
 
+    this.loadingService.isLoading = true;
     const request: any = {
     
       username: this.loginForm.username.value,
@@ -45,13 +48,14 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe({
           next: response => {
-            console.log()
             this.router.navigate([this.returnUrl]);
+            this.loadingService.isLoading = false;
           },
           error: error => {
           
             this.errorMessage = error.message
             this.showError = true;
+            this.loadingService.isLoading = false;
           }
         });
   }

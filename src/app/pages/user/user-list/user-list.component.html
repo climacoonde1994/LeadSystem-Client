@@ -62,7 +62,7 @@
               <td class="align-middle"><ngb-highlight [result]="item.Email" [term]="userService.searchTerm"></ngb-highlight></td>
               <td class="align-middle"><ngb-highlight [result]="item.FullName" [term]="userService.searchTerm"></ngb-highlight></td>
               <td class="align-middle"><ngb-highlight [result]="item.UserType" [term]="userService.searchTerm"></ngb-highlight></td>
-              <td class="align-middle"><ngb-highlight [result]="item.Password" [term]="userService.searchTerm"></ngb-highlight></td>
+              <td class="align-middle"><ngb-highlight [result]="item.TemporaryPassword" [term]="userService.searchTerm"></ngb-highlight></td>
               <td class="align-middle">{{ item.Ludatetime | dateAgo }}</td>
               <td class="align-middle">
                 <span *ngIf="item.Enabled"><i class="fas fa-circle text-success mr-1"></i> Active</span>

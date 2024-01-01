@@ -69,8 +69,16 @@ export class SpecialtyModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + request.Name + " specialty under "+ response.Category);
-          this.activeModal.close();
+          if(response.success)
+          {
+            this.toastHelper.showSuccess("You have successfully created " + request.Name + " specialty under "+ this.modalForm.Category.value);
+            this.activeModal.close();
+          }
+          else{
+            this.errors = response.message
+            this.loadingService.isLoading = false;
+          }
+        
         },
         error: response => {
           this.errors = response.errors;
@@ -86,8 +94,16 @@ export class SpecialtyModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + request.Name + " specialty under "+ response.Category);
-          this.activeModal.close();
+          if(response.success)
+          {
+            this.toastHelper.showSuccess("You have successfully updated " + request.Name + " specialty under "+ this.modalForm.Category.value);
+            this.activeModal.close();
+          }
+          else{
+            this.errors = response.message
+            this.loadingService.isLoading = false;
+          }
+        
         },
         error: response => {
           this.errors = response.errors;

@@ -17,7 +17,7 @@
           <label for="code"> FirstName  <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="FirstName" placeholder="First Name" />
           <span class="text-danger small" *ngIf="!modalForm.FirstName.valid && modalForm.FirstName.touched">
-            <span *ngIf="modalForm.FirstName.hasError('required')  || modalForm.FirstName?.errors ">FirstName is required.</span>
+            <span *ngIf="modalForm.FirstName.hasError('required')  || modalForm.FirstName?.errors ">First Name is required.</span>
           </span>
         </div>
       </div>
@@ -64,7 +64,7 @@
           <label for="Position">Position <span class="text-danger">*</span></label>
           <input type="text" class="form-control" formControlName="Position" placeholder="Position" />
           <span class="text-danger small" *ngIf="!modalForm.Position.valid && modalForm.Position.touched">
-            <span *ngIf="modalForm.Position.hasError('required')  ">City is required.</span>
+            <span *ngIf="modalForm.Position.hasError('required')  ">Position is required.</span>
           </span>
         </div>
       </div>

@@ -58,7 +58,7 @@ export class UserModalComponent implements OnInit {
 	
     this.modalFormGroup = this.formBuilder.group({
       UserName: new FormControl('', [Validators.required]),
-      Password : new FormControl('', [Validators.required]),
+      //Password : new FormControl('', [Validators.required]),
       FirstName: new FormControl('', [Validators.required]),
       LastName: new FormControl('', [Validators.required]),
       MiddleName: new FormControl(''),
@@ -76,7 +76,7 @@ export class UserModalComponent implements OnInit {
     this.loadingService.isLoading = true
     const request: any = { 
       UserName: this.modalForm.UserName.value,
-      Password: this.modalForm.Password.value,
+      //Password: this.modalForm.Password.value,
       FirstName: this.modalForm.FirstName.value,
       LastName: this.modalForm.LastName.value,
       MiddleName: this.modalForm.MiddleName.value,
@@ -94,8 +94,16 @@ export class UserModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully created " + request.FirstName + " " +  request.LastName+ ".");
+          if(response.success)
+          {
+            this.toastHelper.showSuccess("You have successfully created " + request.FirstName + " " +  request.LastName+ ".");
           this.activeModal.close();
+          }
+          else{
+            this.errors = response.message
+            this.loadingService.isLoading = false;
+          }
+       
         },
         error: response => {
           this.errors = response.errors;
@@ -109,8 +117,16 @@ export class UserModalComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: response => {
-          this.toastHelper.showSuccess("You have successfully updated " + request.FirstName + " " +  request.LastName+ ".");
-          this.activeModal.close();
+          if(response.success)
+          {
+            this.toastHelper.showSuccess("You have successfully updated " + request.FirstName + " " +  request.LastName+ ".");
+            this.activeModal.close();
+          }
+          else{
+            this.errors = response.message
+            this.loadingService.isLoading = false;
+          }
+         
         },
         error: response => {
           this.errors = response.errors;

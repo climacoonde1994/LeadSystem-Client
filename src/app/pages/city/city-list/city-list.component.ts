@@ -57,7 +57,8 @@ export class CityListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
-      }, (reason) => { }
+        this.loadingService.isLoading = false
+      }, (reason) => { this.loadingService.isLoading = false}
     );
   }
 
@@ -67,8 +68,8 @@ export class CityListComponent implements OnInit {
     modalRef.result.then(
       (data: any) => {
         this.loadList();
-        this.loadingService.isLoading = false
-      }, (reason) => {  this.loadingService.isLoading = false}
+       
+      }, (reason) => {  }
     );
   }
 
