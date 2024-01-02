@@ -67,6 +67,11 @@ export class ContactModalComponent implements OnInit {
     .subscribe({
       next: response => {
       this.systemtypes = response
+      var defaultSystemType = this.systemtypes.filter(x => x.Default == true)[0]
+      if(defaultSystemType != null && defaultSystemType != null)
+      {
+        this.modalFormGroup.get('SystemTypeId').setValue(defaultSystemType.SystemTypeId);
+      }
      
       },
       error: response => {
@@ -82,6 +87,11 @@ export class ContactModalComponent implements OnInit {
     .subscribe({
         next: response => {
         this.departments = response
+        var defaultDepartment = this.departments.filter(x => x.Default == true)[0]
+        if(defaultDepartment != null && defaultDepartment != null)
+        {
+          this.modalFormGroup.get('DepartmentId').setValue(defaultDepartment.DepartmentId);
+        }
       
         },
         error: response => {

@@ -456,7 +456,7 @@ saveLeadDocuments(leadId : any){
         if(data.Description && data.Description.length > 0  )
         {
           this.notes.push(data)
-      
+          this.notes.sort((a, b) => (a.Date > b.Date? -1 : 1));
         }
         this.loadingService.isLoading = false;
     
@@ -473,12 +473,21 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.Proposal && data.Proposal.length > 0  )
         {
-            if(this.isProporalExist(data.Proposal))
-            {
+          for(var i = 0 ; i < data.Proposal.length;i++)
+          {
+            if(data.Proposal[i] == null || this.isProporalExist(data.Proposal[i]) )
+            {  
+              this.loadingService.isLoading = false;
               return;
             }
-            this.proposals.push(data)
-          
+            const request: any = {
+              LeadId : 0,
+              ProposalId: 0,
+              Proposal: data.Proposal[i]
+            };
+           
+            this.proposals.push(data.Proposal[i])
+          }
         }
         this.loadingService.isLoading = false;
       }, (reason) => { }
@@ -495,7 +504,6 @@ saveLeadDocuments(leadId : any){
         if(data.FileName && data.FileName.length > 0  )
         {
           this.documents.push(data)
-        
         }
         this.loadingService.isLoading = false;
       }, (reason) => { }

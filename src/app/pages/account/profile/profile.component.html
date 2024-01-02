@@ -106,7 +106,6 @@
               <li ngbNavItem="security">
                 <a ngbNavLink routerLink="." fragment="security">Security</a>
                 <ng-template ngbNavContent>
-                 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="UserName"> User Name <span class="text-danger">*</span></label>
@@ -119,7 +118,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="Password"> Password <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" formControlName="Password" placeholder="Password" />
+                      <input type="password" class="form-control" formControlName="Password" placeholder="Password" />
                       <span class="text-danger small" *ngIf="!modalForm.Password.valid && modalForm.Password.touched">
                         <span *ngIf="modalForm.Password.hasError('required') || modalForm.Password?.errors">Password is required.</span>
                       </span>

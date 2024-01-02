@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 import { RepositoryHelper } from '../helpers/repository.helper';
 import { ClaimType } from '../variables/claim-type.enum';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root'})
 
@@ -15,9 +16,12 @@ export class AuthenticationService {
   public authenticationChanged = this.authenticationChange.asObservable();
   public loggedUser = this.user.asObservable();
   public decodedToken: { [key: string]: string };
+  private userInactive: Subject<void> = new Subject<void>();
+  private readonly INACTIVITY_TIMEOUT = 300000; // 5 minutes (adjust as needed)
+  private readonly LOGOUT_REDIRECT_URL = '/login'; // Redirect URL after logout
   private FullName : string =""
 
-  constructor(private repositoryHelper: RepositoryHelper, private jwtHelperService: JwtHelperService) { }
+  constructor(private repositoryHelper: RepositoryHelper, private router: Router,private jwtHelperService: JwtHelperService) { }
 
   public login = (body: any) => {
     return this.repositoryHelper.post('api/authentication/Login', body)
@@ -36,6 +40,26 @@ export class AuthenticationService {
         return response;
     }));
   }
+
+    public startInactivityTimer(): void {
+
+     
+        timer(this.INACTIVITY_TIMEOUT)
+          .pipe(
+            takeUntil(this.userInactive),
+            map(() => {
+              this.logout();
+              this.router.navigate(["/login"]);
+            })
+          )
+          .subscribe( );
+      }
+
+    public resetInactivityTimer(): void {
+      console.log("reset")
+        this.userInactive.next();
+    }
+
 
   public confirmEmail = (body: any) => {
     return this.repositoryHelper.post('api/authentication/confirmEmail', body)

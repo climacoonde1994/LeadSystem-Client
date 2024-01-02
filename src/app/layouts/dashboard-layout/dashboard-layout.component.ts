@@ -17,14 +17,14 @@ export class DashboardLayoutComponent implements OnInit {
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-
+    this.authenticationService.startInactivityTimer();
+    window.addEventListener('mousemove', this.handleUserActivity.bind(this));
+ 
     this.user = JSON.parse(localStorage.getItem('user').toString())
 
     this.authenticationService.authenticationChanged.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
     });
-
-  
     this.Name = this.user.FullName
  
   }
@@ -33,6 +33,12 @@ export class DashboardLayoutComponent implements OnInit {
      
    this.authenticationService.logout();
     this.router.navigate(["/login"]);
+  }
+
+
+  private handleUserActivity(): void {
+    this.authenticationService.resetInactivityTimer();
+    this.authenticationService.startInactivityTimer();
   }
 
 }

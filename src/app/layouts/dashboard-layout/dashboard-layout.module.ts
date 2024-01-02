@@ -66,7 +66,6 @@ import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-lis
 import { SystemTypeModalComponent } from 'src/app/pages/systemtype/systemtype-modal/systemtype-modal.component';
 import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-detail/systemtype-detail.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -101,10 +100,6 @@ import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-d
     EmployeeListComponent, EmployeeModalComponent,EmployeeDetailComponent,
    UserListComponent, UserModalComponent, UserDetailComponent,
    ContactListComponent, ContactModalComponent, ContactDetailComponent,
-
- 
- 
-
   ]
 })
 

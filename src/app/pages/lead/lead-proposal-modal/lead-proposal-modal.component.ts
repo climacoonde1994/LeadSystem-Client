@@ -44,7 +44,7 @@ export class LeadProposalModalComponent implements OnInit {
     const request: any = {
       LeadId : 0,
       ProposalId: 0,
-      Proposal: this.modalForm.Radio1.value ?? this.modalForm.Radio2.value ?? this.modalForm.Radio3.value  ??this.modalForm.Radio4.value,
+      Proposal: [this.modalForm.Radio1.value , this.modalForm.Radio2.value , this.modalForm.Radio3.value  ,this.modalForm.Radio4.value]
     };
     
      this.activeModal.close(request);

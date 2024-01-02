@@ -78,7 +78,11 @@ export class EmployeeModalComponent implements OnInit {
     .subscribe({
       next: response => {
       this.departments = response
-     
+      var defaultDepartment = this.departments.filter(x => x.Default == true)[0]
+      if(defaultDepartment != null && defaultDepartment != null)
+      {
+        this.modalFormGroup.get('DepartmentId').setValue(defaultDepartment.DepartmentId);
+      }
       },
       error: response => {
         

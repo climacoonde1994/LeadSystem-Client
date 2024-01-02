@@ -14,6 +14,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 export class DashboardComponent implements OnInit {
 
   public employee : any = {};
+  public user : any = {};
   public name: string;
   public leadList : any [] = [];
 
@@ -66,8 +67,8 @@ export class DashboardComponent implements OnInit {
   }
   );
 
-  this.employee = JSON.parse(localStorage.getItem('user').toString())
-
+  this.employee = JSON.parse(localStorage.getItem('employee').toString())
+  this.user = JSON.parse(localStorage.getItem('user').toString())
   }
 
   
@@ -95,8 +96,6 @@ export class DashboardComponent implements OnInit {
     this.leadOverDue2 = this.leadList.filter(x => new Date(x.LeadDate).setHours(0,0,0,0) < currentDate && x.SalesPersonId2 == this.employee.EmployeeId)
     this.leadCallTom = this.leadList.filter(x => new Date(x.FollowUpDate).setHours(0,0,0,0) == tomorrowDate && x.SalesPersonId == this.employee.EmployeeId)
     this.leadNeedAction = this.leadList.filter(x => x.ActionNeeded  == true && x.SalesPersonId == this.employee.EmployeeId )
-    console.log(this.leadToday)
- 
   }
 
   getLeadList(){

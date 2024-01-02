@@ -402,7 +402,7 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.LastName.length > 0 && data.FirstName.length > 0 && data.LastName && data.FirstName )
         {
-          if(!this.isContactExist(data._id))
+          if(!this.isContactExist(data))
           {
             data.LeadId = this.LeadId;
             var leadcontacts : any[] = []
@@ -447,6 +447,7 @@ saveLeadDocuments(leadId : any){
             next: response => {
               this.notes.push(data);
               this.loadingService.isLoading = false;
+              this.notes.sort((a, b) => (a.Date  > b.Date  ? -1 : 1));
             },
             error: response => {
               this.errors = response.errors;
@@ -469,26 +470,35 @@ saveLeadDocuments(leadId : any){
       (data: any) => {
         if(data.Proposal && data.Proposal.length > 0  )
         {
-            if(!this.isProporalExist(data.Proposal))
+          data.LeadId = this.LeadId;
+          var proposals : any[] = []
+      
+            if(data.Proposal && data.Proposal.length > 0  )
             {
-               
-              data.LeadId = this.LeadId;
-              var proposals : any[] = []
-              proposals.push(data)
-              this.proposalService.create(proposals)
-              .pipe(first())
-              .subscribe({
-                next: response => {
-                
-                  this.proposals.push(data)
-                 
-                },
-                error: response => {
-                  this.errors = response.errors;
+              for(var i = 0 ; i < data.Proposal.length;i++)
+              {
+                if(data.Proposal[i] != null && !this.isProporalExist(data.Proposal[i]) )
+                {  
+                  const request: any = {
+                    LeadId : this.LeadId,
+                    ProposalId: 0,
+                    Proposal: data.Proposal[i]
+                  };
+                  proposals.push(request)
                 }
-              });
+              }
+      
+              this.proposalService.create(proposals)
+                .pipe(first())
+                .subscribe({
+                  next: response => {
+                    this.proposals.push(...proposals)
+                  },
+                  error: response => {
+                    this.errors = response.errors;
+                  }
+                });
             }
-
             this.loadingService.isLoading = false;
 
         }
@@ -653,10 +663,11 @@ saveLeadDocuments(leadId : any){
 
   isContactExist(data: any)
   {
+ 
     for(var i = 0 ; i < this.leadcontacts.length ; i++)
     {
-      console.log(this.leadcontacts[i]._id ,data)
-      if(this.leadcontacts[i]._id == data){
+      if(this.leadcontacts[i].FirstName == data.FirstName && this.leadcontacts[i].LastName == data.LastName)
+      {
         return true;
       }
     }

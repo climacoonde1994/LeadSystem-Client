@@ -20,10 +20,8 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="code"> File Name  <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="FileName" placeholder="FileName" />
-          <span class="text-danger small" *ngIf="!modalForm.FileName.valid && modalForm.FileName.touched">
-            <span *ngIf="modalForm.FileName.hasError('required')">File Name is required.</span>
-          </span>
+          <input type="text" class="form-control" formControlName="FileName" placeholder="FileName" readonly/>
+         
         </div>
       </div>
 
