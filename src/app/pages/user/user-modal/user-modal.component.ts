@@ -49,7 +49,7 @@ export class UserModalComponent implements OnInit {
       var defaultsource = this.usertypes.filter(x => x.Default == true)[0]
         if(defaultsource != null && defaultsource != null && this.item == null)
         {
-          this.modalFormGroup.get('UserType').setValue(defaultsource.Name);
+          this.modalFormGroup.get('UserTypeId').setValue(defaultsource._id);
         }
         }
       }
@@ -65,6 +65,7 @@ export class UserModalComponent implements OnInit {
       Email: new FormControl('', [Validators.required, Validators.email]),
       Mobile: new FormControl('', [Validators.required]),
       UserType: new FormControl('', [Validators.required]),
+      UserTypeId: new FormControl('', [Validators.required]),
       Status: new FormControl('Active', [Validators.required]),
     } );
 
@@ -83,6 +84,7 @@ export class UserModalComponent implements OnInit {
       Email: this.modalForm.Email.value,
       Mobile: this.modalForm.Mobile.value,
       UserType: this.modalForm.UserType.value,
+      UserTypeId: this.modalForm.UserTypeId.value,
       Status: this.modalForm.Status.value,
       CreatedById  : "",
       UpdatedById  : ""

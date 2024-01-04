@@ -12,12 +12,12 @@
         <div class="row text-center text-sm-left h-100 mt-3">
             <div class="col-sm-auto col-12">
                 <span class="tile tile-lg bg-info">
-                  <i class="fas fa-layer-group"></i>
+                  <i class="fas fa-menu"></i>
                 </span>
             </div>
             <div class="col pl-1 justify-content-center align-self-center">
-                <span class="text-muted m-0"> User Type Management </span>
-                <h4 class="m-0"> User Type List </h4>
+                <span class="text-muted m-0"> Menu Management </span>
+                <h4 class="m-0"> Menu List </h4>
             </div>
         </div>
       </header>
@@ -25,17 +25,17 @@
         <header class="page-title-bar">
           <div class="row">
             <div class="col-auto d-none d-sm-flex">
-              <button class="btn btn-info ml-auto" (click)="openModal()">Create New User Type</button>
+              <button class="btn btn-info ml-auto" (click)="openModal()">Create New Menu</button>
             </div>
             <div class="col">
               <div class="row">
                 <div class="col-md-12">
                     <div class="input-group has-spinner">
-                        <span class="spinner-border spinner-border-sm text-info show" *ngIf="usertypeService.loading | async"></span>
+                        <span class="spinner-border spinner-border-sm text-info show" *ngIf="menuService.loading | async"></span>
                         <div class="input-group-prepend">
                             <span class="input-group-text"><span class="fas fa-search"></span></span>
                         </div>
-                        <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="usertypeService.searchTerm">
+                        <input type="text" class="form-control" autocomplete="off" placeholder="Search" name="searchTerm" [(ngModel)]="menuService.searchTerm">
                     </div>
                 </div>
               </div>
@@ -46,9 +46,10 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 10%" scope="col" sortable="Code" (sort)="onSort($event)">Code</th>
-                <th class="align-middle" style="width: 15%" scope="col" sortable="Name" (sort)="onSort($event)">Name</th>
-                <th class="align-middle" style="width: 40%" scope="col" sortable="Description" (sort)="onSort($event)">Description</th>
+                <th class="align-middle" style="width: 10%" scope="col" sortable="Code" (sort)="onSort($event)">Name</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="Name" (sort)="onSort($event)">Path</th>
+                <th class="align-middle" style="width: 30%" scope="col" sortable="Description" (sort)="onSort($event)">Description</th>
+                <th class="align-middle" style="width: 15%" scope="col" sortable="Name" (sort)="onSort($event)">Icon</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="CreatedDate" (sort)="onSort($event)">Date Last Modified</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="Status" (sort)="onSort($event)">Status</th>
                 <th class="align-middle" style="width: 5%"></th>
@@ -58,10 +59,11 @@
               <tr *ngFor="let item of items | async">
                 <td class="align-middle">
                   <span><i *ngIf="item.Default" class="fas fa-check text-success mr-2"></i></span>
-                <a class="text-success" routerLink="/usertype-detail/{{ item._id }}"><ngb-highlight [result]="item.Code" [term]="usertypeService.searchTerm"></ngb-highlight></a>
+                <a class="text-success" routerLink="/menu-detail/{{ item._id }}"><ngb-highlight [result]="item.Name" [term]="menuService.searchTerm"></ngb-highlight></a>
                 </td>
-                <td class="align-middle"><ngb-highlight [result]="item.Name" [term]="usertypeService.searchTerm"></ngb-highlight></td>
-                <td class="align-middle"><ngb-highlight [result]="item.Description" [term]="usertypeService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle"><ngb-highlight [result]="item.Path" [term]="menuService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle"><ngb-highlight [result]="item.Description" [term]="menuService.searchTerm"></ngb-highlight></td>
+                <td class="align-middle"><ngb-highlight [result]="item.Icon" [term]="menuService.searchTerm"></ngb-highlight></td>
                 <td class="align-middle">{{ item?.CreatedDate | dateAgo }}</td>
                 <td class="align-middle">
                   <span *ngIf="item.Enabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
@@ -82,14 +84,14 @@
                 </td>
               </tr>
             <tr *ngIf="(total | async) === 0">
-              <td class="text-center" colspan="6"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
+              <td class="text-center" colspan="7"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>
             </tr>
             </tbody>
           </table>
 
           <div class="d-flex justify-content-center p-2" *ngIf="total | async">
             <ngb-pagination
-              [collectionSize]="(total | async)!" [(page)]="usertypeService.page" [pageSize]="usertypeService.pageSize">
+              [collectionSize]="(total | async)!" [(page)]="menuService.page" [pageSize]="menuService.pageSize">
             </ngb-pagination>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { RepositoryHelper } from '../helpers/repository.helper';
 import { SearchResult } from '../interfaces/search-result';
 import { State } from '../interfaces/state'
 
+
 const compare = (v1: string | number | boolean | Date, v2: string | number | boolean | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 function sort(items: any[], column: SortColumn, direction: string): any[] {
@@ -21,12 +22,15 @@ function sort(items: any[], column: SortColumn, direction: string): any[] {
 }
 
 function matches(item: any, term: string, pipe: PipeTransform) {
-  return item.name.toLowerCase().includes(term.toLowerCase()) || item.description.toLowerCase().includes(term.toLowerCase());
+  return item.Name.toLowerCase().includes(term.toLowerCase()) || 
+  item.Description.toLowerCase().includes(term.toLowerCase() ) || 
+  item.Path.toLowerCase().includes(term.toLowerCase()) || 
+  item.Icon.toLowerCase().includes(term.toLowerCase());
 }
 
 @Injectable({ providedIn: 'root'})
 
-export class PermissionService {
+export class MenuService {
 
   private $loading = new BehaviorSubject<boolean>(true);
   private $search = new Subject<void>();
@@ -71,12 +75,12 @@ export class PermissionService {
     return of({items, total});
   }
 
-  public loadList = (id: string) => {
-    this.getListByRoleId(id).subscribe(response => {
+  public loadList = () => {
+    this.getList().subscribe(response => {
       this.$search.pipe(
         tap(() => this.$loading.next(true)),
         debounceTime(200),
-        switchMap(() => this.search(response.data)),
+        switchMap(() => this.search(response)),
         delay(200),
         tap(() => this.$loading.next(false))
       ).subscribe(result => {
@@ -88,23 +92,38 @@ export class PermissionService {
     });
   }
 
-  public getListByRoleId = (id: string) => {
-    return this.repositoryHelper.get('api/permission/getList?id=' + id);
+  public getList = () => {
+    return this.repositoryHelper.get('api/menu/All');
   }
 
   public getById = (id: number) => {
-    return this.repositoryHelper.get('api/permission/getById?id=' + id);
-  }
-  public getByuserTypeId = (id: string) => {
-    return this.repositoryHelper.get('api/permission/ByUserTypeId/' + id);
+    return this.repositoryHelper.get('api/menu/ByMenuId/' + id);
   }
 
-  public toggle = (roleId: string, permissionId: number) => {
-    return this.repositoryHelper.post('api/permission/toggle?roleId=' + roleId + '&permissionId=' + permissionId, null);
+  public getByCode = (code: string) => {
+    return this.repositoryHelper.get('api/menu/getByCode?code=' + code);
   }
 
-  public save = (body: any) => {
-    return this.repositoryHelper.post('api/permission/SavePermission', body);
+  
+
+  public create = (body: any) => {
+    return this.repositoryHelper.post('api/menu/CreateMenu', body);
+  }
+
+  public update = (body: any) => {
+    return this.repositoryHelper.put('api/menu/UpdateMenu', body);
+  }
+
+  public delete = (id: number) => {
+    return this.repositoryHelper.delete('api/menu/DeleteMenu/' + id);
+  }
+
+  public toggle = (id: number , enable : boolean) => {
+    return this.repositoryHelper.put('api/menu/EnableMenu/' + id+"/"+enable, null);
+  }
+
+  public default = (id: number,enable : boolean) => {
+    return this.repositoryHelper.put('api/menu/DefaultMenu/' + id+"/"+enable, null);
   }
 
 }

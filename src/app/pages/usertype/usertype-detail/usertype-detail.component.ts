@@ -11,6 +11,8 @@ import { first } from 'rxjs/operators';
 import { UserTypeDefaultComponent } from '../usertype-default/usertype-default.component';
 import { UserService } from 'src/app/services/user.service';
 import { UserTypeService } from 'src/app/services/usertype.service';
+import { MenuService } from 'src/app/services/menu.service';
+import { PermissionService } from 'src/app/services/permission.service';
 
 @Component({
   selector: 'app-usertype-detail',
@@ -21,6 +23,9 @@ export class UserTypeDetailComponent implements OnInit {
 
   public item: any;
   public userList : any[] = []
+  public menupermissions: any[] = [];
+  public activemenu: any[] = [];
+  public usertypeid : string = "";
 
   constructor(
     private router: Router,
@@ -28,22 +33,58 @@ export class UserTypeDetailComponent implements OnInit {
     private modalService: NgbModal,
     private toastHelper: ToastHelper,
     private userService : UserService,
+    private menuService : MenuService,
+    private permissionService : PermissionService,
     private usertypeService: UserTypeService,
     private location: Location) { }
 
   ngOnInit() {
+
+   
     this.loadItem();
   }
 
   loadItem() {
+
+  
+
+
     this.activatedRoute.params.subscribe(params => {
+
+      this.menuService.getList()
+      .pipe(first())
+      .subscribe({
+        next: response => {
+        this.activemenu = response
+        },
+        error: response => {
+          
+        }
+      }
+      );
+
       this.usertypeService.getById(params['id'])
         .subscribe(response => {
           this.item = response;
+          this.usertypeid = params['id']
           this.loadAdditionalDetails()
         }, (error) => {
           this.toastHelper.showError(error.error.message);
         })
+        
+        this.permissionService.getByuserTypeId(params['id'])
+        .pipe(first())
+        .subscribe({
+          next: response => {
+            
+          this.menupermissions = this.mapMenu(response)
+     
+          },
+          error: response => {
+            
+          }
+        }
+        );
     });
   }
 
@@ -98,10 +139,8 @@ export class UserTypeDetailComponent implements OnInit {
     .subscribe({
       next: response => {
       this.userList = response
-      console.log(this.item)
       for(var i = 0 ; i < this.userList.length ; i++)
       {
-       console.log( this.userList[i]._id , this.item.CreatedById)
         if(this.userList[i]._id == this.item.CreatedById)
         {
           this.item.CreatedBy = this.userList[i].FullName;
@@ -119,6 +158,90 @@ export class UserTypeDetailComponent implements OnInit {
     );
   }
 
+
+  mapMenu(list : any[] ){
+ 
+    var menupermission: any[] = [];
+  
+    console.log(list)
+    for(var x = 0 ;x < this.activemenu.length ; x++)
+    {
+     
+        var Id = this.activemenu[x]._id
+        var permission = list.filter(x => x.MenuId == Id);
+     
+        if(permission.length == 0)
+        {
+       
+            var menu0 = 
+            {
+              Id : '',
+              Name: this.activemenu[x].Name,
+              MenuId : this.activemenu[x]._id,
+              UserTypeId : this.usertypeid,
+              View : false,
+              Add: false,
+              Edit: false,
+              Delete:  false,
+            }
+            menupermission.push(menu0)
+        }
+       
+
+    }
+
+    for(var i = 0 ;i < list.length ; i++)
+    {
+      
+        var menu = 
+        {
+          Id : list[i]._id,
+          Name: this.activemenu.filter(x => x._id == list[i].MenuId)[0].Name,
+          MenuId : list[i].MenuId,
+          UserTypeId : list[i].UserTypeId,
+          View :  list[i].View,
+          Add: list[i].Add,
+          Edit:  list[i].Edit,
+          Delete:  list[i].Delete,
+        }
+        menupermission.push(menu)
+    }
+    
+    return menupermission;
+  }
+
+  savePermission(){
+
+    this.permissionService.save(this.menupermissions)
+    .pipe(first())
+    .subscribe({
+      next: response => {
+        this.toastHelper.showSuccess("You have successfully update permissions.");
+      },
+      error: response => {
+        this.toastHelper.showError(response);
+      }
+    });
+  }
+
+  fieldsChange(values:any, item : any,type : string):void {
+    if(type == 'View')
+    {
+      item.View = values.target.checked
+    }
+    else if(type == 'Add')
+    {
+      item.Add = values.target.checked
+    }
+    else if(type == 'Edit')
+    {
+      item.Edit = values.target.checked
+    }
+    else if(type == 'Delete')
+    {
+      item.Delete = values.target.checked
+    }
+  }
 
 
 }

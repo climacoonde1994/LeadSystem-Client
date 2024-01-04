@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h5 class="modal-title" *ngIf="item != null">Update Menu</h5>
+  <h5 class="modal-title" *ngIf="item == null"> Create New Menu </h5>
+</div>
+<form [formGroup]="modalFormGroup" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="col-md-12" *ngIf="errors">
+        <div class="alert alert-danger" role="alert">
+          <ul class="list-unstyled m-0">
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Name"> Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Name" placeholder="Name" />
+         
+          <span class="text-danger small" *ngIf="!modalForm.Name.valid && modalForm.Name.touched   ">
+            <span *ngIf="modalForm.Name.hasError('required') || modalForm.Name?.errors">Name is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Description"> Description <span class="text-danger">*</span></label>
+          <textarea type="text" class="form-control" formControlName="Description" placeholder="Description" rows="5"></textarea>
+          <span class="text-danger small" *ngIf="!modalForm.Description.valid && modalForm.Description.touched">
+            <span *ngIf="modalForm.Description.hasError('required')">Description is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Path"> Path <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Path" placeholder="Path" />
+         
+          <span class="text-danger small" *ngIf="!modalForm.Path.valid && modalForm.Path.touched   ">
+            <span *ngIf="modalForm.Path.hasError('required') || modalForm.Path?.errors">Path is required.</span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="Icon"> Icon <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="Icon" placeholder="Icon" />
+         
+          <span class="text-danger small" *ngIf="!modalForm.Icon.valid && modalForm.Icon.touched   ">
+            <span *ngIf="modalForm.Icon.hasError('required') || modalForm.Icon?.errors">Path is required.</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-info" [disabled]="!modalFormGroup.valid">Submit</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Cancel</button>
+  </div>
+</form>
+

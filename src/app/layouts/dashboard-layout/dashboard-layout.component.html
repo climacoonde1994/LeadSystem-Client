@@ -115,6 +115,19 @@
                       <span class="menu-text">Contact </span>
                     </a>
                   </li>
+                  <li class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/menu-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-address-book"></span> 
+                      <span class="menu-text">Menu </span>
+                    </a>
+                  </li>
+
+                  <li  *ngFor="let menu of activemenu" class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="menu.Path" class="menu-link"  href="#">
+                      <span class="menu-icon fas {{menu.Icon}}"></span> 
+                      <span class="menu-text">{{menu.Name}} </span>
+                    </a>
+                  </li>
                 
               </ul>
           </nav>

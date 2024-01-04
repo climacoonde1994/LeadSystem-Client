@@ -46,9 +46,9 @@ import { UserTypeDetailComponent } from 'src/app/pages/usertype/usertype-detail/
 import { SourceListComponent } from 'src/app/pages/source/source-list/source-list.component';
 import { SourceModalComponent } from 'src/app/pages/source/source-modal/source-modal.component';
 import { SourceDetailComponent } from 'src/app/pages/source/source-detail/source-detail.component';
-import { CityDetailComponent } from 'src/app/pages/city/city-detail/city-detail.component';
-import { CityModalComponent } from 'src/app/pages/city/city-modal/city-modal.component';
-import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
+import { MenuDetailComponent } from 'src/app/pages/menu/menu-detail/menu-detail.component';
+import { MenuModalComponent } from 'src/app/pages/menu/menu-modal/menu-modal.component';
+import { MenuListComponent } from 'src/app/pages/menu/menu-list/menu-list.component';
 import { LeadNoteModalComponent } from 'src/app/pages/lead/lead-note-modal/lead-note-modal.component';
 import { LeadProposalModalComponent } from 'src/app/pages/lead/lead-proposal-modal/lead-proposal-modal.component';
 import { EmployeeListComponent } from 'src/app/pages/employee/employee-list/employee-list.component';
@@ -65,6 +65,9 @@ import { LoaderComponent } from 'src/app/pages/loader/loader.component';
 import { SystemTypeListComponent } from 'src/app/pages/systemtype/systemtype-list/systemtype-list.component';
 import { SystemTypeModalComponent } from 'src/app/pages/systemtype/systemtype-modal/systemtype-modal.component';
 import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-detail/systemtype-detail.component';
+import { CityListComponent } from 'src/app/pages/city/city-list/city-list.component';
+import { CityModalComponent } from 'src/app/pages/city/city-modal/city-modal.component';
+import { CityDetailComponent } from 'src/app/pages/city/city-detail/city-detail.component';
 
 @NgModule({
   imports: [
@@ -92,6 +95,7 @@ import { SystemTypeDetailComponent } from 'src/app/pages/systemtype/systemtype-d
     SourceListComponent, SourceModalComponent, SourceDetailComponent,
     ClientListComponent, ClientModalComponent, ClientDetailComponent,
     DepartmentListComponent, DepartmentModalComponent, DepartmentDetailComponent,
+    MenuListComponent, MenuModalComponent, MenuDetailComponent,
     CityListComponent, CityModalComponent, CityDetailComponent,
     SpecialtyListComponent, SpecialtyModalComponent, SpecialtyDetailComponent,
     UserTypeListComponent ,UserTypeModalComponent, UserTypeDetailComponent,

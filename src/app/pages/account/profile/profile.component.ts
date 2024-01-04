@@ -32,7 +32,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
 
     this.user = JSON.parse(localStorage.getItem('user').toString())
-    console.log( this.user)
     this.modalFormGroup = this.formBuilder.group({
       Id :new FormControl(this.user._id),
       UserName: new FormControl(this.user.UserName, [Validators.required]),
@@ -42,7 +41,7 @@ export class ProfileComponent implements OnInit {
       MiddleName: new FormControl(this.user.MiddleName),
       Email: new FormControl(this.user.Email, [Validators.required, Validators.email]),
       Mobile: new FormControl(this.user.Mobile, [Validators.required]),
-      UserType: new FormControl(this.user.UserType, [Validators.required]),
+      UserTypeId: new FormControl(this.user.UserTypeId, [Validators.required]),
       Status: new FormControl(this.user.Status, [Validators.required]),
     } );
 
@@ -73,7 +72,7 @@ export class ProfileComponent implements OnInit {
       MiddleName: this.modalForm.MiddleName.value,
       Email: this.modalForm.Email.value,
       Mobile: this.modalForm.Mobile.value,
-      UserType: this.modalForm.UserType.value,
+      UserTypeId: this.modalForm.UserTypeId.value,
       Status: this.modalForm.Status.value,
     };
     this.userService.update(request)

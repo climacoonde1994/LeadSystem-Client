@@ -32,6 +32,8 @@ import { ContactListComponent } from 'src/app/pages/contact/contact-list/contact
 import { ContactDetailComponent } from 'src/app/pages/contact/contact-detail/contact-detail.component';
 import { UserTypeListComponent } from 'src/app/pages/usertype/usertype-list/usertype-list.component';
 import { UserTypeDetailComponent } from 'src/app/pages/usertype/usertype-detail/usertype-detail.component';
+import { MenuListComponent } from 'src/app/pages/menu/menu-list/menu-list.component';
+import { MenuDetailComponent } from 'src/app/pages/menu/menu-detail/menu-detail.component';
  
 
 
@@ -69,9 +71,10 @@ const routes: Routes = [
   { path: 'client-detail/:id', component: ClientDetailComponent },
   { path: 'employee-list', component: EmployeeListComponent },
   { path: 'employee-detail/:id', component: EmployeeDetailComponent },
-  { path: 'user-list', component: UserListComponent },
   { path: 'contact-list', component: ContactListComponent },
   { path: 'contact-detail/:id', component: ContactDetailComponent },
+  { path: 'menu-list', component: MenuListComponent },
+  { path: 'menu-detail/:id', component: MenuDetailComponent },
  
 ];
 

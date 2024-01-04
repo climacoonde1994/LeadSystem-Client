@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
     var currentDate = new Date().setHours(0,0,0,0);
     var cdate = new Date()
     var tomorrowDate =  currentDate +86400000 ;
-    console.log(currentDate,tomorrowDate)
+ 
  
    for(var i = 0 ; i < this.leadList.length ; i++)
    {

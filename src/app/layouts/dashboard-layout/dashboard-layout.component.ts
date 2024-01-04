@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -10,22 +12,40 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class DashboardLayoutComponent implements OnInit {
 
   public isAuthenticated: boolean;
-  public rolePermissions: any[];
+  public permissions: any[];
   public user: any = {};
   public Name: any = "Climaco";
+  public activemenu : any[] = [];
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private router: Router,    private menuService : MenuService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.startInactivityTimer();
     window.addEventListener('mousemove', this.handleUserActivity.bind(this));
- 
+    window.addEventListener('keydown', this.handleUserActivity.bind(this));
     this.user = JSON.parse(localStorage.getItem('user').toString())
-
+    this.permissions = JSON.parse(localStorage.getItem('permissions').toString())
+ 
     this.authenticationService.authenticationChanged.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
     });
     this.Name = this.user.FullName
+
+    
+    this.menuService.getList()
+    .pipe(first())
+    .subscribe({
+      next: response => {
+      this.activemenu = response
+      this.activemenu  =  this.mappedMenu(this.activemenu.filter(x => x.Enabled)) 
+      },
+      error: response => {
+        
+      }
+    }
+    );
+
+
  
   }
 
@@ -39,6 +59,19 @@ export class DashboardLayoutComponent implements OnInit {
   private handleUserActivity(): void {
     this.authenticationService.resetInactivityTimer();
     this.authenticationService.startInactivityTimer();
+  }
+
+  mappedMenu(menu : any[]) :any{
+    var filteredmenu : [] = []; 
+   for(var i = 0 ; i < this.permissions.length ; i++)
+   {
+      var hasmenu = menu.filter(x => x._id == this.permissions[i].MenuId)
+       console.log(hasmenu)
+      // if(hasmenu != null)
+      // {
+      //   filteredmenu.push(hasmenu)
+      // }
+   }
   }
 
 }
