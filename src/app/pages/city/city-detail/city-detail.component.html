@@ -35,17 +35,19 @@
                                   <span class="mr-auto">City Information</span>
                                     <div class="card-header-control">
                                         <div class="card-header-control">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-ellipsis-v"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                  <div class="dropdown-arrow mr-n1"></div>
-                                                  <div class="dropdown-item" (click)="openDefaultModal(item)"> {{ item?.Default ? "Unset as default" : "Set as default" }}  </div>
-                                                  <div class="dropdown-item" (click)="openModal(item)"> Update </div>
-                                                  <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.Enabled ? "Disable" : "Enable" }} </div>
-                                                  <div class="dropdown-divider"></div>
-                                                  <div class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
-                                                </div>
+                                          <div class="dropdown" >
+                                            <button [disabled]="((!ModulePermission?.Edit) && (!ModulePermission?.Delete))" class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                              <div *ngIf="ModulePermission?.Edit">
+                                                <div class="dropdown-arrow mr-n1"></div>
+                                                <div class="dropdown-item" (click)="openDefaultModal(item)"> {{ item?.Default ? "Unset as default" : "Set as default" }}  </div>
+                                                <div class="dropdown-item" (click)="openModal(item)"> Update </div>
+                                                <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.Enabled ? "Disable" : "Enable" }} </div>
+                                              </div>
+                                              <div *ngIf="((ModulePermission?.Edit) && (ModulePermission?.Delete))" class="dropdown-divider"></div>
+                                               <div *ngIf="ModulePermission?.Delete" class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
                                             </div>
+                                          </div>
                                         </div>
                                     </div>
                                 </div>

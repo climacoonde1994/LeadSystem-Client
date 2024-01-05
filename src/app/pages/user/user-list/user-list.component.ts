@@ -17,6 +17,9 @@ import { UserResetComponent } from '../user-reset/user-reset.component';
 })
 
 export class UserListComponent implements OnInit {
+  public ModuleName = "User";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
 
   public items: Observable<any[]>;
   public name: string;
@@ -29,6 +32,7 @@ export class UserListComponent implements OnInit {
    private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
   }
 

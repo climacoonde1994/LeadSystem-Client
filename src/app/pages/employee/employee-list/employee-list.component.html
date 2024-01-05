@@ -25,7 +25,7 @@
         <header class="page-title-bar">
           <div class="row">
             <div class="col-auto d-none d-sm-flex">
-              <button class="btn btn-info ml-auto" (click)="openModal()">Create New Employee</button>
+              <button class="btn btn-info ml-auto" (click)="openModal()" [disabled]="!ModulePermission?.Add">Create New Employee</button>
             </div>
             <div class="col">
               <div class="row">
@@ -49,7 +49,6 @@
                 <th class="align-middle" style="width: 15%" scope="col" sortable="code" (sort)="onSort($event)">Name</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="code" (sort)="onSort($event)">Position</th>
                 <th class="align-middle" style="width: 20%" scope="col" sortable="code" (sort)="onSort($event)">Address</th>
- 
                 <th class="align-middle" style="width: 20%" scope="col" sortable="code" (sort)="onSort($event)">Phone</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="dateModified" (sort)="onSort($event)">Date Last Modified</th>
                 <th class="align-middle" style="width: 15%" scope="col" sortable="status" (sort)="onSort($event)">Status</th>
@@ -71,18 +70,21 @@
                   <span *ngIf="item.Enabled"><i class="fas fa-circle text-success mr-1"></i> Enabled</span>
                   <span *ngIf="!item.Enabled"><i class="fas fa-circle text-danger mr-1"></i> Disabled</span>
                 </td>
-                <td class="align-middle text-right">
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <div class="dropdown-arrow mr-n1"></div>
-                      <div class="dropdown-item" (click)="openModal(item)"> Update </div>
-                      <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.Enabled ? "Disable" : "Enable" }} </div>
-                      <div class="dropdown-divider"></div>
-                      <div class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
-                    </div>
+               
+            <td class="align-middle text-right">
+              <div class="dropdown" >
+                <button [disabled]="((ModulePermission?.Edit) && (ModulePermission?.Delete))" class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <div *ngIf="ModulePermission?.Edit">
+                    <div class="dropdown-arrow mr-n1"></div>
+                    <div class="dropdown-item" (click)="openModal(item)"> Update </div>
+                    <div class="dropdown-item" (click)="openToggleModal(item)"> {{ item?.Enabled ? "Disable" : "Enable" }} </div>
                   </div>
-                </td>
+                  <div *ngIf="((ModulePermission?.Edit) && (ModulePermission?.Delete))" class="dropdown-divider"></div>
+                  <div *ngIf="ModulePermission?.Delete" class="dropdown-item" (click)="openDeleteModal(item)"> Delete </div>
+                </div>
+              </div>
+            </td>
               </tr>
             <tr *ngIf="(total | async) === 0">
               <td class="text-center" colspan="6"><strong>No record found.</strong> Change a few filters up and try submitting again.</td>

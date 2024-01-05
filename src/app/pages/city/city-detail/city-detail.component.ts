@@ -18,6 +18,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CityDetailComponent implements OnInit {
 
+  public ModuleName = "City";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
   

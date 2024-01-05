@@ -18,6 +18,9 @@ import { LoadingService } from 'src/app/services/loader.service';
 })
 
 export class SourceListComponent implements OnInit {
+  public ModuleName = "Source";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
 
   public items: Observable<any[]>;
   public name: string;
@@ -32,10 +35,12 @@ export class SourceListComponent implements OnInit {
      private toastHelper: ToastHelper) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
   }
 
   loadList() {
+    
     this.sourceService.loadList();
     this.items = this.sourceService.items;
     this.total = this.sourceService.total;

@@ -1,11 +1,12 @@
 import { DecimalPipe } from '@angular/common';
 import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { debounceTime, delay, switchMap, tap} from 'rxjs/operators';
+import { debounceTime, delay, first, switchMap, tap} from 'rxjs/operators';
 import { SortColumn, SortDirection } from '../directives/sort.directive';
 import { RepositoryHelper } from '../helpers/repository.helper';
 import { SearchResult } from '../interfaces/search-result';
 import { State } from '../interfaces/state'
+import { MenuService } from './menu.service';
 
 const compare = (v1: string | number | boolean | Date, v2: string | number | boolean | Date) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
@@ -32,6 +33,8 @@ export class PermissionService {
   private $search = new Subject<void>();
   private $items = new BehaviorSubject<any[]>([]);
   private $total = new BehaviorSubject<number>(0);
+  private permissions: any[];
+  private menu  : any[];
 
   private $state: State  = {
     page: 1,
@@ -41,7 +44,10 @@ export class PermissionService {
     sortDirection: ''
   };
 
-  constructor(private repositoryHelper: RepositoryHelper, private decimalPipe: DecimalPipe) { }
+  constructor(private repositoryHelper: RepositoryHelper, private menuService : MenuService, private decimalPipe: DecimalPipe) { 
+    this.permissions = JSON.parse(localStorage.getItem('permissions').toString())
+
+  }
 
   private _set(patch: Partial<State>) {
     Object.assign(this.$state, patch);
@@ -86,6 +92,12 @@ export class PermissionService {
 
       this.$search.next();
     });
+  }
+
+  
+
+  public getMenuList = () => {
+    return this.repositoryHelper.get('api/menu/All');
   }
 
   public getListByRoleId = (id: string) => {

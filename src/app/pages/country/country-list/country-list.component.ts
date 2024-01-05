@@ -19,6 +19,10 @@ import { LoadingService } from 'src/app/services/loader.service';
 
 export class CountryListComponent implements OnInit {
 
+  public ModuleName = "Country";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
+
   public items: Observable<any[]>;
   public name: string;
   public total: Observable<number>;
@@ -31,7 +35,7 @@ export class CountryListComponent implements OnInit {
     private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
-    
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
   }
 

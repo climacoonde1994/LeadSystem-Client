@@ -17,7 +17,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./specialty-detail.component.css']
 })
 export class SpecialtyDetailComponent implements OnInit {
-
+  public ModuleName = "Specialty";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
   constructor(
@@ -30,6 +32,7 @@ export class SpecialtyDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
   }
 

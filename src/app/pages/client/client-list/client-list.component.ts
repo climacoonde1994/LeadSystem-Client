@@ -16,7 +16,9 @@ import { LoadingService } from 'src/app/services/loader.service';
 })
 
 export class ClientListComponent implements OnInit {
-
+  public ModuleName = "Client";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public items: Observable<any[]>;
   public name: string;
 
@@ -29,6 +31,7 @@ export class ClientListComponent implements OnInit {
   constructor(public clientService: ClientService,  private loadingService : LoadingService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
   }
 

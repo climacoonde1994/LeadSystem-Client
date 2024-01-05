@@ -16,7 +16,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./client-detail.component.css']
 })
 export class ClientDetailComponent implements OnInit {
-
+  public ModuleName = "Client";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
 

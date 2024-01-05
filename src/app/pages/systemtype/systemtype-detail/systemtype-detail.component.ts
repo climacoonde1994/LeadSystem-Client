@@ -17,7 +17,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./systemtype-detail.component.css']
 })
 export class SystemTypeDetailComponent implements OnInit {
-
+  public ModuleName = "System Type";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
 
@@ -31,6 +33,7 @@ export class SystemTypeDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
   }
 

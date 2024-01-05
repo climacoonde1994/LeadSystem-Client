@@ -206,8 +206,8 @@ export class UserTypeDetailComponent implements OnInit {
         }
         menupermission.push(menu)
     }
-    
-    return menupermission;
+   
+    return menupermission.sort((a, b) => a.Name.localeCompare(b.Name));;
   }
 
   savePermission(){

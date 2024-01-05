@@ -58,13 +58,12 @@ export class UserModalComponent implements OnInit {
 	
     this.modalFormGroup = this.formBuilder.group({
       UserName: new FormControl('', [Validators.required]),
-      //Password : new FormControl('', [Validators.required]),
       FirstName: new FormControl('', [Validators.required]),
       LastName: new FormControl('', [Validators.required]),
       MiddleName: new FormControl(''),
       Email: new FormControl('', [Validators.required, Validators.email]),
       Mobile: new FormControl('', [Validators.required]),
-      UserType: new FormControl('', [Validators.required]),
+      UserType: new FormControl('' ),
       UserTypeId: new FormControl('', [Validators.required]),
       Status: new FormControl('Active', [Validators.required]),
     } );
@@ -77,7 +76,6 @@ export class UserModalComponent implements OnInit {
     this.loadingService.isLoading = true
     const request: any = { 
       UserName: this.modalForm.UserName.value,
-      //Password: this.modalForm.Password.value,
       FirstName: this.modalForm.FirstName.value,
       LastName: this.modalForm.LastName.value,
       MiddleName: this.modalForm.MiddleName.value,

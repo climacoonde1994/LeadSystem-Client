@@ -16,6 +16,9 @@ import { LoadingService } from 'src/app/services/loader.service';
 
 export class ContactListComponent implements OnInit {
 
+  public ModuleName = "Contact";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public items: Observable<any[]>;
   public name: string;
   public total: Observable<number>;
@@ -28,6 +31,7 @@ export class ContactListComponent implements OnInit {
      private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
   }
 

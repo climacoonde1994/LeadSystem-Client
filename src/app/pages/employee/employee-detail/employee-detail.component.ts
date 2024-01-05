@@ -17,7 +17,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./employee-detail.component.css']
 })
 export class EmployeeDetailComponent implements OnInit {
-
+  public ModuleName = "Employee";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
   constructor(
@@ -30,6 +32,7 @@ export class EmployeeDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
     
   }

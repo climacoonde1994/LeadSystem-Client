@@ -8,6 +8,7 @@ import { ContactService } from 'src/app/services/contact.service';
 import { ContactDeleteComponent } from '../contact-delete/contact-delete.component';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { UserService } from 'src/app/services/user.service';
+import { ContactToggleComponent } from '../contact-toggle/contact-toggle.component';
 
 
 @Component({
@@ -16,7 +17,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./contact-detail.component.css']
 })
 export class ContactDetailComponent implements OnInit {
-
+  public ModuleName = "Contact";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
   constructor(
@@ -27,6 +30,7 @@ export class ContactDetailComponent implements OnInit {
     private contactService: ContactService) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
   }
 
@@ -56,6 +60,17 @@ export class ContactDetailComponent implements OnInit {
   openDeleteModal(item?: any) {
     const modalRef = this.modalService.open(ContactDeleteComponent);
     modalRef.componentInstance.item = item;
+  }
+
+  
+  openToggleModal(item?: any) {
+    const modalRef = this.modalService.open(ContactToggleComponent);
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(
+      () => {
+        this.loadItem();
+      }
+    );
   }
 
   loadAdditionalDetails(){

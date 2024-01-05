@@ -18,6 +18,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DepartmentDetailComponent implements OnInit {
 
+  public ModuleName = "Department";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
 
@@ -31,6 +34,7 @@ export class DepartmentDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
   }
 

@@ -18,7 +18,9 @@ import { first } from 'rxjs/operators';
 })
 
 export class EmployeeListComponent implements OnInit {
-
+  public ModuleName = "Employee";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public items: Observable<any[]>;
   public name: string;
   public total: Observable<number>;
@@ -33,6 +35,8 @@ export class EmployeeListComponent implements OnInit {
 private loadingService : LoadingService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    console.log(this.ModulePermission)
     this.loadList();
   }
 

@@ -7,6 +7,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { UserService } from 'src/app/services/user.service';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { UserModalComponent } from '../user-modal/user-modal.component';
+import { UserToggleComponent } from '../user-toggle/user-toggle.component';
 
 @Component({
   selector: 'app-user-detail',
@@ -14,7 +15,9 @@ import { UserModalComponent } from '../user-modal/user-modal.component';
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
-
+  public ModuleName = "User";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
   constructor(
@@ -25,6 +28,7 @@ export class UserDetailComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
   }
 
@@ -39,6 +43,16 @@ export class UserDetailComponent implements OnInit {
           this.toastHelper.showError(error.error.message);
         })
     });
+  }
+
+  openToggleModal(item?: any) {
+    const modalRef = this.modalService.open(UserToggleComponent);
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(
+      () => {
+        this.loadItem();
+      }
+    );
   }
 
   openModal(item?: any) {

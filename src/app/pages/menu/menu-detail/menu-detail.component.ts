@@ -17,7 +17,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./menu-detail.component.css']
 })
 export class MenuDetailComponent implements OnInit {
-
+  public ModuleName = "Menu";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public item: any;
   public userList : any[] = []
   
@@ -31,6 +33,7 @@ export class MenuDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
   }
 

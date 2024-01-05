@@ -18,6 +18,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./source-detail.component.css']
 })
 export class SourceDetailComponent implements OnInit {
+  public ModuleName = "Source";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
 
   public item: any;
   public employeeList : any[] = []
@@ -33,10 +36,8 @@ export class SourceDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
-    
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
-
-  
   }
 
   loadItem() {

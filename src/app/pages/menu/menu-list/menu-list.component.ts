@@ -18,7 +18,9 @@ import { LoadingService } from 'src/app/services/loader.service';
 })
 
 export class MenuListComponent implements OnInit {
-
+  public ModuleName = "Menu";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
   public items: Observable<any[]>;
   public name: string;
   public total: Observable<number>;
@@ -29,6 +31,7 @@ export class MenuListComponent implements OnInit {
   constructor(public menuService: MenuService, private loadingService : LoadingService,private modalService: NgbModal, private toastHelper: ToastHelper) { }
 
   ngOnInit() {
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
   }
 

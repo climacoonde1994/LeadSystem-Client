@@ -19,6 +19,10 @@ import { LoadingService } from 'src/app/services/loader.service';
 
 export class CityListComponent implements OnInit {
 
+  public ModuleName = "City";
+  public ModulePermission : any= {};
+  public permissions: any[] = JSON.parse(localStorage.getItem('permissions').toString());
+  
   public items: Observable<any[]>;
   public name: string;
   public total: Observable<number>;
@@ -30,6 +34,7 @@ export class CityListComponent implements OnInit {
 
   ngOnInit() {
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
   }
 
   loadList() {
