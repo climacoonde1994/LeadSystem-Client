@@ -35,9 +35,11 @@ export class SourceDetailComponent implements OnInit {
     private userService : UserService,
     private location: Location) { }
 
-  ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+  ngOnInit() { 
     this.loadItem();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadItem() {

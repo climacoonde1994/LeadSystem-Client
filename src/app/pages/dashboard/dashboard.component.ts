@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
 
   this.employee = JSON.parse(localStorage.getItem('employee').toString())
   this.user = JSON.parse(localStorage.getItem('user').toString())
+ 
   }
 
   

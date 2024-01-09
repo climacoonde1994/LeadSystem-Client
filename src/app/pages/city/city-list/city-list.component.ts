@@ -10,6 +10,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { CityDefaultComponent } from '../city-default/city-default.component';
 import { LoadingService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-city-list',
@@ -30,11 +31,17 @@ export class CityListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public cityService: CityService, private loadingService : LoadingService,private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public cityService: CityService, 
+    private loadingService : LoadingService,
+    private modalService: NgbModal, 
+    private router: Router ) { }
 
   ngOnInit() {
     this.loadList();
     this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
+  
   }
 
   loadList() {

@@ -34,8 +34,10 @@ export class DepartmentDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadItem() {

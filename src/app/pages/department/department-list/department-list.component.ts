@@ -12,6 +12,7 @@ import { DepartmentDefaultComponent } from '../department-default/department-def
 import { UserService } from 'src/app/services/user.service';
 import { LoadingService } from 'src/app/services/loader.service';
 import { PermissionService } from 'src/app/services/permission.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,14 +36,17 @@ export class DepartmentListComponent implements OnInit {
 
   constructor(public departmentService: DepartmentService, 
     private modalService: NgbModal,  
+    private router: Router,
      private loadingService : LoadingService,
      private toastHelper: ToastHelper) {
     
       }
 
   ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList()
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

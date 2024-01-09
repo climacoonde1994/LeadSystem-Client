@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 import { UserTypeService } from 'src/app/services/usertype.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { PermissionService } from 'src/app/services/permission.service';
+import { LoadingService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-usertype-detail',
@@ -36,6 +37,7 @@ export class UserTypeDetailComponent implements OnInit {
     private menuService : MenuService,
     private permissionService : PermissionService,
     private usertypeService: UserTypeService,
+    private loadingService : LoadingService,
     private location: Location) { }
 
   ngOnInit() {
@@ -51,11 +53,12 @@ export class UserTypeDetailComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
 
-      this.menuService.getList()
+      this.menuService.getList() 
       .pipe(first())
       .subscribe({
         next: response => {
         this.activemenu = response
+      this.loadMenuDetails(params['id']);
         },
         error: response => {
           
@@ -63,28 +66,7 @@ export class UserTypeDetailComponent implements OnInit {
       }
       );
 
-      this.usertypeService.getById(params['id'])
-        .subscribe(response => {
-          this.item = response;
-          this.usertypeid = params['id']
-          this.loadAdditionalDetails()
-        }, (error) => {
-          this.toastHelper.showError(error.error.message);
-        })
-        
-        this.permissionService.getByuserTypeId(params['id'])
-        .pipe(first())
-        .subscribe({
-          next: response => {
-            
-          this.menupermissions = this.mapMenu(response)
      
-          },
-          error: response => {
-            
-          }
-        }
-        );
     });
   }
 
@@ -162,8 +144,6 @@ export class UserTypeDetailComponent implements OnInit {
   mapMenu(list : any[] ){
  
     var menupermission: any[] = [];
-  
-    console.log(list)
     for(var x = 0 ;x < this.activemenu.length ; x++)
     {
      
@@ -212,14 +192,17 @@ export class UserTypeDetailComponent implements OnInit {
 
   savePermission(){
 
+    this.loadingService.isLoading = true;
     this.permissionService.save(this.menupermissions)
     .pipe(first())
     .subscribe({
       next: response => {
         this.toastHelper.showSuccess("You have successfully update permissions.");
+        this.loadingService.isLoading = false;
       },
       error: response => {
         this.toastHelper.showError(response);
+        this.loadingService.isLoading = false;
       }
     });
   }
@@ -241,6 +224,32 @@ export class UserTypeDetailComponent implements OnInit {
     {
       item.Delete = values.target.checked
     }
+  }
+
+  loadMenuDetails(params :any){
+
+    this.usertypeService.getById(params )
+    .subscribe(response => {
+    this.item = response;
+    this.usertypeid = params 
+    this.loadAdditionalDetails()
+    }, (error) => {
+    this.toastHelper.showError(error.error.message);
+    })
+
+    this.permissionService.getByuserTypeId(params)
+    .pipe(first())
+    .subscribe({
+    next: response => {
+
+    this.menupermissions = this.mapMenu(response)
+
+    },
+    error: response => {
+
+    }
+    }
+    );
   }
 
 

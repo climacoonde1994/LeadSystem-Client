@@ -7,6 +7,7 @@ import { ContactDeleteComponent } from '../contact-delete/contact-delete.compone
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { ContactToggleComponent } from '../contact-toggle/contact-toggle.component';
 import { LoadingService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-list',
@@ -26,13 +27,15 @@ export class ContactListComponent implements OnInit {
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
   constructor(public contactService: ContactService,
-    private loadingService : LoadingService,
-   
-     private modalService: NgbModal) { }
+              private router: Router,
+              private loadingService : LoadingService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

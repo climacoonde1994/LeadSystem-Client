@@ -48,68 +48,7 @@
                       <span class="menu-text">Lead System</span>
                     </a>
                   </li>
-                 
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/source-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-building"></span> 
-                      <span class="menu-text">Source </span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/department-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-warehouse"></span> 
-                      <span class="menu-text">Department</span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/city-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-city"></span> 
-                      <span class="menu-text">City</span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/country-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-flag"></span> 
-                      <span class="menu-text">Country</span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/specialty-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-fill-drip"></span> 
-                      <span class="menu-text">Specialty </span>
-                    </a>
-                  </li> -->
-                 
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/systemtype-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-layer-group"></span> 
-                      <span class="menu-text">System Type </span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/client-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-address-book"></span> 
-                      <span class="menu-text">Client </span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/employee-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-address-book"></span> 
-                      <span class="menu-text">Employee </span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/user-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-users"></span> 
-                      <span class="menu-text">User </span>
-                    </a>
-                  </li> -->
-                  <!-- <li class="menu-item"  routerLinkActive="has-active">
-                    <a [routerLink]="['/contact-list']" class="menu-link"  href="#">
-                      <span class="menu-icon fas fa-users"></span> 
-                      <span class="menu-text">Contact </span>
-                    </a>
-                  </li> -->
+                     
                 
 
                   <li  *ngFor="let menu of activemenu" class="menu-item"  routerLinkActive="has-active">
@@ -118,12 +57,19 @@
                       <span class="menu-text">{{menu.Name}} </span>
                     </a>
                   </li>
-                  <li *ngIf="user.UserType == 'ADMIN'" class="menu-item" routerLinkActive="has-active">
+                  <li *ngIf="user.UserType === 'ADMIN'" class="menu-item" routerLinkActive="has-active">
                     <a [routerLink]="['/usertype-list']" class="menu-link"  href="#">
                       <span class="menu-icon fas fa-layer-group"></span> 
                       <span class="menu-text">User Type </span>
                     </a>
                   </li>
+                  <li *ngIf="user.UserType === 'ADMIN'" class="menu-item"  routerLinkActive="has-active">
+                    <a [routerLink]="['/menu-list']" class="menu-link"  href="#">
+                      <span class="menu-icon fas fa-users"></span> 
+                      <span class="menu-text">Menu </span>
+                    </a>
+                  </li>
+                
               </ul>
           </nav>
 

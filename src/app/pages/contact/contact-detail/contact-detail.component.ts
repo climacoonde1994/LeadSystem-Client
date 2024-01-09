@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
@@ -26,12 +26,15 @@ export class ContactDetailComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private userService : UserService,
+    private router: Router,
     private toastHelper: ToastHelper,
     private contactService: ContactService) { }
 
   ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadItem();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadItem() {

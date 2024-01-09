@@ -140,4 +140,11 @@ export class UserModalComponent implements OnInit {
     return this.modalFormGroup.controls;
   }
 
+  onUserTypeChange(event  : any){
+
+    var typename = this.usertypes.find(x => x._id == event);
+    this.modalFormGroup.get('UserType').setValue(typename.Name);
+ 
+  }
+
 }

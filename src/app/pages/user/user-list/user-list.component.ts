@@ -8,6 +8,7 @@ import { UserModalComponent } from '../user-modal/user-modal.component';
 import { UserToggleComponent } from '../user-toggle/user-toggle.component';
 import { LoadingService } from 'src/app/services/loader.service';
 import { UserResetComponent } from '../user-reset/user-reset.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,12 +29,15 @@ export class UserListComponent implements OnInit {
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
   constructor(public userService: UserService,
+    private router: Router,
     private loadingService : LoadingService,
    private modalService: NgbModal) { }
 
-  ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+  ngOnInit() { 
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

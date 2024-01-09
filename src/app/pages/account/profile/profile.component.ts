@@ -35,12 +35,13 @@ export class ProfileComponent implements OnInit {
     this.modalFormGroup = this.formBuilder.group({
       Id :new FormControl(this.user._id),
       UserName: new FormControl(this.user.UserName, [Validators.required]),
-      Password : new FormControl(this.user.Password, [Validators.required]),
+      Password : new FormControl(this.user.Password),
       FirstName: new FormControl(this.user.FirstName, [Validators.required]),
       LastName: new FormControl(this.user.LastName, [Validators.required]),
       MiddleName: new FormControl(this.user.MiddleName),
       Email: new FormControl(this.user.Email, [Validators.required, Validators.email]),
       Mobile: new FormControl(this.user.Mobile, [Validators.required]),
+      UserType: new FormControl(this.user.UserType),
       UserTypeId: new FormControl(this.user.UserTypeId, [Validators.required]),
       Status: new FormControl(this.user.Status, [Validators.required]),
     } );
@@ -65,13 +66,12 @@ export class ProfileComponent implements OnInit {
   
     const request: any = { 
       Id: this.modalForm.Id.value,
-      UserName: this.modalForm.UserName.value,
-      Password: this.modalForm.Password.value,
       FirstName: this.modalForm.FirstName.value,
       LastName: this.modalForm.LastName.value,
       MiddleName: this.modalForm.MiddleName.value,
       Email: this.modalForm.Email.value,
       Mobile: this.modalForm.Mobile.value,
+      UserType: this.modalForm.UserType.value,
       UserTypeId: this.modalForm.UserTypeId.value,
       Status: this.modalForm.Status.value,
     };
@@ -104,6 +104,13 @@ export class ProfileComponent implements OnInit {
         this.errors = response.errors;
       }
     });
+  }
+
+  onUserTypeChange(event  : any){
+
+    var typename = this.usertypes.find(x => x._id == event);
+    this.modalFormGroup.get('UserType').setValue(typename.Name);
+ 
   }
 
 

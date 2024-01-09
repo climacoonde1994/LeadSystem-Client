@@ -73,10 +73,10 @@
                         </span>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
+                    <div class="col-md-6" *ngIf="user.UserType == 'ADMIN'">
+                      <div class="form-group" >
                         <label for="UserTypeId"> User Type <span class="text-danger">*</span></label>
-                        <ng-select appearance="outline" [searchable]="true"  labelForId="UserTypeId" formControlName="UserTypeId" placeholder="Select User Type">
+                        <ng-select  appearance="outline"   labelForId="UserTypeId" formControlName="UserTypeId" placeholder="Select User Type" (change)="onUserTypeChange($event)"  >
                           <ng-option *ngFor="let usertype of usertypes" [value]="usertype._id">{{ usertype.Name }}</ng-option>
                         </ng-select>
                         <span class="text-danger small" *ngIf="!modalForm.UserTypeId.valid && modalForm.UserTypeId.touched">
@@ -97,7 +97,7 @@
                  
                     <div class="col-md-6"> 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-info"     (click)="onSubmitDetails()" [disabled]="!modalFormGroup.valid">Submit</button>
+                        <button type="button" class="btn btn-info"   (click)="onSubmitDetails()" [disabled]="!modalFormGroup.valid">Submit</button>
                         <button type="button" class="btn btn-light" routerLink="/dashboard">Cancel</button>
                       </div>
                     </div>

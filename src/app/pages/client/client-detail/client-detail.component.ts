@@ -33,6 +33,9 @@ export class ClientDetailComponent implements OnInit {
 
   ngOnInit() {
     this.loadItem();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadItem() {

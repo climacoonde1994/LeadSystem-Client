@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
@@ -24,12 +24,14 @@ export class UserDetailComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private toastHelper: ToastHelper,
-    
+    private router: Router,
     private userService: UserService) { }
 
-  ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+  ngOnInit() { 
     this.loadItem();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadItem() {

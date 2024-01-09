@@ -10,6 +10,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SpecialtyDefaultComponent } from '../specialty-default/specialty-default.component';
 import { LoadingService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-specialty-list',
@@ -29,14 +30,18 @@ export class SpecialtyListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public specialtyService: SpecialtyService, 
+  constructor(
+    private router: Router,
+    public specialtyService: SpecialtyService, 
     private modalService: NgbModal,
     private loadingService : LoadingService,
      private toastHelper: ToastHelper) { }
 
-  ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName);
+  ngOnInit() { 
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

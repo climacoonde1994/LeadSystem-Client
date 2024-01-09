@@ -31,9 +31,11 @@ export class EmployeeDetailComponent implements OnInit {
     private employeeService: EmployeeService,
     private location: Location) { }
 
-  ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+  ngOnInit() { 
     this.loadItem();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
     
   }
 

@@ -21,15 +21,7 @@
           </span>
         </div>
       </div>
-      <!-- <div class="col-md-12">
-        <div class="form-group">
-          <label for="Password"> Password <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="Password" placeholder="Password" />
-          <span class="text-danger small" *ngIf="!modalForm.Password.valid && modalForm.Password.touched">
-            <span *ngIf="modalForm.Password.hasError('required') || modalForm.Password?.errors">Password is required.</span>
-          </span>
-        </div>
-      </div> -->
+ 
       <div class="col-md-12">
         <div class="form-group">
           <label for="FirstName"> First Name <span class="text-danger">*</span></label>
@@ -70,7 +62,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="UserTypeId"> User Type <span class="text-danger">*</span></label>
-          <ng-select appearance="outline" [searchable]="true"  labelForId="UserTypeId" formControlName="UserTypeId" placeholder="Select User Type">
+          <ng-select appearance="outline" [searchable]="true"  labelForId="UserTypeId" formControlName="UserTypeId" placeholder="Select User Type" (change)="onUserTypeChange($event)" >
             <ng-option *ngFor="let usertype of usertypes" [value]="usertype._id">{{ usertype.Name }}</ng-option>
           </ng-select>
           <span class="text-danger small" *ngIf="!modalForm.UserTypeId.valid && modalForm.UserTypeId.touched">

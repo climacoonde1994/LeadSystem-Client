@@ -10,6 +10,7 @@ import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
 import { SourceDefaultComponent } from '../source-default/source-default.component';
 import { LoadingService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-source-list',
@@ -30,13 +31,16 @@ export class SourceListComponent implements OnInit {
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
   constructor(public sourceService: SourceService,
+    private router: Router,
      private modalService: NgbModal, 
      private loadingService : LoadingService,
      private toastHelper: ToastHelper) { }
 
-  ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+  ngOnInit() { 
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

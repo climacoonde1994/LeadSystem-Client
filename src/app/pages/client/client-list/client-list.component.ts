@@ -8,6 +8,7 @@ import { ClientModalComponent } from '../client-modal/client-modal.component';
 import { ClientToggleComponent } from '../client-toggle/client-toggle.component';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { LoadingService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-list',
@@ -28,11 +29,17 @@ export class ClientListComponent implements OnInit {
 
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
-  constructor(public clientService: ClientService,  private loadingService : LoadingService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+  constructor(public clientService: ClientService,  
+              private loadingService : LoadingService, 
+              private modalService: NgbModal, 
+              private router : Router,
+              private toastHelper: ToastHelper) { }
 
   ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

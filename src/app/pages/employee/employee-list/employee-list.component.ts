@@ -9,6 +9,7 @@ import { EmployeeToggleComponent } from '../employee-toggle/employee-toggle.comp
 import { LoadingService } from 'src/app/services/loader.service';
 import { ToastHelper } from 'src/app/helpers/toast.helper';
 import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
  
 
 @Component({
@@ -31,13 +32,16 @@ export class EmployeeListComponent implements OnInit {
   @ViewChildren(SortDirective) headers: QueryList<SortDirective>;
 
   constructor(public employeeService: EmployeeService,
-    
-private loadingService : LoadingService, private modalService: NgbModal, private toastHelper: ToastHelper) { }
+              private router: Router,
+              private loadingService : LoadingService,
+              private modalService: NgbModal, 
+              private toastHelper: ToastHelper) { }
 
   ngOnInit() {
-    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
-    console.log(this.ModulePermission)
     this.loadList();
+    this.ModulePermission = this.permissions.find(x => x.Name == this.ModuleName); 
+    if(!this.ModulePermission.View)  
+      this.router.navigate(['/401']);
   }
 
   loadList() {

@@ -25,7 +25,7 @@ export class DashboardLayoutComponent implements OnInit {
     window.addEventListener('keydown', this.handleUserActivity.bind(this));
     this.user = JSON.parse(localStorage.getItem('user').toString())
     this.permissions = JSON.parse(localStorage.getItem('permissions').toString())
-    console.log(this.user)
+ 
  
     this.authenticationService.authenticationChanged.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
